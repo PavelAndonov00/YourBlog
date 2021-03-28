@@ -6,11 +6,11 @@ import Blog from '../Blog';
 
 
 const Home = () => {
-    var [items, setItems] = useState(Array.from({length: 5}));
+    var [items, setItems] = useState(Array.from({ length: 5 }));
 
     const fetchData = () => {
         setTimeout(() => {
-            setItems(items.concat(Array.from({length: 5})))
+            setItems(items.concat(Array.from({ length: 5 })))
         }, 2000)
     }
 
@@ -23,7 +23,7 @@ const Home = () => {
                 loader={<h4>Loading...</h4>}
             >
                 {items.map((item, index) => {
-                    return <Blog key={index}/>;
+                    return <Blog key={index} />;
                 })}
             </InfiniteScroll>
         </section>
