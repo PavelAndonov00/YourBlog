@@ -1,0 +1,64 @@
+.header-navigation-profile-wrapper {
+    position: relative;
+}
+
+.header-navigation-profile-img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.header-navigation-profile-list-wrapper {
+    position: absolute;
+    -webkit-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    -moz-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    top: 45px;
+    right: -70px;
+    padding: 20px 20px 0 20px;
+}
+
+.header-navigation-profile-list {
+    list-style: none;
+    text-align: center;
+    padding: 10px;
+}
+
+.header-navigation-profile-list-triangle {
+    transform: rotate(45deg);
+    position: absolute;
+    top: -10px;
+    right: 75px;
+    width: 20px;
+    height: 20px;
+    -webkit-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    -moz-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+}
+
+.header-navigation-profile-list-item {
+    padding: 10px;
+}
+
+.header-navigation-profile-list-item-a {
+    text-decoration: none;
+    color: gray;
+}
+
+.header-navigation-profile-list-item:hover {
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.header-navigation-profile-info {
+    display: flex;
+}
+
+.header-navigation-profile-info img {
+    width: 30px;
+}
+
+.header-navigation-profile-info article {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
