@@ -1,0 +1,22 @@
+.register-form-heading {
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.register-form * {
+    padding: 10px;
+}
+
+.register-form input[type=submit] {
+    margin-top: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+}
