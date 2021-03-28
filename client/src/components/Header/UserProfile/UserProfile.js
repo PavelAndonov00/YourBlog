@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './UserProfile.css';
 
-const UserProfile = ({
-
-}) => {
+const UserProfile = () => {
     var [clicked, setClicked] = useState(false);
     const onClickProfile = (ev) => {
         setClicked(!clicked);
@@ -28,6 +26,7 @@ const UserProfile = ({
                         <span>User@abv.bg</span>
                     </article>
                 </article>
+                <hr className="header-navigation-profile-info-line" />
                 <ul className="header-navigation-profile-list">
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"

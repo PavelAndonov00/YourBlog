@@ -2,9 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 import './Navigation.css';
 
-const Navigation = ({
-
-}) => {
+const Navigation = () => {
     return (
         <ul className="header-navigation-list">
             <li className="header-navigation-list-item">

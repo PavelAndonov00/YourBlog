@@ -1,0 +1,39 @@
+.blog-article {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 0;
+    margin: 10px 10px 10px 0;
+    height: 150px;
+    cursor: pointer;
+}
+
+.blog-article-content {
+    width: 60%;
+    margin-right: 50px;
+}
+
+.truncate{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-article-author-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blog-article-author {
+    width: 40%;
+}
+
+.blog-article-image-wrapper {
+    width: 20%;
+    max-width: 20%;
+}
+
+.blog-article-image {
+    width: 100%;
+    height: 100px;
+}
