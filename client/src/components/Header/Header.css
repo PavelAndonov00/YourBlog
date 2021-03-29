@@ -9,15 +9,16 @@
     align-items: center;
 }
 
-.header-navigation-logo-navigation-section {
+/* .header-navigation-logo-navigation-section {
     display: flex;
     width: 60%;
-}
+} */
 
 .header-navigation-logo-wrapper {
     text-decoration: none;
     display: flex;
     align-items: center;
+    width: 25%;
 }
 
 .header-navigation-logo-wrapper img {

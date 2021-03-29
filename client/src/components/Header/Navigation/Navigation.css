@@ -1,9 +1,8 @@
 .header-navigation-list {
     list-style: none;
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    margin-left: 120px;
+    padding: 20px 20px 20px 0;
+    width: 50%;
 }
 
 .header-navigation-list-item {

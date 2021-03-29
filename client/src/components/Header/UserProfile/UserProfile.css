@@ -1,5 +1,8 @@
 .header-navigation-profile-wrapper {
     position: relative;
+    display: flex;
+    justify-content: flex-end;
+    width: 10%;
 }
 
 .header-navigation-profile-img {
