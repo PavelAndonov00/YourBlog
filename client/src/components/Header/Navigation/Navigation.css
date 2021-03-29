@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    margin-left: 120px;
 }
 
 .header-navigation-list-item {

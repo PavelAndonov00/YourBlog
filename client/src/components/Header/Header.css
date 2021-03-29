@@ -1,8 +1,17 @@
+.header {
+    border-bottom: 1px solid black;
+}
+
 .header-navigation {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.header-navigation-logo-navigation-section {
+    display: flex;
+    width: 60%;
 }
 
 .header-navigation-logo-wrapper {
