@@ -10,19 +10,17 @@ class Login extends Component {
     render() {
         return (
             <section className="login-form-wrapper">
-                <h2 className="login-form-heading">Login form</h2>
+                <h2 className="login-form-heading">Login</h2>
                 <form className="login-form">
                     <label htmlFor="loginInfo">Username or Email</label>
                     <input id="loginInfo"
                         name="loginInfo"
-                        placeholder="Username or Email"
                         type="text" />
                     <label htmlFor="password">Password</label>
                     <input id="password"
                         name="password"
-                        placeholder="Password"
                         type="password" />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Login" />
                 </form>
             </section>
         )

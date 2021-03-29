@@ -5,7 +5,6 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    text-align: center;
     width: 50%;
     margin: auto;
 }
@@ -14,9 +13,24 @@
     padding: 10px;
 }
 
+.login-form label {
+    color:gray;
+}
+
+.login-form input[type=text],input[type=password] {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.login-form input[type=text]:focus,input[type=password]:focus {
+    border-bottom: 1px solid black;
+}
+
 .login-form input[type=submit] {
     margin-top: 20px;
     border: none;
     background-color: black;
     color: white;
+    cursor: pointer;
 }
