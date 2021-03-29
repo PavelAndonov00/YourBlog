@@ -1,33 +1,36 @@
-.login-form-heading {
-    text-align: center;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
+.main-login-form-wrapper {
     width: 50%;
     margin: auto;
 }
 
-.login-form * {
+.main-login-form-heading {
+    text-align: center;
+}
+
+.main-login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-login-form * {
     padding: 10px;
 }
 
-.login-form label {
+.main-login-form label {
     color:gray;
 }
 
-.login-form input[type=text],input[type=password] {
+.main-login-form input[type=text],input[type=password] {
     border: none;
     outline: none;
     border-bottom: 1px solid lightgray;
 }
 
-.login-form input[type=text]:focus,input[type=password]:focus {
+.main-login-form input:not([type=submit]):focus {
     border-bottom: 1px solid black;
 }
 
-.login-form input[type=submit] {
+.main-login-form input[type=submit] {
     margin-top: 20px;
     border: none;
     background-color: black;

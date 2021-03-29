@@ -13,7 +13,7 @@ const UserProfile = () => {
         <section className="header-navigation-profile-wrapper">
             <img className="header-navigation-profile-img"
                 src="no-avatar.svg"
-                alt=""
+                alt="Profile"
                 onClick={onClickProfile} />
             <article style={{display: clicked ? "block" : "none"}}
             className="header-navigation-profile-list-wrapper">

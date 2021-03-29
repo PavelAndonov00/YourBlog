@@ -9,9 +9,9 @@ class Register extends Component {
 
     render() {
         return (
-            <section className="register-form-wrapper">
-                <h2 className="register-form-heading">Register</h2>
-                <form className="register-form">
+            <section className="main-register-form-wrapper">
+                <h2 className="main-register-form-heading">Register</h2>
+                <form className="main-register-form">
                     <label htmlFor="username">Username</label>
                     <input id="username"
                         name="username"

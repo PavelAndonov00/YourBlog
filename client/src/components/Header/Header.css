@@ -9,11 +9,6 @@
     align-items: center;
 }
 
-/* .header-navigation-logo-navigation-section {
-    display: flex;
-    width: 60%;
-} */
-
 .header-navigation-logo-wrapper {
     text-decoration: none;
     display: flex;
@@ -22,7 +17,7 @@
 }
 
 .header-navigation-logo-wrapper img {
-    width: 30px;
+    width: 40px;
     margin-right: 7px;
     font-weight: bold;
     background-color: lightgray;

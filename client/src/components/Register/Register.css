@@ -1,34 +1,37 @@
-.register-form-heading {
-    text-align: center;
-}
-
-.register-form {
-    display: flex;
-    flex-direction: column;
+.main-register-form-wrapper {
     width: 50%;
     margin: auto;
 }
 
-.register-form * {
+.main-register-form-heading {
+    text-align: center;
+}
+
+.main-register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-register-form * {
     padding: 10px;
 }
 
-.register-form label {
+.main-register-form label {
     color: gray;
 }
 
-.register-form input[type=text],input[type=password] {
+.main-register-form input[type=text],input[type=password] {
     border: none;
     outline: none;
     border-bottom: 1px solid lightgray;
 }
 
-.register-form input[type=text]:focus,input[type=password]:focus {
+.main-register-form input[type=text]:focus,input[type=password]:focus {
     border-bottom: 1px solid black;
 }
 
 
-.register-form input[type=submit] {
+.main-register-form input[type=submit] {
     margin-top: 20px;
     border: none;
     background-color: black;

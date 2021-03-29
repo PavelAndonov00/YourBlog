@@ -15,7 +15,7 @@ const Home = () => {
     }
 
     return (
-        <section className="blogs-section">
+        <section className="main-blogs-section">
             <InfiniteScroll
                 dataLength={items.length}
                 next={fetchData}

@@ -5,13 +5,14 @@ import { Component } from 'react';
 class Login extends Component {
     constructor(props) {
         super(props);
+        console.log(props.match.params.id);
     }
 
     render() {
         return (
-            <section className="login-form-wrapper">
-                <h2 className="login-form-heading">Login</h2>
-                <form className="login-form">
+            <section className="main-login-form-wrapper">
+                <h2 className="main-login-form-heading">Login</h2>
+                <form className="main-login-form">
                     <label htmlFor="loginInfo">Username or Email</label>
                     <input id="loginInfo"
                         name="loginInfo"

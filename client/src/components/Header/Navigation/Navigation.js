@@ -14,14 +14,14 @@ const Navigation = () => {
             </li>
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
-                    to="/blog"
+                    to="/blogs/create"
                     exact>
                     Write a blog
                 </NavLink>
             </li>
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
-                    to="/login"
+                    to="/login/123"
                     exact>
                     Login
                 </NavLink>
