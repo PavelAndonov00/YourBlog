@@ -38,7 +38,7 @@ const WriteBlog = () => {
                 <article className="main-blog-crud-form-upload-image-wrapper">
                     <article className="main-blog-crud-form-upload-image-label-wrapper">
                         <label htmlFor="image" className="main-blog-crud-form-upload-image-label">
-                            <img src="../../image-icon.svg" alt="Image" />
+                            <img src="/image-icon.svg" alt="Image" />
                             <span>Upload image</span>
                         </label>
                         <input id="image"

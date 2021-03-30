@@ -10,7 +10,7 @@ const Header = () => {
             <nav className="header-navigation">
                 <Link to="/"
                     className="header-navigation-logo-wrapper">
-                    <img src="writing.svg"
+                    <img src="/writing.svg"
                         alt="Logo" />
                     <span>Your Blog</span>
                 </Link>

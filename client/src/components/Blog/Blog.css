@@ -1,4 +1,4 @@
-.main-blog-article {
+.blog-article {
     display: flex;
     align-items: center;
     height: 150px;
@@ -6,7 +6,7 @@
     padding: 20px 0 20px 0;
 }
 
-.main-blog-article-content {
+.blog-article-content {
     width: 60%;
     margin-right: 50px;
 }
@@ -18,21 +18,21 @@
     text-overflow: ellipsis;
 }
 
-.main-blog-article-author-info {
+.blog-article-author-info {
     display: flex;
     justify-content: space-between;
 }
 
-.main-blog-article-author {
+.blog-article-author {
     width: 40%;
 }
 
-.main-blog-article-image-wrapper {
+.blog-article-image-wrapper {
     width: 40%;
     max-width: 40%;
 }
 
-.main-blog-article-image {
+.blog-article-image {
     width: 50%;
     height: 100px;
 }

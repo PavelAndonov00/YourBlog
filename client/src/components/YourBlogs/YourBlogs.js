@@ -9,7 +9,7 @@ const YourBlogs = () => {
     var data = Array.from({ length: 12 }).map((v, i) => {
         return (
             <>
-                <h1 key={i}> Number: {i+1} </h1>
+                <h1 key={i}> Number: {i + 1} </h1>
                 <Blog key={i + 16}></Blog>
             </>
         )
@@ -27,7 +27,9 @@ const YourBlogs = () => {
 
     return (
         <section className="main-yourblogs-section">
-            {curPageData}
+            <article className="main-yourblogs-blogs">
+                {curPageData}
+            </article>
             <ReactPaginate
                 previousLabel={"← Previous"}
                 nextLabel={"Next →"}

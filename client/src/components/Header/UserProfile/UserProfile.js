@@ -12,14 +12,14 @@ const UserProfile = () => {
     return (
         <section className="header-navigation-profile-wrapper">
             <img className="header-navigation-profile-img"
-                src="no-avatar.svg"
+                src="/no-avatar.svg"
                 alt="Profile"
                 onClick={showHideProfile} />
             <article style={{ display: clicked ? "block" : "none" }}
                 className="header-navigation-profile-list-wrapper">
                 <span className="header-navigation-profile-list-triangle" />
                 <article className="header-navigation-profile-info">
-                    <img src="no-avatar.svg"
+                    <img src="/no-avatar.svg"
                         alt="" />
                     <article>
                         <span>User</span>
