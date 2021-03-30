@@ -1,11 +1,13 @@
+import React from 'react';
+
 import './WriteBlog.css';
 
 const WriteBlog = () => {
+    var canvas = React.createRef();
     const drawImage = (ev) => {
-        if (ev.target.files.length == 0) return;
-
-        var canvas = document.getElementsByClassName("main-blog-crud-form-upload-image-canvas")[0];
-        var ctx = canvas.getContext('2d');
+        if (ev.target.files.length === 0) return;
+        
+        var ctx = canvas.current.getContext('2d');
         var image = new Image();
         image.addEventListener(
             "load",
@@ -44,7 +46,8 @@ const WriteBlog = () => {
                             type="file"
                             onInput={drawImage} />
                     </article>
-                    <canvas className="main-blog-crud-form-upload-image-canvas" />
+                    <canvas ref={canvas}
+                        className="main-blog-crud-form-upload-image-canvas" />
                 </article>
 
                 <label htmlFor="content">Main content</label>
@@ -53,7 +56,7 @@ const WriteBlog = () => {
                     type="file"
                     className="main-blog-crud-form-focus" />
 
-                <input type="submit" value="Create" />
+                <input type="submit" value="Write" />
             </form>
         </section>
     );

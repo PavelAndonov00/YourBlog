@@ -8,6 +8,7 @@ import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
+import YourBlogs from './components/YourBlogs/YourBlogs';
 
 function App() {
 	return (
@@ -27,9 +28,13 @@ function App() {
 
 					<Route path="/profile/personalinfo" component={PersonalInfo} />
 
+					<Route path="/:username/blogs" component={YourBlogs} />
+
 					<Route path="/" component={Home} exact />
-				</Switch> 
+				</Switch>
 			</main>
+
+			
 		</>
 	);
 }

@@ -31,7 +31,7 @@ const PersonalInfo = () => {
                     name="birthDate"
                     type="date" />
 
-                <input type="submit" value="Confirm" />
+                <input type="submit" value="Save" />
             </form>
         </section >
     );
