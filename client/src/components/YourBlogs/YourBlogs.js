@@ -5,7 +5,7 @@ import './YourBlogs.css';
 import Blog from '../Blog';
 
 const YourBlogs = () => {
-    var [curPage, setCurPage] = useState(1);
+    var [curPage, setCurPage] = useState(0);
     var data = Array.from({ length: 12 }).map((v, i) => {
         return (
             <>

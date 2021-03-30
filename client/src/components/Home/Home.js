@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-import {Route} from 'react-router-dom';
-// import {Route} from 'react-router';
+import { Link } from 'react-router-dom';
 
 import './Home.css';
 import Blog from '../Blog';
 
-
-const Home = () => {
+const Home = ({ scrollTop }) => {
     var [items, setItems] = useState(Array.from({ length: 5 }));
 
     const fetchData = () => {
         setTimeout(() => {
             setItems(items.concat(Array.from({ length: 5 })))
         }, 2000)
+    }
+
+    const scrollToTop = () => {
+        scrollTop.current.scrollIntoView();
     }
 
     return (
@@ -29,6 +30,11 @@ const Home = () => {
                     return <Blog key={index} />;
                 })}
             </InfiniteScroll>
+            <Link to="/home/#header" className="scroll-to-top" onClick={scrollToTop}>
+                <img className="scroll-to-top-img"
+                    src="/up-arrow.svg"
+                    alt="Up arrow" />
+            </Link>
         </section>
     );
 }

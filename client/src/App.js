@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -12,9 +13,12 @@ import WriteBlog from './components/WriteBlog';
 import YourBlogs from './components/YourBlogs/YourBlogs';
 
 function App() {
+	var scrollTop = React.createRef();
+	
 	return (
 		<>
-			<Header></Header>
+			<span ref={scrollTop} className="scroll-to-top"></span>
+			<Header />
 
 			<main className="main">
 				<Switch>
@@ -31,7 +35,12 @@ function App() {
 
 					<Route path="/:username/blogs" component={YourBlogs} />
 
-					<Route path="/" component={Home} exact />
+					<Route path="/" exact>
+						<Home scrollTop={scrollTop}/>
+					</Route>
+					<Route path="/home">
+						<Home scrollTop={scrollTop}/>
+					</Route>
 				</Switch>
 			</main>
 
