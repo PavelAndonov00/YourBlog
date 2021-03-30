@@ -12,11 +12,26 @@
     flex-direction: column;
 }
 
+.main-blog-crud-form-upload-image-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-blog-crud-form-upload-image-label-wrapper {
+    width: 30%;
+    margin: 50px 0 50px 0;
+}
+
+.main-blog-crud-form-upload-image-canvas {
+    height: 150px;
+    width: 60%;
+    margin-top: 10px;
+    object-fit: fill;
+}
+
 .main-blog-crud-form-upload-image-label {
     display: flex;
     align-items: center;
-    margin: 20px auto 20px auto;
-    width: 30%;
     background-color: lightgrey;
     border-radius: 10px;
     cursor: pointer;

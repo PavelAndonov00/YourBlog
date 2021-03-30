@@ -1,6 +1,22 @@
 import './WriteBlog.css';
 
 const WriteBlog = () => {
+    const drawImage = (ev) => {
+        if (ev.target.files.length == 0) return;
+
+        var canvas = document.getElementsByClassName("main-blog-crud-form-upload-image-canvas")[0];
+        var ctx = canvas.getContext('2d');
+        var image = new Image();
+        image.addEventListener(
+            "load",
+            function () {
+                ctx.drawImage(image, 0, 0, 250, 200);
+            },
+            false
+        );
+        image.src = URL.createObjectURL(ev.target.files[0]);
+    }
+
     return (
         <section className="main-blog-crud">
             <h2 className="main-blog-crud-heading">Write a blog</h2>
@@ -17,13 +33,19 @@ const WriteBlog = () => {
                     type="text"
                     className="main-blog-crud-form-focus" />
 
-                <label htmlFor="image" className="main-blog-crud-form-upload-image-label">
-                    <img src="../../image-icon.svg" alt="Image" />
-                    <span>Upload image</span>
-                </label>
-                <input id="image"
-                    name="image"
-                    type="file" />
+                <article className="main-blog-crud-form-upload-image-wrapper">
+                    <article className="main-blog-crud-form-upload-image-label-wrapper">
+                        <label htmlFor="image" className="main-blog-crud-form-upload-image-label">
+                            <img src="../../image-icon.svg" alt="Image" />
+                            <span>Upload image</span>
+                        </label>
+                        <input id="image"
+                            name="image"
+                            type="file"
+                            onInput={drawImage} />
+                    </article>
+                    <canvas className="main-blog-crud-form-upload-image-canvas" />
+                </article>
 
                 <label htmlFor="content">Main content</label>
                 <textarea id="content"
