@@ -5,3 +5,12 @@
 .main-profile-settings-main {
     width: 50%;
 }
+
+.main-profile-settings-main-heading {
+    text-align: center;
+}
+
+.main-profile-settings-main-form {
+    display: flex;
+    flex-direction: column;
+}

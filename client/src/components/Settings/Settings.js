@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import './Settings.css';
 import SettingsMenu from './SettingsMenu';
 import ChangePassword from './ChangePassword/ChangePassword';
+import ChangeEmail from './ChangeEmail';
 
 const Inner = ({
 
@@ -21,7 +22,7 @@ const Settings = () => {
                 <Switch>
                     <Route path="/profile/settings/changepassword" component={ChangePassword} exact />
 
-                    <Route path="/profile/settings/changeemail" component={ChangePassword} exact />
+                    <Route path="/profile/settings/changeemail" component={ChangeEmail} exact />
                 </Switch>
             </article>
         </section>
