@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
+import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
@@ -23,6 +24,8 @@ function App() {
 					<Route path="/blogs/create" component={WriteBlog} exact />
 
 					<Route path="/profile/settings" component={Settings} />
+
+					<Route path="/profile/personalinfo" component={PersonalInfo} />
 
 					<Route path="/" component={Home} exact />
 				</Switch> 

@@ -5,7 +5,7 @@ import './UserProfile.css';
 
 const UserProfile = () => {
     var [clicked, setClicked] = useState(false);
-    const onClickProfile = (ev) => {
+    const showHideProfile = (ev) => {
         setClicked(!clicked);
     }
 
@@ -14,7 +14,7 @@ const UserProfile = () => {
             <img className="header-navigation-profile-img"
                 src="no-avatar.svg"
                 alt="Profile"
-                onClick={onClickProfile} />
+                onClick={showHideProfile} />
             <article style={{ display: clicked ? "block" : "none" }}
                 className="header-navigation-profile-list-wrapper">
                 <span className="header-navigation-profile-list-triangle" />
@@ -27,7 +27,8 @@ const UserProfile = () => {
                     </article>
                 </article>
                 <hr className="header-navigation-profile-info-line" />
-                <ul className="header-navigation-profile-list">
+                <ul onClick={showHideProfile}
+                className="header-navigation-profile-list">
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
                             to="/Username/blogs">
@@ -36,7 +37,7 @@ const UserProfile = () => {
                     </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/profile/editpersonalinfo">
+                            to="/profile/personalinfo">
                             Personal info
                         </Link>
                     </li>
