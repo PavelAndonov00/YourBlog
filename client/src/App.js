@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
+import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
 
 function App() {
@@ -20,8 +21,11 @@ function App() {
 					<Route path="/register" component={Register} exact />
 
 					<Route path="/blogs/create" component={WriteBlog} exact />
+
+					<Route path="/profile/settings" component={Settings} />
+
 					<Route path="/" component={Home} exact />
-				</Switch>
+				</Switch> 
 			</main>
 		</>
 	);

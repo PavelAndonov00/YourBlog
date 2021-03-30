@@ -11,29 +11,3 @@
     display: flex;
     flex-direction: column;
 }
-
-.main-login-form * {
-    padding: 10px;
-}
-
-.main-login-form label {
-    color:gray;
-}
-
-.main-login-form input[type=text],input[type=password] {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid lightgray;
-}
-
-.main-login-form input:not([type=submit]):focus {
-    border-bottom: 1px solid black;
-}
-
-.main-login-form input[type=submit] {
-    margin-top: 20px;
-    border: none;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-}

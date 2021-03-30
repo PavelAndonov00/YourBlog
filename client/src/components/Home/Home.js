@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import {Route} from 'react-router-dom';
+// import {Route} from 'react-router';
+
 import './Home.css';
 import Blog from '../Blog';
 

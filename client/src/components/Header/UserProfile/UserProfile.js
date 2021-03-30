@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './UserProfile.css';
@@ -15,8 +15,8 @@ const UserProfile = () => {
                 src="no-avatar.svg"
                 alt="Profile"
                 onClick={onClickProfile} />
-            <article style={{display: clicked ? "block" : "none"}}
-            className="header-navigation-profile-list-wrapper">
+            <article style={{ display: clicked ? "block" : "none" }}
+                className="header-navigation-profile-list-wrapper">
                 <span className="header-navigation-profile-list-triangle" />
                 <article className="header-navigation-profile-info">
                     <img src="no-avatar.svg"
@@ -30,16 +30,23 @@ const UserProfile = () => {
                 <ul className="header-navigation-profile-list">
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/profile">
-                            Profile
-                            </Link>
+                            to="/Username/blogs">
+                            Your blogs
+                        </Link>
                     </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/settings">
-                            Settings
-                            </Link>
+                            to="/profile/editpersonalinfo">
+                            Personal info
+                        </Link>
                     </li>
+                    <li className="header-navigation-profile-list-item">
+                        <Link className="header-navigation-profile-list-item-a"
+                            to="/profile/settings">
+                            Settings
+                        </Link>
+                    </li>
+
                 </ul>
             </article>
         </section>

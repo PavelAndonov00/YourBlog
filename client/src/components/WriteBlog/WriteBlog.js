@@ -24,7 +24,6 @@ const WriteBlog = () => {
                 <input id="image"
                     name="image"
                     type="file" />
-                <hr />
 
                 <label htmlFor="content">Main content</label>
                 <textarea id="content"
