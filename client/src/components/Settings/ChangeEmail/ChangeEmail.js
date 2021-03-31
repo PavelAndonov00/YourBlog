@@ -3,7 +3,7 @@ import './ChangeEmail.css';
 const ChangeEmail = () => {
     return (
         <>
-            <h2 className="main-profile-settings-main-heading">Change email</h2>
+            <h2 className="main-profile-settings-main-heading">Change Email</h2>
             <form className="main-profile-settings-main-form">
                 <label htmlFor="password">Password</label>
                 <input id="password"

@@ -5,7 +5,7 @@ const ChangePassword = ({
 }) => {
     return (
         <>
-            <h2 className="main-profile-settings-main-heading">Change password</h2>
+            <h2 className="main-profile-settings-main-heading">Change Password</h2>
             <form className="main-profile-settings-main-form">
                 <label htmlFor="oldPassword">Old Password</label>
                 <input id="oldPassword"
