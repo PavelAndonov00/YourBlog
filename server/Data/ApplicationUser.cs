@@ -10,9 +10,7 @@ namespace WebApi.Data
     {
         public ApplicationUser()
         {
-            this.Id = Guid.NewGuid().ToString();
-        }
 
-        public string CustomProp { get; set; }
+        }
     }
 }

@@ -18,6 +18,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Configuration;
 using WebApi.Data;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApi
 {
@@ -78,7 +81,7 @@ namespace WebApi
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.EnsureDeleted();
+                //dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
             }
 
@@ -88,6 +91,13 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
+
+            app.UseStaticFiles();
+            app.UseCors(policy =>
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyHeader();
+            });
 
             app.UseHttpsRedirection();
 
