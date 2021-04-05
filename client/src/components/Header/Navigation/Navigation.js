@@ -21,7 +21,7 @@ const Navigation = () => {
             </li>
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
-                    to="/login/123"
+                    to="/login"
                     exact>
                     Login
                 </NavLink>

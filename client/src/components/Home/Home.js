@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 
 import './Home.css';
 import Blog from '../Blog';
+import Context from '../../contexts/context';
 
 const Home = ({ scrollTop }) => {
+    let context = useContext(Context);
+
     var [items, setItems] = useState(Array.from({ length: 5 }));
 
     const fetchData = () => {
@@ -18,8 +21,17 @@ const Home = ({ scrollTop }) => {
         scrollTop.current.scrollIntoView();
     }
 
+    useEffect(() => {
+        if (context.message) {
+            setTimeout(() => {
+                context.setMessage("");
+            }, 5000);
+        }
+    }, [])
+
     return (
         <section className="main-blogs-section">
+            <p className="information-message">{context.message}</p>
             <InfiniteScroll
                 dataLength={items.length}
                 next={fetchData}

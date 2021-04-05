@@ -9,12 +9,14 @@ function request(method) {
             body: data ? JSON.stringify(data) : undefined,
             ...options
         });
-    
+
         return result.json();
     }
 }
 
-export const get = request('get');
-export const post = request('post');
-export const put = request('put');
-export const remove = request('delete');
+const get = request('get');
+const post = request('post');
+const put = request('put');
+const remove = request('delete');
+
+export {get, post, put, remove}

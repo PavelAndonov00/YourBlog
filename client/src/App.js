@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -11,10 +11,17 @@ import Register from './components/Register';
 import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
 import YourBlogs from './components/YourBlogs/YourBlogs';
+import Context from './contexts/context';
 
 function App() {
-	var scrollTop = React.createRef();
-	
+	let scrollTop = React.createRef();
+	let context = useContext(Context);
+
+	useEffect(() => {
+		context.setToken(localStorage.getItem("token"));
+		context.setUser(localStorage.getItem("user"));
+	}, []);
+
 	return (
 		<>
 			<span ref={scrollTop} className="scroll-to-top"></span>
@@ -23,7 +30,6 @@ function App() {
 			<main className="main">
 				<Switch>
 					<Route path="/login" component={Login} exact />
-					<Route path="/login/:id" component={Login} exact />
 
 					<Route path="/register" component={Register} exact />
 
@@ -36,10 +42,10 @@ function App() {
 					<Route path="/:username/blogs" component={YourBlogs} />
 
 					<Route path="/" exact>
-						<Home scrollTop={scrollTop}/>
+						<Home scrollTop={scrollTop} />
 					</Route>
 					<Route path="/home">
-						<Home scrollTop={scrollTop}/>
+						<Home scrollTop={scrollTop} />
 					</Route>
 				</Switch>
 			</main>

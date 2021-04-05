@@ -23,3 +23,13 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.information-message {
+    color: green;
+    text-align: center;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+}
