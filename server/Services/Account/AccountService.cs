@@ -15,7 +15,7 @@ namespace WebApi.Services.Account
             this.dbContext = dbContext;
         }
 
-        public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
+        public async Task<ApplicationUser> GetUserByUsernameOrEmailAsync(string username)
         {
             var user = dbContext.Users
                 .FirstOrDefault(u => u.UserName == username || u.Email == username);

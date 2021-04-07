@@ -8,6 +8,6 @@ namespace WebApi.Services.Account
 {
     public interface IAccountService
     {
-        Task<ApplicationUser> GetUserByUsernameAsync(string username);
+        Task<ApplicationUser> GetUserByUsernameOrEmailAsync(string username);
     }
 }

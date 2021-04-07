@@ -51,9 +51,9 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await accountService.GetUserByUsernameAsync(model.Username);
-                var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
-                if (result.Succeeded)
+                var user = await GetUserAsync(model);
+                var isPasswordValid = await CheckPasswordAsync(user, model.Password);
+                if (isPasswordValid)
                 {
                     var jwt = GenerateToken(model.Username, USER_ROLE);
                     var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true };
@@ -63,14 +63,19 @@ namespace WebApi.Controllers
             }
             catch (InvalidOperationException ioe)
             {
-                
+               // Exception should be handled 
             }
 
             return this.Ok(new { Error = "Invalid username or password" });
         }
 
+        private Task<ApplicationUser> GetUserAsync(LoginInputModel model)
+        {
+            return accountService.GetUserByUsernameOrEmailAsync(model.Username);
+        }
+
         [HttpPost("[action]")]
-        public async Task<ActionResult<string>> Register(RegisterInputModel model)
+        public async Task<IActionResult> Register(RegisterInputModel model)
         {
             var user = new ApplicationUser() { UserName = model.Username, Email = model.Email };
             var result = await userManager.CreateAsync(user, model.Password);
@@ -80,6 +85,38 @@ namespace WebApi.Controllers
             }
 
             return this.Ok(result.Errors);
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<ActionResult<string>> ResetPassword(ResetPasswordInputModel model)
+        {
+            try
+            {
+                var user = await accountService.GetUserByUsernameOrEmailAsync(this.User.Identity.Name);
+                bool isPasswordValid = await CheckPasswordAsync(user, model.OldPassword);
+                if (isPasswordValid)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                    var changeResult = await userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+                    if (changeResult.Succeeded)
+                    {
+                        return Ok(new { Success = true, Message = "You have successfully changed your password!" });
+                    }
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // Exception should be handled
+            }
+
+            return Ok(new { Error = "Invalid password!" });
+        }
+
+        private async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+        {
+            return await userManager.CheckPasswordAsync(user, password);
         }
 
         private string GenerateToken(string username, string role)
