@@ -18,8 +18,8 @@ const Settings = () => {
     return (
         <section className="main-profile-settings">
             <SettingsMenu />
-
             <article className="main-profile-settings-main">
+                
                 <Switch>
                     <Route path="/profile/settings/changepassword" component={ChangePassword} exact />
 

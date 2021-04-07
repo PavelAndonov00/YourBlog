@@ -13,23 +13,13 @@ const Header = () => {
     return (
         <header className="header">
             <nav className="header-navigation">
-                <ul className="header-navigation-logo-list">
-                    <li className="header-navigation-logo-list-item">
-                        <Link to="/"
-                            className="header-navigation-logo-wrapper">
-                            <img src="/writing.svg"
-                                alt="Logo" />
-                            <span>Your Blog</span>
-                        </Link>
-                    </li>
-                    <li className="header-navigation-list-item">
-                        <NavLink className="header-navigation-list-item-a"
-                            to="/"
-                            exact={true}>
-                            Home
-                         </NavLink>
-                    </li>
-                </ul>
+                <Link to="/"
+                    className="header-navigation-logo-wrapper">
+                    <img src="/writing.svg"
+                        alt="Logo" />
+                    <span>Your Blog</span>
+                </Link>
+
                 <section className="header-navigation-right">
                     {context.user.isLogged || <Navigation />}
                     {context.user.isLogged && <UserProfile />}
