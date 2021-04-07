@@ -51,7 +51,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(model);
+                var user = await GetUserAsync(model.Username);
                 var isPasswordValid = await CheckPasswordAsync(user, model.Password);
                 if (isPasswordValid)
                 {
@@ -69,10 +69,7 @@ namespace WebApi.Controllers
             return this.Ok(new { Error = "Invalid username or password" });
         }
 
-        private Task<ApplicationUser> GetUserAsync(LoginInputModel model)
-        {
-            return accountService.GetUserByUsernameOrEmailAsync(model.Username);
-        }
+        
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(RegisterInputModel model)
@@ -93,7 +90,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await accountService.GetUserByUsernameOrEmailAsync(this.User.Identity.Name);
+                var user = await GetUserAsync(this.User.Identity.Name);
                 bool isPasswordValid = await CheckPasswordAsync(user, model.OldPassword);
                 if (isPasswordValid)
                 {
@@ -112,6 +109,12 @@ namespace WebApi.Controllers
             }
 
             return Ok(new { Error = "Invalid password!" });
+        }
+
+        #region Private Methods
+        private async Task<ApplicationUser> GetUserAsync(string username)
+        {
+            return await accountService.GetUserByUsernameOrEmailAsync(username);
         }
 
         private async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
@@ -140,5 +143,6 @@ namespace WebApi.Controllers
             var jwt = tokenHandler.WriteToken(token);
             return jwt;
         }
+        #endregion
     }
 }
