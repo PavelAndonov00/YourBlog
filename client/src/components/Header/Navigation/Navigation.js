@@ -8,15 +8,13 @@ const Navigation = () => {
         <ul className="header-navigation-list">
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
-                    to="/login"
-                    exact>
+                    to="/login">
                     Login
                     </NavLink>
             </li>
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
-                    to="/register"
-                    exact>
+                    to="/register">
                     Register
                     </NavLink>
             </li>

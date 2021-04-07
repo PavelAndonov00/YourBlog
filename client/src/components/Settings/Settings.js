@@ -4,6 +4,7 @@ import './Settings.css';
 import SettingsMenu from './SettingsMenu';
 import ChangePassword from './ChangePassword/ChangePassword';
 import ChangeEmail from './ChangeEmail';
+import PersonalInfo from './PersonalInfo/PersonalInfo';
 
 const Inner = ({
 
@@ -23,6 +24,8 @@ const Settings = () => {
                     <Route path="/profile/settings/changepassword" component={ChangePassword} exact />
 
                     <Route path="/profile/settings/changeemail" component={ChangeEmail} exact />
+
+                    <Route path="/profile/settings/personalinfo" component={PersonalInfo} exact />
                 </Switch>
             </article>
         </section>

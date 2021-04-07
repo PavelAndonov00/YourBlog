@@ -28,6 +28,12 @@ class SettingsMenu extends Component {
                             Change email
                         </NavLink>
                     </li>
+                    <li className="main-profile-settings-menu-list-item">
+                        <NavLink to="/profile/settings/personalinfo"
+                            className="main-profile-settings-menu-list-item-a">
+                            Personal info
+                        </NavLink>
+                    </li>
                 </ul>
             </aside>
         )

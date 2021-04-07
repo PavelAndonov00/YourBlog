@@ -10,6 +10,10 @@ const login = (username, password) => {
     return post(_ACCOUNT + "Login", { username, password });
 };
 
+const resetPassword = (oldPassword, newPassword, confirmNewPassword) => {
+    return post(_ACCOUNT + "ResetPassword", { oldPassword, newPassword, confirmNewPassword });
+};
+
 export {
-    register,login
+    register, login, resetPassword
 };

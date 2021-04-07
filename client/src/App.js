@@ -7,7 +7,6 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
@@ -50,11 +49,9 @@ function App() {
 
 					<Route path="/profile/settings" component={Settings} />
 
-					<Route path="/profile/personalinfo" component={PersonalInfo} />
-
 					<Route path="/:username/blogs" component={YourBlogs} />
 
-					<Route path="/" exact>
+					<Route path="/">
 						<Home scrollTop={scrollTop} />
 					</Route>
 					<Route path="/home">

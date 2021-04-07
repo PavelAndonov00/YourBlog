@@ -6,10 +6,9 @@ const PersonalInfo = () => {
     }
 
     return (
-        <section className="main-personalinfo-form-wrapper">
-            <h2 className="main-personalinfo-form-heading">Personal Info</h2>
-            <form onSubmit={onSubmit}
-                className="main-personalinfo-form">
+        <>
+            <h2 className="main-profile-settings-main-heading">Personal Info</h2>
+            <form className="main-profile-settings-main-form">
                 <label htmlFor="firstName">First Name</label>
                 <input id="firstName"
                     name="firstName"
@@ -33,7 +32,7 @@ const PersonalInfo = () => {
 
                 <input type="submit" value="Save" />
             </form>
-        </section >
+        </>
     );
 }
 

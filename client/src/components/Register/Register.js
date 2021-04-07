@@ -2,6 +2,7 @@ import './Register.css';
 
 import { Component } from 'react';
 import { register } from '../../services/authService';
+import {PASSWORDS_DO_NOT_MATCH, PASSWORD_REGEX, PASSWORD_VALIDATION_MESSAGE} from '../../global/constants';
 import Context from '../../contexts/context';
 
 class Register extends Component {
@@ -17,12 +18,11 @@ class Register extends Component {
         };
 
         this.EMAIL_REGEX = /^.+@.+[.].+$/gm;
-        this.PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
         this.errors = {
             Username: "Username must be least 5 characters long.",
-            Password: "Password must have at least one upper and one lower case letter. At least one digit and special symbol. At least 8 characters long.",
-            ConfirmPassword: "Passwords do not match.",
+            Password: PASSWORD_VALIDATION_MESSAGE,
+            ConfirmPassword: PASSWORDS_DO_NOT_MATCH,
             Email: "Email is not valid email address."
         };
 
@@ -49,7 +49,7 @@ class Register extends Component {
         }
 
         let password = ev.target.password.value;
-        if (!password.match(this.PASSWORD_REGEX)) {
+        if (!password.match(PASSWORD_REGEX)) {
             validation.passwordValidation = this.errors.Password;
         } else {
             validation.passwordValidation = "";
@@ -58,6 +58,8 @@ class Register extends Component {
         let confirmPassword = ev.target.confirmPassword.value;
         if (password !== confirmPassword && !validation.passwordValidation) {
             validation.confirmpasswordValidation = this.errors.ConfirmPassword;
+        } else {
+            validation.confirmpasswordValidation = "";
         }
 
         // Is validated
@@ -119,8 +121,7 @@ class Register extends Component {
                         name="confirmPassword"
                         type="password" />
                     <span className="error-message">
-                        {this.state.confirmpasswordValidation ||
-                            this.state.passwordValidation}
+                        {this.state.passwordValidation || this.state.confirmpasswordValidation}
                     </span>
 
                     <input type="submit" value="Register" />

@@ -47,12 +47,6 @@ const UserProfile = () => {
                     </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/profile/personalinfo">
-                            Personal info
-                        </Link>
-                    </li>
-                    <li className="header-navigation-profile-list-item">
-                        <Link className="header-navigation-profile-list-item-a"
                             to="/profile/settings">
                             Settings
                         </Link>

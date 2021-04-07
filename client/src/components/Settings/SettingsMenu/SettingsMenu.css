@@ -26,3 +26,8 @@
     text-decoration: none;
     color: gray;
 }
+
+.main-profile-settings-menu-list-item-a.active {
+    border-bottom: 3px solid black;
+    padding-bottom: 2px;
+}

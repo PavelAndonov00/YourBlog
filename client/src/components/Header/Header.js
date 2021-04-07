@@ -9,7 +9,6 @@ import Context from '../../contexts/context';
 
 const Header = () => {
     let context = useContext(Context);
-    console.log(context);
 
     return (
         <header className="header">
@@ -26,7 +25,7 @@ const Header = () => {
                     <li className="header-navigation-list-item">
                         <NavLink className="header-navigation-list-item-a"
                             to="/"
-                            exact>
+                            exact={true}>
                             Home
                          </NavLink>
                     </li>
