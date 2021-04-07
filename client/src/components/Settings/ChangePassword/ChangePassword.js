@@ -26,20 +26,6 @@ const ChangePassword = ({ history }) => {
 
         let currentValidation = {};
 
-        let result = await resetPassword("", "", "");
-
-        if (result.errors) {
-            Object.keys(result.errors)
-                .forEach(k => currentValidation[k + "Validation"] = errors[k]);
-        } else if (result.error) {
-            currentValidation.summary = result.error;
-        } else if (result.success) {
-            context.setMessage(result.message);
-            history.push("/profile/settings")
-        }
-        setValidation(oldState => { return { ...oldState, ...currentValidation } });
-        return;
-
         let oldPassword = ev.target.oldPassword.value;
         if (!oldPassword) {
             return;
@@ -83,7 +69,10 @@ const ChangePassword = ({ history }) => {
     return (
         <>
             <h2 className="main-profile-settings-main-heading">Change Password</h2>
-            <p className="error-message">{validation.summary}</p>
+            <p className="error-message">
+                {validation.OldPasswordValidation
+                    ? validation.OldPasswordValidation
+                    : validation.summary}</p>
             <form className="main-profile-settings-main-form"
                 onSubmit={onSubmit}>
                 <label htmlFor="oldPassword">Old Password</label>

@@ -72,7 +72,7 @@ class Login extends Component {
         return (
             <section className="main-login-form-wrapper">
                 <h2 className="main-login-form-heading">Login</h2>
-                <span className="error-message">{this.state.summaryValidation}</span>
+                <p className="error-message">{this.state.summaryValidation}</p>
                 <form className="main-login-form" onSubmit={this.onSubmitHandler}>
                     <label htmlFor="username">Username or email</label>
                     <input id="username"
