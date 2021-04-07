@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './UserProfile.css';
+import Context from '../../../contexts/context';
 
 const UserProfile = () => {
-    var [clicked, setClicked] = useState(false);
+    let context = useContext(Context);
+
+    let [clicked, setClicked] = useState(false);
     const showHideProfile = (ev) => {
         setClicked(!clicked);
     }
 
     return (
-        <section className="header-navigation-profile-wrapper">
+        <article className="header-navigation-profile-wrapper">
             <img className="header-navigation-profile-img"
                 src="/no-avatar.svg"
                 alt="Profile"
@@ -22,13 +25,20 @@ const UserProfile = () => {
                     <img src="/no-avatar.svg"
                         alt="" />
                     <article>
-                        <span>User</span>
-                        <span>User@abv.bg</span>
+                        <span className="header-navigation-profile-info-truncate">{context.user.userName}</span>
+                        <span className="header-navigation-profile-info-truncate">{context.user.email}</span>
                     </article>
                 </article>
                 <hr className="header-navigation-profile-info-line" />
                 <ul onClick={showHideProfile}
-                className="header-navigation-profile-list">
+                    className="header-navigation-profile-list">
+                    <li className="header-navigation-list-item">
+                        <Link className="header-navigation-profile-list-item-a"
+                            to="/blogs/create"
+                            exact>
+                            Write a blog
+                        </Link>
+                    </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
                             to="/Username/blogs">
@@ -47,10 +57,9 @@ const UserProfile = () => {
                             Settings
                         </Link>
                     </li>
-
                 </ul>
             </article>
-        </section>
+        </article>
     );
 }
 

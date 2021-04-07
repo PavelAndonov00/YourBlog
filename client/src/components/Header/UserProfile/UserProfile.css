@@ -14,9 +14,16 @@
     display: flex;
 }
 
+.header-navigation-profile-info-truncate {
+    width: 172px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .header-navigation-profile-info-line {
     height: 1px;
-    width: 171px;
+    width: 238px;
     position: absolute;
     right: 0;
     background: lightgray;
@@ -24,6 +31,7 @@
 
 .header-navigation-profile-info img {
     width: 30px;
+    margin-right: 5px;
 }
 
 .header-navigation-profile-info article {
@@ -39,8 +47,9 @@
     box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
     background-color: white;
     top: 45px;
-    right: -70px;
+    right: -106px;
     padding: 20px 20px 0 20px;
+    width: 200px;
 }
 
 .header-navigation-profile-list {
@@ -53,7 +62,7 @@
     transform: rotate(45deg);
     position: absolute;
     top: -10px;
-    right: 75px;
+    right: 111px;
     width: 20px;
     height: 20px;
     -webkit-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);

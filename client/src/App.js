@@ -19,7 +19,8 @@ function App() {
 
 	useEffect(() => {
 		context.setToken(localStorage.getItem("token"));
-		context.setUser(localStorage.getItem("user"));
+		context.setUser(JSON.parse(localStorage.getItem("user")));
+		console.log(context);
 	}, []);
 
 	return (
