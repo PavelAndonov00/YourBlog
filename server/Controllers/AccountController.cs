@@ -49,24 +49,24 @@ namespace WebApi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(LoginInputModel model)
         {
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: true, lockoutOnFailure: true);
-            if(result.Succeeded)
+            try
             {
-                var jwt = GenerateToken(model.Username, USER_ROLE);
-
-                try
+                var user = await accountService.GetUserByUsernameAsync(model.Username);
+                var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
+                if (result.Succeeded)
                 {
-                    var user = await accountService.GetUserByUsernameAsync(model.Username);
-                    var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber };
+                    var jwt = GenerateToken(model.Username, USER_ROLE);
+                    var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true };
+
                     return this.Ok(new { Success = "You have successfully logged in!", Token = jwt, User = extracted });
                 }
-                catch (InvalidOperationException ioe)
-                {
-                    // Logger log ioe
-                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                
             }
 
-            return this.Ok(new { Error = "Invalid username or password"});
+            return this.Ok(new { Error = "Invalid username or password" });
         }
 
         [HttpPost("[action]")]
@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         {
             var user = new ApplicationUser() { UserName = model.Username, Email = model.Email };
             var result = await userManager.CreateAsync(user, model.Password);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return Created("/Account/Register", new { Success = true, Message = "You have successfully registered!" });
             }

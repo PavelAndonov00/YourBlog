@@ -15,12 +15,10 @@ namespace WebApi.Services.Account
             this.dbContext = dbContext;
         }
 
-        public int MyProperty { get; set; }
-
         public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
         {
             var user = dbContext.Users
-                .FirstOrDefault(u => u.UserName == username);
+                .FirstOrDefault(u => u.UserName == username || u.Email == username);
             if(user == null)
             {
                 throw new InvalidOperationException("There is no such user with that username.");
