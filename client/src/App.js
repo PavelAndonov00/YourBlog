@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import Register from './components/Register';
 import Settings from './components/Settings';
@@ -19,18 +20,29 @@ function App() {
 
 	useEffect(() => {
 		context.setToken(localStorage.getItem("token"));
-		context.setUser(JSON.parse(localStorage.getItem("user")));
-		console.log(context);
+		let user = localStorage.getItem("user");
+		context.setUser(user ? JSON.parse(user) : {});
 	}, []);
+
+	useEffect(() => {
+		if (context.message) {
+            setTimeout(() => {
+                context.setMessage("");
+            }, 4000);
+        }
+	});
 
 	return (
 		<>
 			<span ref={scrollTop} className="scroll-to-top"></span>
 			<Header />
 
+			<p className="information-message">{context.message}</p>
 			<main className="main">
 				<Switch>
 					<Route path="/login" component={Login} exact />
+
+					<Route path="/logout" component={Logout} exact />
 
 					<Route path="/register" component={Register} exact />
 

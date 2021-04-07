@@ -71,7 +71,6 @@ class Login extends Component {
     render() {
         return (
             <section className="main-login-form-wrapper">
-                <p className="information-message">{this.context.message}</p>
                 <h2 className="main-login-form-heading">Login</h2>
                 <span className="error-message">{this.state.summaryValidation}</span>
                 <form className="main-login-form" onSubmit={this.onSubmitHandler}>

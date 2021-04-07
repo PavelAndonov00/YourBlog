@@ -22,16 +22,11 @@ const Home = ({ scrollTop }) => {
     }
 
     useEffect(() => {
-        if (context.message) {
-            setTimeout(() => {
-                context.setMessage("");
-            }, 5000);
-        }
+        
     }, [])
 
     return (
         <section className="main-blogs-section">
-            <p className="information-message">{context.message}</p>
             <InfiniteScroll
                 dataLength={items.length}
                 next={fetchData}

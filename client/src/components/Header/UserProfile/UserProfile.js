@@ -57,6 +57,12 @@ const UserProfile = () => {
                             Settings
                         </Link>
                     </li>
+                    <li className="header-navigation-profile-list-item">
+                        <Link className="header-navigation-profile-list-item-a"
+                            to="/logout">
+                            Logout
+                        </Link>
+                    </li>
                 </ul>
             </article>
         </article>
