@@ -74,7 +74,7 @@ class Login extends Component {
                 <h2 className="main-login-form-heading">Login</h2>
                 <span className="error-message">{this.state.summaryValidation}</span>
                 <form className="main-login-form" onSubmit={this.onSubmitHandler}>
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username">Username or email</label>
                     <input id="username"
                         name="username"
                         type="text" />
