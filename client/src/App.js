@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 import './App.css';
 import Footer from './components/Footer/Footer';
@@ -12,23 +12,38 @@ import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
 import YourBlogs from './components/YourBlogs/YourBlogs';
 import Context from './contexts/context';
+import jwt from 'jsonwebtoken';
 
 function App() {
+	let history = useHistory();
 	let scrollTop = React.createRef();
 	let context = useContext(Context);
 
 	useEffect(() => {
-		context.setToken(localStorage.getItem("token"));
-		let user = localStorage.getItem("user");
-		context.setUser(user ? JSON.parse(user) : {});
+		let token = localStorage.getItem("token");
+		let decoded = jwt.decode(token);
+		if (decoded && decoded.exp < Date.now() / 1000) {
+			localStorage.setItem("token", "");
+			context.setToken("");
+
+			localStorage.setItem("user", JSON.stringify({}));
+			context.setUser({});
+
+			context.setMessage("Session expired!");
+			history.push('/login');
+		} else {
+			context.setToken(token);
+			let user = localStorage.getItem("user");
+			context.setUser(user ? JSON.parse(user) : {});
+		}
 	}, []);
 
 	useEffect(() => {
 		if (context.message) {
-            setTimeout(() => {
-                context.setMessage("");
-            }, 4000);
-        }
+			setTimeout(() => {
+				context.setMessage("");
+			}, 4000);
+		}
 	});
 
 	return (

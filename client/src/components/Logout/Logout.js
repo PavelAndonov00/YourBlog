@@ -10,7 +10,7 @@ const Logout = ({
 
     useEffect(() => {
         localStorage.setItem("token", "");
-        context.setToken({});
+        context.setToken("");
 
         localStorage.setItem("user", JSON.stringify({}));
         context.setUser({});
