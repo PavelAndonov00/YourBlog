@@ -20,22 +20,24 @@ function App() {
 	let context = useContext(Context);
 
 	useEffect(() => {
-		let token = localStorage.getItem("token");
-		let decoded = jwt.decode(token);
-		if (decoded && decoded.exp < Date.now() / 1000) {
-			localStorage.setItem("token", "");
-			context.setToken("");
+		// validate token
+		setInterval(() => {
+			let decoded = jwt.decode(localStorage.getItem("token"));
+			if (decoded && decoded.exp < Date.now() / 1000) {
+				localStorage.setItem("token", "");
+				context.setToken("");
 
-			localStorage.setItem("user", JSON.stringify({}));
-			context.setUser({});
+				localStorage.setItem("user", JSON.stringify({}));
+				context.setUser({});
 
-			context.setMessage("Session expired!");
-			history.push('/login');
-		} else {
-			context.setToken(token);
-			let user = localStorage.getItem("user");
-			context.setUser(user ? JSON.parse(user) : {});
-		}
+				context.setMessage("Session expired!");
+				history.push('/login');
+			}
+		}, 1860000) // Every 31st minute
+
+		context.setToken(localStorage.getItem("token"));
+		let user = localStorage.getItem("user");
+		context.setUser(user ? JSON.parse(user) : {});
 	}, []);
 
 	useEffect(() => {
