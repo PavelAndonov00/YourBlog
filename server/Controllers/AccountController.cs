@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebApi.Configuration;
 using WebApi.Data;
@@ -63,13 +64,13 @@ namespace WebApi.Controllers
             }
             catch (InvalidOperationException ioe)
             {
-               // Exception should be handled 
+                // Exception should be handled 
             }
 
             return this.Ok(new { Error = "Invalid username or password" });
         }
 
-        
+
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(RegisterInputModel model)
@@ -144,6 +145,77 @@ namespace WebApi.Controllers
             }
 
             return Ok(new { Error = "Invalid password!" });
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<ActionResult<string>> GetPersonalInfo()
+        {
+            try
+            {
+                var user = await GetUserAsync(this.User.Identity.Name);
+
+                string birthDate = string.Empty;
+                if (user.BirthDate.HasValue)
+                {
+                    birthDate = user.BirthDate.Value.ToString("yyyy-MM-dd");
+                }
+
+                var data = new PersonalInfoInputModel()
+                {
+                    FirstName = user.FirstName == null ? "" : user.FirstName,
+                    LastName = user.LastName == null ? "" : user.LastName,
+                    PhoneNumber = user.PhoneNumber == null ? "" : user.PhoneNumber,
+                    BirthDate = birthDate
+                };
+
+                return Ok(new { Success = true, data });
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // Exception should be handled
+            }
+
+            return Ok(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<ActionResult<string>> UpdatePersonalInfo(PersonalInfoInputModel model)
+        {
+            try
+            {
+                var user = await GetUserAsync(this.User.Identity.Name);
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.PhoneNumber = model.PhoneNumber;
+
+                var input = model.BirthDate
+                    ?.Split("-");
+                if (input != null && input.Length > 1)
+                {
+                    var dateTokens = input
+                        .Select(int.Parse)
+                        .ToArray();
+                    var year = dateTokens[0];
+                    var month = dateTokens[1];
+                    var day = dateTokens[2];
+                    user.BirthDate = new DateTime(year, month, day);
+                }
+
+                var result = await userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return Ok(new { Success = true, Message = "You have successfully updated your info." });
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // handle
+            }
+
+            return Ok(new { Error = "Oops something went wrong." });
         }
 
         #region Private Methods
