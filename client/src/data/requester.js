@@ -1,10 +1,9 @@
 function request(method) {
-    let token = localStorage.getItem('token');
-    let authHeader = token
-        ? { "Authorization": `Bearer ${token}` }
-        : {};
-
     return async (url, data, options) => {
+        let token = localStorage.getItem('token');
+        let authHeader = token
+            ? { "Authorization": `Bearer ${token}` }
+            : {};
         var result = await fetch(url, {
             method,
             headers: {

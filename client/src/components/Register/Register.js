@@ -1,8 +1,15 @@
-import './Register.css';
+import {
+    PASSWORDS_DO_NOT_MATCH,
+    PASSWORD_REGEX,
+    PASSWORD_VALIDATION_MESSAGE,
+    EMAIL_REGEX,
+    EMAIL_VALIDATION_MESSAGE
+} from '../../global/constants';
 
 import { Component } from 'react';
+
+import './Register.css';
 import { register } from '../../services/authService';
-import {PASSWORDS_DO_NOT_MATCH, PASSWORD_REGEX, PASSWORD_VALIDATION_MESSAGE} from '../../global/constants';
 import Context from '../../contexts/context';
 
 class Register extends Component {
@@ -17,13 +24,11 @@ class Register extends Component {
             confirmpasswordValidation: ""
         };
 
-        this.EMAIL_REGEX = /^.+@.+[.].+$/gm;
-
         this.errors = {
             Username: "Username must be least 5 characters long.",
             Password: PASSWORD_VALIDATION_MESSAGE,
             ConfirmPassword: PASSWORDS_DO_NOT_MATCH,
-            Email: "Email is not valid email address."
+            Email: EMAIL_VALIDATION_MESSAGE
         };
 
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -42,7 +47,7 @@ class Register extends Component {
         }
 
         let email = ev.target.email.value;
-        if (!email.match(this.EMAIL_REGEX)) {
+        if (!email.match(EMAIL_REGEX)) {
             validation.emailValidation = this.errors.Email;
         } else {
             validation.emailValidation = ""

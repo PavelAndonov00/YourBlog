@@ -14,6 +14,13 @@ const resetPassword = (oldPassword, newPassword, confirmNewPassword) => {
     return post(_ACCOUNT + "ResetPassword", { oldPassword, newPassword, confirmNewPassword });
 };
 
+const changeEmail = (password, newEmail, confirmNewEmail) => {
+    return post(_ACCOUNT + "ChangeEmail", { password, newEmail, confirmNewEmail });
+};
+
 export {
-    register, login, resetPassword
+    register,
+    login,
+    resetPassword,
+    changeEmail
 };
