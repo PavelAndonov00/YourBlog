@@ -101,6 +101,41 @@ namespace WebApi.Controllers
                     {
                         return Ok(new { Success = true, Message = "You have successfully changed your password!" });
                     }
+                    else
+                    {
+                        return Ok(new { Error = "Oops something went wrong!" });
+                    }
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // Exception should be handled
+            }
+
+            return Ok(new { Error = "Invalid password!" });
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<ActionResult<string>> ChangeEmail(ChangeEmailInputModel model)
+        {
+            try
+            {
+                var user = await GetUserAsync(this.User.Identity.Name);
+                bool isPasswordValid = await CheckPasswordAsync(user, model.Password);
+                if (isPasswordValid)
+                {
+                    var token = await userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
+                    var changeResult = await userManager.ChangeEmailAsync(user, model.NewEmail, token);
+
+                    if (changeResult.Succeeded)
+                    {
+                        return Ok(new { Success = true, Message = "You have successfully changed your email!" });
+                    }
+                    else
+                    {
+                        return Ok(new { Error = "Oops something went wrong!" });
+                    }
                 }
             }
             catch (InvalidOperationException ioe)
