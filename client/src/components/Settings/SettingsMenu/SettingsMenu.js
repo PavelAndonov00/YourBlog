@@ -18,19 +18,19 @@ class SettingsMenu extends Component {
                     <hr/>
                     <li className="main-profile-settings-menu-list-item">
                         <NavLink to="/profile/settings/changepassword"
-                            className="main-profile-settings-menu-list-item-a">
+                            className="main-profile-settings-menu-list-item-a" >
                             Change password
                         </NavLink>
                     </li>
                     <li className="main-profile-settings-menu-list-item">
                         <NavLink to="/profile/settings/changeemail"
-                            className="main-profile-settings-menu-list-item-a">
+                            className="main-profile-settings-menu-list-item-a" >
                             Change email
                         </NavLink>
                     </li>
                     <li className="main-profile-settings-menu-list-item">
                         <NavLink to="/profile/settings/personalinfo"
-                            className="main-profile-settings-menu-list-item-a">
+                            className="main-profile-settings-menu-list-item-a" >
                             Personal info
                         </NavLink>
                     </li>

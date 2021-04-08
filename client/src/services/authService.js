@@ -1,4 +1,4 @@
-import { post } from '../data/requester';
+import { get, post } from '../data/requester';
 
 const _ACCOUNT = "https://localhost:5001/Account/";
 
@@ -18,9 +18,19 @@ const changeEmail = (password, newEmail, confirmNewEmail) => {
     return post(_ACCOUNT + "ChangeEmail", { password, newEmail, confirmNewEmail });
 };
 
+const updatePersonalInfo = (firstName, lastName, phoneNumber, birthDate) => {
+    return post(_ACCOUNT + "UpdatePersonalInfo", { firstName, lastName, phoneNumber, birthDate });
+};
+
+const getPersonalInfo = () => {
+    return get(_ACCOUNT + "GetPersonalInfo");
+};
+
 export {
     register,
     login,
     resetPassword,
-    changeEmail
+    changeEmail,
+    updatePersonalInfo,
+    getPersonalInfo
 };

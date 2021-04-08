@@ -34,8 +34,7 @@ const UserProfile = () => {
                     className="header-navigation-profile-list">
                     <li className="header-navigation-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/blogs/create"
-                            exact>
+                            to="/blogs/create">
                             Write a blog
                         </Link>
                     </li>

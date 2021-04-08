@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import { contextType } from 'react-infinite-scroll-component';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 import Navigation from './Navigation';

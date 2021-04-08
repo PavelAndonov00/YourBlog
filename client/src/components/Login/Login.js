@@ -9,7 +9,7 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             summaryValidation: ""
         };
@@ -27,7 +27,7 @@ class Login extends Component {
 
         let username = ev.target.username.value;
         let password = ev.target.password.value;
-        if(!username || !password) {
+        if (!username || !password) {
             return;
         }
 
@@ -39,9 +39,9 @@ class Login extends Component {
             if (result.errors) {
                 Object.keys(result.errors)
                     .forEach(k => summaryValidation += this.errors[k] + " ");
-            } else if(result.error){
+            } else if (result.error) {
                 summaryValidation = result.error;
-            } else if(result.success){
+            } else if (result.success) {
                 this.context.setMessage(result.success);
 
                 localStorage.setItem("token", result.token);
@@ -50,6 +50,17 @@ class Login extends Component {
                 localStorage.setItem("user", JSON.stringify(result.user));
                 this.context.setUser(result.user);
 
+                setTimeout(() => {
+                    localStorage.setItem("token", "");
+                    this.context.setToken("");
+
+                    localStorage.setItem("user", JSON.stringify({}));
+                    this.context.setUser({});
+
+                    this.context.setMessage("Session expired!");
+                    this.props.history.push('/login');
+                }, 300000 * 5)
+
                 this.props.history.push("/");
             }
         }
@@ -57,11 +68,11 @@ class Login extends Component {
             console.log(e);
         }
 
-        this.setState(oldState => {return {...oldState, summaryValidation}});
+        this.setState(oldState => { return { ...oldState, summaryValidation } });
     }
 
     componentDidMount() {
-        if(this.context.message) {
+        if (this.context.message) {
             setTimeout(() => {
                 this.context.setMessage("");
             }, 5000);

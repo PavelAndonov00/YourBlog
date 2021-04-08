@@ -12,7 +12,6 @@ import Settings from './components/Settings';
 import WriteBlog from './components/WriteBlog';
 import YourBlogs from './components/YourBlogs/YourBlogs';
 import Context from './contexts/context';
-import jwt from 'jsonwebtoken';
 
 function App() {
 	let history = useHistory();
@@ -20,21 +19,6 @@ function App() {
 	let context = useContext(Context);
 
 	useEffect(() => {
-		// validate token
-		setInterval(() => {
-			let decoded = jwt.decode(localStorage.getItem("token"));
-			if (decoded && decoded.exp < Date.now() / 1000) {
-				localStorage.setItem("token", "");
-				context.setToken("");
-
-				localStorage.setItem("user", JSON.stringify({}));
-				context.setUser({});
-
-				context.setMessage("Session expired!");
-				history.push('/login');
-			}
-		}, 1860000) // Every 31st minute
-
 		context.setToken(localStorage.getItem("token"));
 		let user = localStorage.getItem("user");
 		context.setUser(user ? JSON.parse(user) : {});
