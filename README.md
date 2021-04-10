@@ -15,8 +15,10 @@ Users can register ,write blogs and see other people blogs.
 
 ## Run client
 ---
-npm **start**
+1. Open *client folder* in integrated terminal
+2. npm **start**
 
 ## Run server
 ---
-ctrl + f5
+1. Open with Visual Studio
+2. Ctrl + f5
