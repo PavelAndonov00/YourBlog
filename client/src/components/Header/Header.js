@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 import Navigation from './Navigation';
 import UserProfile from './UserProfile';
-import Context from '../../contexts/context';
 
 const Header = () => {
-    let context = useContext(Context);
+    let user = JSON.parse(localStorage.getItem("user"));
 
     return (
         <header className="header">
@@ -20,8 +19,8 @@ const Header = () => {
                 </Link>
 
                 <section className="header-navigation-right">
-                    {context.user.isLogged || <Navigation />}
-                    {context.user.isLogged && <UserProfile />}
+                    {user.isLogged || <Navigation />}
+                    {user.isLogged && <UserProfile />}
                 </section>
             </nav>
         </header>

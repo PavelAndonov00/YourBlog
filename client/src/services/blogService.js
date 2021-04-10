@@ -1,17 +1,20 @@
-import {post} from '../data/requester';
+import {post, get} from '../data/requester';
 import { CLOUDINARY_ASSET, CLOUDINARY_URL } from '../global/constants';
 
 const _BLOG = "https://localhost:5001/Blog/";
 
-const createBlog = async (title, description, image, content) => {
+const createBlog = async (title, description, image, content, authorId) => {
     let imageUrl = "";
     if (image && image.constructor === File) {
         let response = await _uploadImageAsync(image);
         imageUrl = response.secure_url;
     }
 
-    let authorId = JSON.parse(localStorage.getItem('user')).id;
     return post(_BLOG + "Create", {title, description, imageUrl, content, authorId});
+}
+
+const getAllByAuthor = async (authorId) => {
+    return get(_BLOG + "GetAll/" + authorId);
 }
 
 const _uploadImageAsync = async (image) => {
@@ -26,4 +29,4 @@ const _uploadImageAsync = async (image) => {
     return response.json();
 }
 
-export { createBlog }
+export { createBlog, getAllByAuthor }

@@ -1,6 +1,8 @@
 import './Blog.css';
 
-const Blog = () => {
+const Blog = (
+    {title, description, imageUrl, author, createdAt}
+) => {
     var date = new Date();
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var day = months[date.getMonth()] + " " + date.getDate();
@@ -13,16 +15,16 @@ const Blog = () => {
     return (
         <article className="blog-article" onClick={onclick}>
             <article className="blog-article-content">
-                <h3 className="blog-article-heading truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi sint, labore dignissimos quo eos eum natus esse ullam error numquam veritatis culpa nihil nulla, fugit minus placeat non sequi recusandae!</h3>
-                <p className="blog-article-description truncate">Description Description Description 123 Description Description Description 123 Description Description Description 123</p>
+                <h3 className="blog-article-heading truncate">{title}</h3>
+                <p className="blog-article-description truncate">{description}</p>
                 <article className="blog-article-author-info">
-                    <p className="blog-article-createdat">{day + " in " + time}</p>
-                    <p className="blog-article-author truncate">by Author Author Author Author Author Author</p>
+                    <p className="blog-article-createdat">{createdAt}</p>
+                    <p className="blog-article-author truncate">{author}</p>
                 </article>
             </article>
             <article className="blog-article-image-wrapper">
                 <img className="blog-article-image"
-                    src="/logo192.png"
+                    src={imageUrl}
                     alt="" />
             </article>
         </article>

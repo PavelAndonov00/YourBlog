@@ -45,18 +45,12 @@ class Login extends Component {
                 this.context.setMessage(result.success);
 
                 localStorage.setItem("token", result.token);
-                this.context.setToken(result.token);
 
                 localStorage.setItem("user", JSON.stringify(result.user));
-                this.context.setUser(result.user);
 
                 setTimeout(() => {
                     localStorage.setItem("token", "");
-                    this.context.setToken("");
-
                     localStorage.setItem("user", JSON.stringify({}));
-                    this.context.setUser({});
-
                     this.context.setMessage("Session expired!");
                     this.props.history.push('/login');
                 }, 300000 * 5)

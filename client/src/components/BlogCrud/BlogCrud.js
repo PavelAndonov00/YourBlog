@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './BlogCrud.css';
-import { createBlog } from '../../services/blogService';
+import { createBlog, getBlog, editBlog } from '../../services/blogService';
 import { PHOTO_GOES_HERE_URL, PROHIBIT_IMAGE_URL } from '../../global/constants';
 import Context from '../../contexts/context';
 import BlogCrudChild from './BlogCrudChild';
@@ -10,7 +10,7 @@ class BlogCrud extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
-
+        console.log(props);
         this.state = {
             summary: "",
             title: "",
@@ -19,7 +19,7 @@ class BlogCrud extends Component {
             imageSrc: PHOTO_GOES_HERE_URL,
             content: "",
             ImageValidation: "",
-            ImageSrcValidation: "",
+            ImageUrlValidation: "",
             TitleValidation: "",
             DescriptionValidation: "",
             ContentValidation: "",
@@ -29,7 +29,7 @@ class BlogCrud extends Component {
             imageValidationMessage: "File not allowed!",
             imageRequired: "Image is required",
             // Require capital letters, for errors returned from server 
-            ImageSrc: "Not valid url.",
+            ImageUrl: "Not valid url.",
             Title: "Title length must be between 10 and 100",
             Description: "Description length must be between 10 and 200",
             Content: "Title length must be between 50 and 2000",
@@ -50,7 +50,7 @@ class BlogCrud extends Component {
                 imageSrc,
                 image,
                 ImageValidation,
-                ImageSrcValidation: ""
+                ImageUrlValidation: ""
             });
         } else {
             ImageValidation = this.errors.imageValidationMessage;
@@ -85,18 +85,20 @@ class BlogCrud extends Component {
         }
 
         if (this.state.image && this.state.image.constructor === File) {
-            validation.ImageSrcValidation = "";
+            validation.ImageUrlValidation = "";
         } else {
-            validation.ImageSrcValidation = this.errors.imageRequired;
+            validation.ImageUrlValidation = this.errors.imageRequired;
         }
 
         if (!Object.values(validation).find(v => v != false)) {
             try {
+                let user = JSON.parse(localStorage.getItem("user"));
                 let result = await createBlog(
                     this.state.title,
                     this.state.description,
                     this.state.image,
-                    this.state.content
+                    this.state.content,
+                    user.id
                 );
 
                 if (result.errors) {
@@ -105,7 +107,7 @@ class BlogCrud extends Component {
                 } else if (result.error) {
                     validation.summary = result.error;
                 } else if (result.success) {
-                    this.UNSAFE_componentWillReceivePropscontext.setMessage(result.message);
+                    this.context.setMessage(result.message);
                     // this.props.history.push("/profile/settings")
                 }
             } catch (error) {

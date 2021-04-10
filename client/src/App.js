@@ -19,12 +19,6 @@ function App() {
 	let context = useContext(Context);
 
 	useEffect(() => {
-		context.setToken(localStorage.getItem("token"));
-		let user = localStorage.getItem("user");
-		context.setUser(user ? JSON.parse(user) : {});
-	}, []);
-
-	useEffect(() => {
 		if (context.message) {
 			setTimeout(() => {
 				context.setMessage("");
@@ -46,7 +40,7 @@ function App() {
 
 					<Route path="/register" component={Register} exact />
 
-					<Route path="/blogs/create" component={BlogCrud} exact />
+					<Route path="/blogs/:id?" component={BlogCrud} exact/>
 
 					<Route path="/profile/settings" component={Settings} />
 

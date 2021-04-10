@@ -1,34 +1,49 @@
 import ReactPaginate from 'react-paginate';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import './YourBlogs.css';
 import Blog from '../Blog';
+import { getAllByAuthor } from '../../services/blogService';
 
 const YourBlogs = () => {
-    var [curPage, setCurPage] = useState(0);
-    var data = Array.from({ length: 12 }).map((v, i) => {
-        return (
-            <>
-                <h1 key={i}> Number: {i + 1} </h1>
-                <Blog key={i + 16}></Blog>
-            </>
-        )
-    });
+    let [curPage, setCurPage] = useState(0);
+    let [blogs, setBlogs] = useState([]);
+    // var data = Array.from({ length: 12 }).map((v, i) => {
+    //     return (
+    //         <>
+    //             <h1 key={i}> Number: {i + 1} </h1>
+    //             <Blog key={i + 16}></Blog>
+    //         </>
+    //     )
+    // });
 
     const PER_PAGE = 2;
     const offset = curPage * PER_PAGE;
-    const curPageData = data
+    const curPageData = blogs
         .slice(offset, offset + PER_PAGE);
-    const pageCount = Math.ceil(data.length / PER_PAGE);
+    const pageCount = Math.ceil(blogs.length / PER_PAGE);
 
     const handlePageClick = ({ selected: selectedPage }) => {
         setCurPage(selectedPage);
     };
 
+    useEffect(() => {
+        async function GetData() {
+            let user = JSON.parse(localStorage.getItem("user"));
+            if (user && user.id) {
+                let result = await getAllByAuthor(user.id);
+                setBlogs(result);
+            }
+        }
+
+        GetData();
+    }, []);
+
     return (
         <section className="main-yourblogs-section">
             <article className="main-yourblogs-blogs">
-                {curPageData}
+                {curPageData
+                    .map(b => <Blog {...b}/>)}
             </article>
             <ReactPaginate
                 previousLabel={"← Previous"}

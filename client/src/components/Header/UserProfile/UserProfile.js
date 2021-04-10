@@ -2,11 +2,9 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './UserProfile.css';
-import Context from '../../../contexts/context';
 
 const UserProfile = () => {
-    let context = useContext(Context);
-
+    let user = JSON.parse(localStorage.getItem("user"));
     let [clicked, setClicked] = useState(false);
     const showHideProfile = (ev) => {
         setClicked(!clicked);
@@ -25,8 +23,8 @@ const UserProfile = () => {
                     <img src="/no-avatar.svg"
                         alt="" />
                     <article>
-                        <span className="header-navigation-profile-info-truncate">{context.user.userName}</span>
-                        <span className="header-navigation-profile-info-truncate">{context.user.email}</span>
+                        <span className="header-navigation-profile-info-truncate">{user.userName}</span>
+                        <span className="header-navigation-profile-info-truncate">{user.email}</span>
                     </article>
                 </article>
                 <hr className="header-navigation-profile-info-line" />
@@ -34,7 +32,7 @@ const UserProfile = () => {
                     className="header-navigation-profile-list">
                     <li className="header-navigation-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/blogs/create">
+                            to="/blogs">
                             Write a blog
                         </Link>
                     </li>
