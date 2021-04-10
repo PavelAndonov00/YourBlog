@@ -8,14 +8,6 @@ import { getAllByAuthor } from '../../services/blogService';
 const YourBlogs = () => {
     let [curPage, setCurPage] = useState(0);
     let [blogs, setBlogs] = useState([]);
-    // var data = Array.from({ length: 12 }).map((v, i) => {
-    //     return (
-    //         <>
-    //             <h1 key={i}> Number: {i + 1} </h1>
-    //             <Blog key={i + 16}></Blog>
-    //         </>
-    //     )
-    // });
 
     const PER_PAGE = 2;
     const offset = curPage * PER_PAGE;
@@ -43,7 +35,7 @@ const YourBlogs = () => {
         <section className="main-yourblogs-section">
             <article className="main-yourblogs-blogs">
                 {curPageData
-                    .map(b => <Blog {...b}/>)}
+                    .map(b => <Blog key={b.id} {...b}/>)}
             </article>
             <ReactPaginate
                 previousLabel={"← Previous"}
