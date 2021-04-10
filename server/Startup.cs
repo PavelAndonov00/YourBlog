@@ -22,6 +22,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using WebApi.Services.Account;
+using WebApi.Services.Blog;
 
 namespace WebApi
 {
@@ -76,6 +77,7 @@ namespace WebApi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IBlogService, BlogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +87,7 @@ namespace WebApi
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 //dbContext.Database.EnsureDeleted();
-                dbContext.Database.EnsureCreated();
+                dbContext.Database.Migrate();
             }
 
             if (env.IsDevelopment())

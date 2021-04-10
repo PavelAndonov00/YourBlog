@@ -19,9 +19,7 @@ using WebApi.Services.Account;
 
 namespace WebApi.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class AccountController : ControllerBase
+    public class AccountController : ApiControllerBase
     {
         private readonly JwtSettings jwtSettings;
         private readonly UserManager<ApplicationUser> userManager;
@@ -79,7 +77,7 @@ namespace WebApi.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                return Created("/Account/Register", new { Success = true, Message = "You have successfully registered!" });
+                return Created("/Account/Login", new { Success = true, Message = "You have successfully registered!" });
             }
 
             return this.Ok(result.Errors);
