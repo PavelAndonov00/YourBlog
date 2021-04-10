@@ -1,18 +1,10 @@
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import './Settings.css';
 import SettingsMenu from './SettingsMenu';
 import ChangePassword from './ChangePassword/ChangePassword';
 import ChangeEmail from './ChangeEmail';
 import PersonalInfo from './PersonalInfo/PersonalInfo';
-
-const Inner = ({
-
-}) => {
-    return (
-        <h1>hello</h1>
-    );
-}
 
 const Settings = () => {
     return (
@@ -32,4 +24,4 @@ const Settings = () => {
     );
 }
 
-export default withRouter(Settings);
+export default Settings;

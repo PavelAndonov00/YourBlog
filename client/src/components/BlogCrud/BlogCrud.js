@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-import './WriteEditBlog.css';
+import './BlogCrud.css';
 import { createBlog } from '../../services/blogService';
 import { PHOTO_GOES_HERE_URL, PROHIBIT_IMAGE_URL } from '../../global/constants';
 import Context from '../../contexts/context';
+import BlogCrudChild from './BlogCrudChild';
 
-class WriteEditBlog extends Component {
+class BlogCrud extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ class WriteEditBlog extends Component {
             imageSrc: PHOTO_GOES_HERE_URL,
             content: "",
             ImageValidation: "",
-            ImageUrlValidation: "",
+            ImageSrcValidation: "",
             TitleValidation: "",
             DescriptionValidation: "",
             ContentValidation: "",
@@ -26,7 +27,9 @@ class WriteEditBlog extends Component {
 
         this.errors = {
             imageValidationMessage: "File not allowed!",
-            ImageUrl: "Not valid url.",
+            imageRequired: "Image is required",
+            // Require capital letters, for errors returned from server 
+            ImageSrc: "Not valid url.",
             Title: "Title length must be between 10 and 100",
             Description: "Description length must be between 10 and 200",
             Content: "Title length must be between 50 and 2000",
@@ -46,7 +49,8 @@ class WriteEditBlog extends Component {
             this.setStateCustom({
                 imageSrc,
                 image,
-                ImageValidation
+                ImageValidation,
+                ImageSrcValidation: ""
             });
         } else {
             ImageValidation = this.errors.imageValidationMessage;
@@ -80,10 +84,10 @@ class WriteEditBlog extends Component {
             validation.ContentValidation = "";
         }
 
-        if(this.state.image && this.state.image.constructor === File) {
-            validation.ImageUrlValidation = "";
-        }else{
-            validation.ImageUrlValidation = this.errors.ImageUrl;
+        if (this.state.image && this.state.image.constructor === File) {
+            validation.ImageSrcValidation = "";
+        } else {
+            validation.ImageSrcValidation = this.errors.imageRequired;
         }
 
         if (!Object.values(validation).find(v => v != false)) {
@@ -130,63 +134,14 @@ class WriteEditBlog extends Component {
 
     render() {
         return (
-            <section className="main-blog-crud">
-                <h2 className="main-blog-crud-heading">Write a blog</h2>
-                <p className="error-message">{this.state.summary}</p>
-                <form className="main-blog-crud-form"
-                    onSubmit={this.onSubmit}>
-                    <label htmlFor="title">Title</label>
-                    <input id="title"
-                        name="title"
-                        type="text"
-                        className="main-blog-crud-form-focus"
-                        value={this.state.title}
-                        onChange={this.onChangeHandler}
-                    />
-                    <span className="error-message">{this.state.TitleValidation}</span>
-
-                    <label htmlFor="description">Description</label>
-                    <input id="description"
-                        name="description"
-                        type="text"
-                        className="main-blog-crud-form-focus"
-                        value={this.state.description}
-                        onChange={this.onChangeHandler}
-                    />
-                    <span className="error-message">{this.state.DescriptionValidation}</span>
-
-                    <article className="main-blog-crud-form-upload-image-wrapper">
-                        <article className="main-blog-crud-form-upload-image-label-wrapper">
-                            <label htmlFor="image" className="main-blog-crud-form-upload-image-label">
-                                <img src="/image-icon.svg" />
-                                <span>Upload image</span>
-                            </label>
-                            <input id="image"
-                                name="image"
-                                type="file"
-                                onInput={this.drawImage}
-                            />
-                        </article>
-                        <img src={this.state.imageSrc} alt=""
-                            className="main-blog-crud-form-upload-image" />
-                    </article>
-                    <span className="error-message">{this.state.ImageValidation + " " + this.state.ImageUrlValidation}</span>
-
-                    <label htmlFor="content">Main content</label>
-                    <textarea id="content"
-                        name="content"
-                        type="file"
-                        className="main-blog-crud-form-focus"
-                        value={this.state.content}
-                        onChange={this.onChangeHandler}
-                    />
-                    <span className="error-message">{this.state.ContentValidation}</span>
-
-                    <input type="submit" value="Write" />
-                </form>
-            </section>
+            <BlogCrudChild
+                state={this.state}
+                onSubmitHandler={this.onSubmit}
+                onChangeHandler={this.onChangeHandler}
+                drawImage={this.drawImage}
+            />
         );
     }
 }
 
-export default WriteEditBlog;
+export default BlogCrud;
