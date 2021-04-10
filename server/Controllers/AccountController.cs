@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<ActionResult<string>> test()
         {
-            return Content("test");
+            return this.userManager.GetUserId(this.User);
         }
 
         [HttpPost("[action]")]

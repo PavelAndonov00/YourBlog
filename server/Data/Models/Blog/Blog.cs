@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +12,8 @@ namespace WebApi.Data.Models.Blog
     {
         public Blog()
         {
-            this.Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
+            CreatedAt = DateTime.Now;
         }
 
         [Key]
@@ -32,8 +35,12 @@ namespace WebApi.Data.Models.Blog
         [MinLength(50), MaxLength(2000)]
         public string Content { get; set; }
 
+        [Required]
+        public DateTime CreatedAt { get; set; }
+
+        [Required]
         public string AuthorId { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
     }
 }

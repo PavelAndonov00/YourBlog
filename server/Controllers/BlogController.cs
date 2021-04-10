@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Data;
 using WebApi.Data.Models.Blog;
 using WebApi.Models.Blog.InputModels;
+using WebApi.Services.Account;
 using WebApi.Services.Blog;
 
 namespace WebApi.Controllers
@@ -15,11 +18,13 @@ namespace WebApi.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IBlogService blogService;
+        private readonly IAccountService accountService;
 
-        public BlogController(UserManager<ApplicationUser> userManager, IBlogService blogService)
+        public BlogController(UserManager<ApplicationUser> userManager, IBlogService blogService, IAccountService accountService)
         {
             this.userManager = userManager;
             this.blogService = blogService;
+            this.accountService = accountService;
         }
 
         [HttpPost("[action]")]
@@ -43,8 +48,27 @@ namespace WebApi.Controllers
                 blog.Content,
                 blog.Description,
                 blog.AuthorId,
-                blog.Title
+                blog.Title,
+                blog.CreatedAt
             });
         }
+
+        [HttpGet("[action]/{authorId}")]
+        [Authorize]
+        public async Task<IActionResult> GetAll(string authorId)
+        {
+            try
+            {
+                var blogs = await blogService.GetAllByAuthorAsync(authorId);
+                return Ok(blogs == null ? Enumerable.Empty<Blog>() : blogs);
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Data.Models.Blog;
 
 namespace WebApi.Data
 {
@@ -19,5 +20,7 @@ namespace WebApi.Data
         public string LastName { get; set; }
 
         public DateTime? BirthDate { get; set; }
+
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }
