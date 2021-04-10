@@ -10,13 +10,13 @@ const Navigation = () => {
                 <NavLink className="header-navigation-list-item-a"
                     to="/login">
                     Login
-                    </NavLink>
+                </NavLink>
             </li>
             <li className="header-navigation-list-item">
                 <NavLink className="header-navigation-list-item-a"
                     to="/register">
                     Register
-                    </NavLink>
+                </NavLink>
             </li>
         </ul>
     );
