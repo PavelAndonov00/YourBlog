@@ -22,11 +22,10 @@
     margin: 50px 0 50px 0;
 }
 
-.main-blog-crud-form-upload-image-canvas {
-    height: 150px;
-    width: 60%;
-    margin-top: 10px;
-    object-fit: fill;
+.main-blog-crud-form-upload-image {
+    width: 350px;
+    height: 300px;
+    margin-top: 15px;
 }
 
 .main-blog-crud-form-upload-image-label {

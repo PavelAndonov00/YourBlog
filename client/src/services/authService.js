@@ -26,11 +26,15 @@ const getPersonalInfo = () => {
     return get(_ACCOUNT + "GetPersonalInfo");
 };
 
+const test = (form) => {
+    return post(_ACCOUNT + "test", form);
+};
+
 export {
     register,
     login,
     resetPassword,
     changeEmail,
     updatePersonalInfo,
-    getPersonalInfo
+    getPersonalInfo, test
 };
