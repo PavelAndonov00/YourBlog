@@ -87,7 +87,7 @@ namespace WebApi
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 //dbContext.Database.EnsureDeleted();
-                dbContext.Database.Migrate();
+                dbContext.Database.EnsureCreated();
             }
 
             if (env.IsDevelopment())

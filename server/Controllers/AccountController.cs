@@ -55,7 +55,7 @@ namespace WebApi.Controllers
                 if (isPasswordValid)
                 {
                     var jwt = GenerateToken(model.Username, USER_ROLE);
-                    var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true };
+                    var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true,  Role = "User" };
 
                     return this.Ok(new { Success = "You have successfully logged in!", Token = jwt, User = extracted });
                 }
@@ -238,7 +238,7 @@ namespace WebApi.Controllers
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, role)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(key),
                         SecurityAlgorithms.HmacSha256Signature)

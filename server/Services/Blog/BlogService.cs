@@ -36,28 +36,70 @@ namespace WebApi.Services.Blog
             return blog;
         }
 
-        public async Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId)
+        public async Task<IEnumerable<BlogReturnModel>> GetAllAsync()
         {
             var blogs = dbContext.Blogs
-                .Include(blog => blog.Author)
-                 .Where(b => b.AuthorId == authorId)
                 .OrderByDescending(b => b.CreatedAt)
+                .Include(blog => blog.Author)
                 .Select(b => new BlogReturnModel
                 {
                     AuthorName = b.Author.UserName,
                     AuthorId = b.AuthorId,
                     Title = b.Title,
                     Description = b.Description,
-                    CreatedAt = b.CreatedAt
-                                    .ToString("d MMM - hh:mm",
-                                        CultureInfo.InvariantCulture)
-                                    + (DateTime.Now.Hour > 12 ? "pm" : "am"),
+                    CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
+                                        CultureInfo.InvariantCulture),
                     Id = b.Id,
                     ImageUrl = b.ImageUrl
                 })
                 .AsEnumerable();
 
-            return blogs;
+            return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
+        }
+
+        public async Task<IEnumerable<BlogReturnModel>> GetAllAsync(int offset, int count)
+        {
+            var blogs = dbContext.Blogs
+                .OrderByDescending(b => b.CreatedAt)
+                .Skip(offset)
+                .Take(count)
+                .Include(blog => blog.Author)
+                .Select(b => new BlogReturnModel
+                {
+                    AuthorName = b.Author.UserName,
+                    AuthorId = b.AuthorId,
+                    Title = b.Title,
+                    Description = b.Description,
+                    CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
+                                        CultureInfo.InvariantCulture),
+                    Id = b.Id,
+                    ImageUrl = b.ImageUrl
+                })
+                .AsEnumerable();
+
+            return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
+        }
+
+        public async Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId)
+        {
+            var blogs = dbContext.Blogs
+                 .Where(b => b.AuthorId == authorId)
+                 .OrderByDescending(b => b.CreatedAt)
+                 .Include(blog => blog.Author)
+                 .Select(b => new BlogReturnModel
+                 {
+                     AuthorName = b.Author.UserName,
+                     AuthorId = b.AuthorId,
+                     Title = b.Title,
+                     Description = b.Description,
+                     CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
+                                         CultureInfo.InvariantCulture),
+                     Id = b.Id,
+                     ImageUrl = b.ImageUrl
+                 })
+                 .AsEnumerable();
+
+            return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
         }
     }
 }

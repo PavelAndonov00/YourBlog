@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Data;
 using WebApi.Data.Models.Blog;
 using WebApi.Models.Blog.InputModels;
+using WebApi.Models.Blog.ReturnModels;
 using WebApi.Services.Account;
 using WebApi.Services.Blog;
 
@@ -51,6 +53,35 @@ namespace WebApi.Controllers
                 blog.Title,
                 blog.CreatedAt
             });
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<IActionResult> GetAll(int offset, int count)
+        {
+            try
+            {
+                IEnumerable<BlogReturnModel> blogs = null;
+
+                var query = HttpContext.Request.Query;
+                var hasParameters = query.ContainsKey("offset") && query.ContainsKey("count");
+                if (hasParameters && count != 0)
+                {
+                    blogs = await blogService.GetAllAsync(offset, count);
+                }
+                else
+                {
+                    blogs = await blogService.GetAllAsync();
+                }
+
+                return Ok(blogs);
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
         }
 
         [HttpGet("[action]/{authorId}")]

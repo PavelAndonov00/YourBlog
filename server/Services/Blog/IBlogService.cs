@@ -12,6 +12,11 @@ namespace WebApi.Services.Blog
     {
         Task<Data.Models.Blog.Blog> CreateBlogAsync(BlogInputModel blogInputModel);
 
+        Task<IEnumerable<BlogReturnModel>> GetAllAsync();
+
+        Task<IEnumerable<BlogReturnModel>> GetAllAsync(int offset, int count);
+
         Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId);
+
     }
 }
