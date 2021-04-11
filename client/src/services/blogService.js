@@ -17,6 +17,13 @@ const getAllByAuthor = async (authorId) => {
     return get(_BLOG + "GetAll/" + authorId);
 }
 
+const getAllCut = async (offset, count) => {
+    let url = new URL(_BLOG + "GetAll");
+    url.searchParams.append('offset', offset);
+    url.searchParams.append('count', count);
+    return get(url);
+}
+
 const _uploadImageAsync = async (image) => {
     let formData = new FormData();
     formData.append('file', image);
@@ -29,4 +36,4 @@ const _uploadImageAsync = async (image) => {
     return response.json();
 }
 
-export { createBlog, getAllByAuthor }
+export { createBlog, getAllByAuthor, getAllCut }

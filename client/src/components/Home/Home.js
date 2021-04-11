@@ -4,37 +4,37 @@ import { Link } from 'react-router-dom';
 
 import './Home.css';
 import Blog from '../Blog';
-import Context from '../../contexts/context';
+import {getAllCut} from '../../services/blogService';
 
 const Home = ({ scrollTop }) => {
-    let context = useContext(Context);
+    let [blogs, setBlogs] = useState([]);
+    let [offset, setOffset] = useState(0);
+    let [count, setCount] = useState(5);
 
-    var [items, setItems] = useState(Array.from({ length: 5 }));
-
-    const fetchData = () => {
-        setTimeout(() => {
-            setItems(items.concat(Array.from({ length: 5 })))
-        }, 2000)
+    const fetchData = async () => {
+        let result = await getAllCut(offset, count);
+        setBlogs(oldBlogs => oldBlogs.concat(result));
+        setOffset(oldOffset => oldOffset + 5);
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const scrollToTop = () => {
         scrollTop.current.scrollIntoView();
     }
 
-    useEffect(() => {
-        
-    }, [])
-
     return (
         <section className="main-blogs-section">
             <InfiniteScroll
-                dataLength={items.length}
+                dataLength={blogs.length}
                 next={fetchData}
                 hasMore
                 loader={<h4>Loading...</h4>}
             >
-                {items.map((item, index) => {
-                    return <Blog key={index} />;
+                {blogs.map(b => {
+                    return <Blog key={b.id} {...b}/>;
                 })}
             </InfiniteScroll>
             <Link to="/home/#header" className="scroll-to-top" onClick={scrollToTop}>
