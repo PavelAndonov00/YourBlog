@@ -44,7 +44,7 @@ const BlogCrudChild = ({
                     <img src={state.imageSrc} alt=""
                         className="main-blog-crud-form-upload-image" />
                 </article>
-                <span className="error-message">{state.ImageValidation + " " + state.ImageSrcValidation}</span>
+                <span className="error-message">{state.ImageValidation + " " + state.ImageUrlValidation}</span>
 
                 <label htmlFor="content">Main content</label>
                 <textarea id="content"

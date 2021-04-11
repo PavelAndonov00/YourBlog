@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './Blog.css';
 
 const Blog = (
-    { id, title, description, imageUrl, authorName, createdAt }
+    { id, title, description, imageUrl, authorName, createdAt, authorId }
 ) => {
     var date = new Date();
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -12,6 +12,11 @@ const Blog = (
     const onclick = () => {
         console.log("MY func");
     };
+
+    const isAdminOrOwner = () => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        return user.role === 'Admin' || user.id == authorId;
+    }
 
     return (
         <article className="blog-article" onClick={onclick}>
@@ -24,15 +29,15 @@ const Blog = (
                         <p className="blog-article-author truncate">{authorName}</p>
                     </article>
                 </article>
-                <article className="blog-article-buttons">
+                <article className={isAdminOrOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
                     <Link className="blog-article-buttons-link"
                         to={"/blogs/edit/" + id}>
                         Edit
-                         </Link>
+                    </Link>
                     <Link className="blog-article-buttons-link"
                         to={"/blogs/delete/" + id}>
                         Delete
-                        </Link>
+                    </Link>
                 </article>
             </article>
             <article className="blog-article-image-wrapper">

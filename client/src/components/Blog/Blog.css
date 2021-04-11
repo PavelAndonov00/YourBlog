@@ -34,6 +34,10 @@
     content: 'by ';
 }
 
+.blog-article-buttons-hidden {
+    visibility: hidden;
+}
+
 .blog-article-buttons-link {
     text-decoration: none;
     background-color: black;
