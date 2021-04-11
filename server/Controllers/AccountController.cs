@@ -50,11 +50,11 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(model.Username);
-                var isPasswordValid = await CheckPasswordAsync(user, model.Password);
+                var user = await _GetUserAsync(model.Username);
+                var isPasswordValid = await _CheckPasswordAsync(user, model.Password);
                 if (isPasswordValid)
                 {
-                    var jwt = GenerateToken(model.Username, USER_ROLE);
+                    var jwt = _GenerateToken(model.Username, USER_ROLE);
                     var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true,  Role = "User" };
 
                     return this.Ok(new { Success = "You have successfully logged in!", Token = jwt, User = extracted });
@@ -89,8 +89,8 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(this.User.Identity.Name);
-                bool isPasswordValid = await CheckPasswordAsync(user, model.OldPassword);
+                var user = await _GetUserAsync(this.User.Identity.Name);
+                bool isPasswordValid = await _CheckPasswordAsync(user, model.OldPassword);
                 if (isPasswordValid)
                 {
                     var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -120,8 +120,8 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(this.User.Identity.Name);
-                bool isPasswordValid = await CheckPasswordAsync(user, model.Password);
+                var user = await _GetUserAsync(this.User.Identity.Name);
+                bool isPasswordValid = await _CheckPasswordAsync(user, model.Password);
                 if (isPasswordValid)
                 {
                     var token = await userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
@@ -151,7 +151,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(this.User.Identity.Name);
+                var user = await _GetUserAsync(this.User.Identity.Name);
 
                 string birthDate = string.Empty;
                 if (user.BirthDate.HasValue)
@@ -183,7 +183,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var user = await GetUserAsync(this.User.Identity.Name);
+                var user = await _GetUserAsync(this.User.Identity.Name);
 
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
@@ -217,17 +217,17 @@ namespace WebApi.Controllers
         }
 
         #region Private Methods
-        private async Task<ApplicationUser> GetUserAsync(string username)
+        private async Task<ApplicationUser> _GetUserAsync(string username)
         {
             return await accountService.GetUserByUsernameOrEmailAsync(username);
         }
 
-        private async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+        private async Task<bool> _CheckPasswordAsync(ApplicationUser user, string password)
         {
             return await userManager.CheckPasswordAsync(user, password);
         }
 
-        private string GenerateToken(string username, string role)
+        private string _GenerateToken(string username, string role)
         {
             var key = Encoding.UTF8.GetBytes(this.jwtSettings.Secret);
             var tokenHandler = new JwtSecurityTokenHandler();

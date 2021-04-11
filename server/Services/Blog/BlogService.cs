@@ -36,6 +36,26 @@ namespace WebApi.Services.Blog
             return blog;
         }
 
+        public async Task<BlogReturnModel> GetBlogAsync(string blogId)
+        {
+            var blog = dbContext.Blogs
+                .Select(b => new BlogReturnModel
+                {
+                    AuthorName = b.Author.UserName,
+                    AuthorId = b.AuthorId,
+                    Title = b.Title,
+                    Description = b.Description,
+                    CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
+                                                              CultureInfo.InvariantCulture),
+                    Content = b.Content,
+                    Id = b.Id,
+                    ImageUrl = b.ImageUrl
+                })
+                .FirstOrDefault(b => b.Id == blogId);
+
+            return blog;
+        }
+
         public async Task<IEnumerable<BlogReturnModel>> GetAllAsync()
         {
             var blogs = dbContext.Blogs
@@ -80,10 +100,10 @@ namespace WebApi.Services.Blog
             return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
         }
 
-        public async Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId)
+        public async Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string username)
         {
             var blogs = dbContext.Blogs
-                 .Where(b => b.AuthorId == authorId)
+                 .Where(b => b.Author.UserName == username)
                  .OrderByDescending(b => b.CreatedAt)
                  .Include(blog => blog.Author)
                  .Select(b => new BlogReturnModel
@@ -101,5 +121,38 @@ namespace WebApi.Services.Blog
 
             return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
         }
+
+        public async Task<bool> IsAuthorAsync(string blogId, string username)
+        {
+            var blog = dbContext.Blogs
+                            .FirstOrDefault(b => b.Id == blogId && b.Author.UserName == username);
+
+            return blog == null ? false : true;
+        }
+
+
+        public async Task<bool> DeleteBlogAsync(string blogId)
+        {
+            var blog = dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
+            dbContext.Blogs.Remove(blog);
+            var affectedRows = await dbContext.SaveChangesAsync();
+
+            return affectedRows > 0 ? true : false;
+        }
+
+        public async Task<bool> EditBlogAsync(BlogInputModel blogInputModel)
+        {
+            var blog = dbContext.Blogs.FirstOrDefault(b => b.Id == blogInputModel.Id);
+            blog.Title = blogInputModel.Title;
+            blog.Content = blogInputModel.Content;
+            blog.Description = blogInputModel.Description;
+            blog.ImageUrl = blogInputModel.ImageUrl;
+
+            var affectedRows = await dbContext.SaveChangesAsync();
+            return affectedRows > 0 ? true : false;
+        }
+
+        #region Private Methods
+        #endregion
     }
 }

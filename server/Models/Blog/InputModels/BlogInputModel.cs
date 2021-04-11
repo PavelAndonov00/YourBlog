@@ -28,7 +28,6 @@ namespace WebApi.Models.Blog.InputModels
         [StartsWith("https://res.cloudinary.com")]
         public string ImageUrl { get; set; }
 
-        [Required]
         public string AuthorId { get; set; }
     }
 }

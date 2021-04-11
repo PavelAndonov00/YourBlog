@@ -55,9 +55,30 @@ namespace WebApi.Controllers
             });
         }
 
+        [HttpPut("[action]/{blogId}")]
+        [Authorize]
+        public async Task<ActionResult> Edit(BlogInputModel blogInputModel, string blogId)
+        {
+            try
+            {
+                blogInputModel.Id = blogId;
+                var successfull = await this.blogService.EditBlogAsync(blogInputModel);
+                if(successfull)
+                {
+                    return Ok(new { Success = true, Message = "You have successfully edited your post." });
+                }
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
         [HttpGet("[action]")]
         [Authorize]
-        public async Task<IActionResult> GetAll(int offset, int count)
+        public async Task<IActionResult> GetAllCut(int offset, int count)
         {
             try
             {
@@ -84,14 +105,73 @@ namespace WebApi.Controllers
             return NotFound(new { Error = "Oops something went wrong." });
         }
 
-        [HttpGet("[action]/{authorId}")]
+        [HttpGet("[action]/{username}")]
         [Authorize]
-        public async Task<IActionResult> GetAll(string authorId)
+        public async Task<IActionResult> GetAll(string username)
         {
             try
             {
-                var blogs = await blogService.GetAllByAuthorAsync(authorId);
+                if(this.User.Identity.Name != username)
+                {
+                    return Forbid();
+                }
+
+                var blogs = await blogService.GetAllByAuthorAsync(username);
                 return Ok(blogs == null ? Enumerable.Empty<Blog>() : blogs);
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpGet("[action]/{blogId}")]
+        [Authorize]
+        public async Task<IActionResult> Get(string blogId)
+        {
+            try
+            {
+                var isAuthor = await blogService.IsAuthorAsync(blogId, this.User.Identity.Name);
+                if(!isAuthor)
+                {
+                    return Forbid();
+                }
+
+                var blog = await blogService.GetBlogAsync(blogId);
+                if(blog == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(blog);
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpDelete("[action]/{blogId}")]
+        [Authorize]
+        public async Task<IActionResult> Delete(string blogId)
+        {
+            try
+            {
+                var isAuthor = await blogService.IsAuthorAsync(blogId, this.User.Identity.Name);
+                if (!isAuthor && !this.User.IsInRole("Admin"))
+                {
+                    return Forbid();
+                }
+
+                var successfull = await blogService.DeleteBlogAsync(blogId);
+                if (successfull)
+                {
+                    return Ok(new { Success = true, Message = "You have successfully deleted the blog!" });
+                }
             }
             catch (Exception e)
             {

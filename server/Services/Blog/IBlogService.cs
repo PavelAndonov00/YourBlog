@@ -12,11 +12,18 @@ namespace WebApi.Services.Blog
     {
         Task<Data.Models.Blog.Blog> CreateBlogAsync(BlogInputModel blogInputModel);
 
+        Task<bool> EditBlogAsync(BlogInputModel blogInputModel);
+
+        Task<BlogReturnModel> GetBlogAsync(string blogId);
+
         Task<IEnumerable<BlogReturnModel>> GetAllAsync();
 
         Task<IEnumerable<BlogReturnModel>> GetAllAsync(int offset, int count);
 
         Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId);
 
+        Task<bool> IsAuthorAsync(string blogId, string username);
+
+        Task<bool> DeleteBlogAsync(string blogId);
     }
 }
