@@ -3,30 +3,12 @@
     margin: auto;
 }
 
-.main-yourblogs-pagination {
-    list-style: none;
-    display: flex;
-    padding: 20px;
+.main-yourblogs-noblogs {
+    text-align: center;
+}
+
+.main-yourblogs-noblogs-create {
+    text-decoration: none;
+    color: gray;
     cursor: pointer;
-    border: 1px solid gray;
-    justify-content: center;
-}
-
-.main-yourblogs-pagination li {
-    padding: 10px;
-    margin-right: 5px;
-    color: black;
-    user-select: none;
-}
-
-.main-yourblogs-pagination li:hover {
-    background-color: lightgray;
-}
-
-.main-yourblogs-pagination li a {
-    outline: none;
-}
-
-.main-yourblogs-pagination-link-active {
-    background-color: lightgray;
 }

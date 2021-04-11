@@ -1,17 +1,12 @@
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../../contexts/context';
 import './Blog.css';
 
 const Blog = (
     { id, title, description, imageUrl, authorName, createdAt, authorId }
 ) => {
-    var date = new Date();
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var day = months[date.getMonth()] + " " + date.getDate();
-    var time = date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0');
-
-    const onclick = () => {
-        console.log("MY func");
-    };
+    let context = useContext(Context);
 
     const isAdminOrOwner = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -19,7 +14,7 @@ const Blog = (
     }
 
     return (
-        <article className="blog-article" onClick={onclick}>
+        <article className="blog-article">
             <article className="blog-article-content">
                 <article className="blog-article-info">
                     <h3 className="blog-article-heading truncate">{title}</h3>
@@ -35,6 +30,7 @@ const Blog = (
                         Edit
                     </Link>
                     <Link className="blog-article-buttons-link"
+                        onClick={context.onclickDelete}
                         to={"/blogs/delete/" + id}>
                         Delete
                     </Link>

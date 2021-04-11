@@ -28,6 +28,7 @@ const Home = ({ scrollTop }) => {
     return (
         <section className="main-blogs-section">
             <InfiniteScroll
+            style={{overflow: "unset"}}
                 dataLength={blogs.length}
                 next={fetchData}
                 hasMore

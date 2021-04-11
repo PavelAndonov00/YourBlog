@@ -1,11 +1,11 @@
-import ReactPaginate from 'react-paginate';
 import { useContext, useEffect, useState } from 'react';
 
 import './YourBlogs.css';
-import Blog from '../Blog';
 import { getAllByAuthor } from '../../services/blogService';
+import Blogs from './Blogs';
+import { Link } from 'react-router-dom';
 
-const YourBlogs = () => {
+const YourBlogs = ({ match }) => {
     let [curPage, setCurPage] = useState(0);
     let [blogs, setBlogs] = useState([]);
 
@@ -21,11 +21,8 @@ const YourBlogs = () => {
 
     useEffect(() => {
         async function GetData() {
-            let user = JSON.parse(localStorage.getItem("user"));
-            if (user && user.id) {
-                let result = await getAllByAuthor(user.id);
-                setBlogs(result);
-            }
+            let result = await getAllByAuthor(match.params.username);
+            setBlogs(result);
         }
 
         GetData();
@@ -33,21 +30,16 @@ const YourBlogs = () => {
 
     return (
         <section className="main-yourblogs-section">
-            <article className="main-yourblogs-blogs">
-                {curPageData
-                    .map(b => <Blog key={b.id} {...b}/>)}
-            </article>
-            <ReactPaginate
-                previousLabel={"← Previous"}
-                nextLabel={"Next →"}
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                containerClassName={"main-yourblogs-pagination"}
-                previousLinkClassName={"main-yourblogs-pagination-btn-prev"}
-                nextLinkClassName={"main-yourblogs-pagination-btn-next"}
-                disabledClassName={"main-yourblogs-pagination-link-disabled"}
-                activeClassName={"main-yourblogs-pagination-link-active"}
-            />
+            {blogs.length > 0
+                ? <Blogs curPageData={curPageData}
+                    pageCount={pageCount}
+                    handlePageClick={handlePageClick} />
+
+                : <h3 className="main-yourblogs-noblogs">
+                    You currently have no blogs. You can <Link to="/blogs/create" className="main-yourblogs-noblogs-create">
+                        create
+                    </Link> some
+                </h3>}
         </section>
     );
 }

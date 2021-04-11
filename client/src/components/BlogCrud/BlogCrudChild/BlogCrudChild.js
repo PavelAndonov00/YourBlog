@@ -5,7 +5,7 @@ const BlogCrudChild = ({
 }) => {
     return (
         <section className="main-blog-crud">
-            <h2 className="main-blog-crud-heading">Write a blog</h2>
+            <h2 className="main-blog-crud-heading">{state.heading}</h2>
             <p className="error-message">{state.summary}</p>
             <form className="main-blog-crud-form"
                 onSubmit={onSubmitHandler}>
@@ -41,7 +41,7 @@ const BlogCrudChild = ({
                             onInput={drawImage}
                         />
                     </article>
-                    <img src={state.imageSrc} alt=""
+                    <img src={state.imageUrl} alt=""
                         className="main-blog-crud-form-upload-image" />
                 </article>
                 <span className="error-message">{state.ImageValidation + " " + state.ImageUrlValidation}</span>
@@ -56,7 +56,7 @@ const BlogCrudChild = ({
                 />
                 <span className="error-message">{state.ContentValidation}</span>
 
-                <input type="submit" value="Write" />
+                <input type="submit" value={state.buttonValue} />
             </form>
         </section>
     );

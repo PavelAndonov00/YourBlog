@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './BlogCrud.css';
-import { createBlog, getBlog, editBlog } from '../../services/blogService';
+import { createBlog, getBlog, editBlog, deleteBlog } from '../../services/blogService';
 import { PHOTO_GOES_HERE_URL, PROHIBIT_IMAGE_URL } from '../../global/constants';
 import Context from '../../contexts/context';
 import BlogCrudChild from './BlogCrudChild';
@@ -10,13 +10,14 @@ class BlogCrud extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
+            heading: "Write a blog",
+            buttonValue: "Write",
             summary: "",
             title: "",
             description: "",
             image: {},
-            imageSrc: PHOTO_GOES_HERE_URL,
+            imageUrl: PHOTO_GOES_HERE_URL,
             content: "",
             ImageValidation: "",
             ImageUrlValidation: "",
@@ -38,6 +39,22 @@ class BlogCrud extends Component {
         this.allowedExtensions = ['jpg', 'jpeg', 'gif', 'tiff', 'psd', 'pdf', 'eps', 'ai'];
     }
 
+    async componentDidMount() {
+        let path = this.props.match.path;
+        let blogId = this.props.match.params.id;
+        if (path == "/blogs/edit/:id") {
+            let blog = await getBlog(blogId);
+            this.setStateCustom({ heading: "Edit blog", image: { fake: "To not display error" }, buttonValue: "Edit", ...blog });
+        } else if (path == "/blogs/delete/:id") {
+            let result = await deleteBlog(blogId);
+            if (result.success) {
+                let user = JSON.parse(localStorage.getItem("user"));
+                this.context.setMessage(result.message);
+                this.props.history.push(`/${user.userName}/blogs`);
+            }
+        }
+    }
+
     drawImage = (ev) => {
         if (ev.target.files.length === 0) return;
 
@@ -45,9 +62,9 @@ class BlogCrud extends Component {
         let image = ev.target.files[0];
         let extension = image.name.split('.').pop();
         if (this.allowedExtensions.includes(extension)) {
-            let imageSrc = URL.createObjectURL(image);
+            let imageUrl = URL.createObjectURL(image);
             this.setStateCustom({
-                imageSrc,
+                imageUrl,
                 image,
                 ImageValidation,
                 ImageUrlValidation: ""
@@ -55,7 +72,7 @@ class BlogCrud extends Component {
         } else {
             ImageValidation = this.errors.imageValidationMessage;
             this.setStateCustom({
-                imageSrc: PROHIBIT_IMAGE_URL,
+                imageUrl: PROHIBIT_IMAGE_URL,
                 ImageValidation
             });
         }
@@ -84,7 +101,7 @@ class BlogCrud extends Component {
             validation.ContentValidation = "";
         }
 
-        if (this.state.image && this.state.image.constructor === File) {
+        if (this.state.image && Object.keys(this.state.image).length > 0) {
             validation.ImageUrlValidation = "";
         } else {
             validation.ImageUrlValidation = this.errors.imageRequired;
@@ -92,14 +109,26 @@ class BlogCrud extends Component {
 
         if (!Object.values(validation).find(v => v != false)) {
             try {
+                let result = {};
                 let user = JSON.parse(localStorage.getItem("user"));
-                let result = await createBlog(
-                    this.state.title,
-                    this.state.description,
-                    this.state.image,
-                    this.state.content,
-                    user.id
-                );
+                if (this.props.match.path == "/blogs/edit/:id") {
+                    result = await editBlog(
+                        this.state.title,
+                        this.state.description,
+                        this.state.image,
+                        this.state.imageUrl,
+                        this.state.content,
+                        this.props.match.params.id
+                    );
+                } else {
+                    result = await createBlog(
+                        this.state.title,
+                        this.state.description,
+                        this.state.image,
+                        this.state.content,
+                        user.id
+                    );
+                }
 
                 if (result.errors) {
                     Object.keys(result.errors)
@@ -108,7 +137,7 @@ class BlogCrud extends Component {
                     validation.summary = result.error;
                 } else if (result.success) {
                     this.context.setMessage(result.message);
-                    // this.props.history.push("/profile/settings")
+                    this.props.history.push(`/${user.userName}/blogs`);
                 }
             } catch (error) {
                 console.log(error);

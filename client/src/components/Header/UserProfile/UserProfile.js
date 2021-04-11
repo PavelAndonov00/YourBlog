@@ -32,13 +32,13 @@ const UserProfile = () => {
                     className="header-navigation-profile-list">
                     <li className="header-navigation-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/blogs">
+                            to="/blogs/create">
                             Write a blog
                         </Link>
                     </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to="/Username/blogs">
+                            to={`/${user.userName}/blogs`}>
                             Your blogs
                         </Link>
                     </li>

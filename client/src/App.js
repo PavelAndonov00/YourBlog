@@ -10,7 +10,7 @@ import Logout from './components/Logout';
 import Register from './components/Register';
 import Settings from './components/Settings';
 import BlogCrud from './components/BlogCrud';
-import YourBlogs from './components/YourBlogs/YourBlogs';
+import YourBlogs from './components/YourBlogs';
 import Context from './contexts/context';
 
 function App() {
@@ -40,7 +40,9 @@ function App() {
 
 					<Route path="/register" component={Register} exact />
 
-					<Route path="/blogs/:id?" component={BlogCrud} exact/>
+					<Route path="/blogs/create" component={BlogCrud} exact/>
+					<Route path="/blogs/edit/:id" component={BlogCrud} exact/>
+					<Route path="/blogs/delete/:id" component={BlogCrud} exact/>
 
 					<Route path="/profile/settings" component={Settings} />
 
