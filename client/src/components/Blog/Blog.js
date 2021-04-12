@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../../contexts/context';
 import './Blog.css';
@@ -10,7 +10,7 @@ const Blog = (
 
     const isAdminOrOwner = () => {
         let user = JSON.parse(localStorage.getItem('user'));
-        return user.role === 'Admin' || user.id == authorId;
+        return user?.role === 'Admin' || user?.id === authorId;
     }
 
     return (

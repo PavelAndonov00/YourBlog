@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Footer from './components/Footer/Footer';
@@ -14,7 +14,7 @@ import YourBlogs from './components/YourBlogs';
 import Context from './contexts/context';
 
 function App() {
-	let history = useHistory();
+	let user = JSON.parse(localStorage.getItem('user'));
 	let scrollTop = React.createRef();
 	let context = useContext(Context);
 
@@ -40,6 +40,14 @@ function App() {
 
 					<Route path="/register" component={Register} exact />
 
+					<Route path="/" exact>
+						<Home scrollTop={scrollTop} />
+					</Route>
+					<Route path="/home" exact>
+						<Home scrollTop={scrollTop} />
+					</Route>
+
+					{user?.isLogged || <Redirect to="/login" />}
 					<Route path="/blogs/create" component={BlogCrud} exact/>
 					<Route path="/blogs/edit/:id" component={BlogCrud} exact/>
 					<Route path="/blogs/delete/:id" component={BlogCrud} exact/>
@@ -47,13 +55,6 @@ function App() {
 					<Route path="/profile/settings" component={Settings} />
 
 					<Route path="/:username/blogs" component={YourBlogs} />
-
-					<Route path="/">
-						<Home scrollTop={scrollTop} />
-					</Route>
-					<Route path="/home">
-						<Home scrollTop={scrollTop} />
-					</Route>
 				</Switch>
 			</main>
 

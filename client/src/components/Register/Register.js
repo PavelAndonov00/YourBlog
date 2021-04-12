@@ -78,8 +78,8 @@ class Register extends Component {
                 } else if (Array.isArray(result)) {
                     validation.summary = result.map(e => e.description).join(" ");
                 } else if (result.success) {
-                    this.context.setMessage(result.message);
                     this.props.history.push("/login")
+                    this.context.setMessage(result.message);
                 }
             } catch (error) {
                 console.log(error);

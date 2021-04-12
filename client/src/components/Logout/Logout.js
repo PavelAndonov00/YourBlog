@@ -9,10 +9,9 @@ const Logout = ({
     let context = useContext(Context);
 
     useEffect(() => {
-        localStorage.setItem("token", "");
-        localStorage.setItem("user", JSON.stringify({}));
-        context.setMessage("You have successfully logout!");
+        localStorage.removeItem("user");
         history.push("/login");
+        context.setMessage("You have successfully logout!");
     }, [])
 
     return (

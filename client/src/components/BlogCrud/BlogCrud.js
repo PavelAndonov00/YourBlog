@@ -42,15 +42,15 @@ class BlogCrud extends Component {
     async componentDidMount() {
         let path = this.props.match.path;
         let blogId = this.props.match.params.id;
-        if (path == "/blogs/edit/:id") {
+        if (path === "/blogs/edit/:id") {
             let blog = await getBlog(blogId);
             this.setStateCustom({ heading: "Edit blog", image: { fake: "To not display error" }, buttonValue: "Edit", ...blog });
-        } else if (path == "/blogs/delete/:id") {
+        } else if (path === "/blogs/delete/:id") {
             let result = await deleteBlog(blogId);
             if (result.success) {
                 let user = JSON.parse(localStorage.getItem("user"));
-                this.context.setMessage(result.message);
                 this.props.history.push(`/${user.userName}/blogs`);
+                this.context.setMessage(result.message);
             }
         }
     }
@@ -107,11 +107,11 @@ class BlogCrud extends Component {
             validation.ImageUrlValidation = this.errors.imageRequired;
         }
 
-        if (!Object.values(validation).find(v => v != false)) {
+        if (!Object.values(validation).find(v => v !== false)) {
             try {
                 let result = {};
                 let user = JSON.parse(localStorage.getItem("user"));
-                if (this.props.match.path == "/blogs/edit/:id") {
+                if (this.props.match.path === "/blogs/edit/:id") {
                     result = await editBlog(
                         this.state.title,
                         this.state.description,
@@ -136,8 +136,8 @@ class BlogCrud extends Component {
                 } else if (result.error) {
                     validation.summary = result.error;
                 } else if (result.success) {
-                    this.context.setMessage(result.message);
                     this.props.history.push(`/${user.userName}/blogs`);
+                    this.context.setMessage(result.message);
                 }
             } catch (error) {
                 console.log(error);

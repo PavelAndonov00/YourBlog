@@ -42,20 +42,16 @@ class Login extends Component {
             } else if (result.error) {
                 summaryValidation = result.error;
             } else if (result.success) {
-                this.context.setMessage(result.success);
-
-                localStorage.setItem("token", result.token);
-
                 localStorage.setItem("user", JSON.stringify(result.user));
-
-                setTimeout(() => {
-                    localStorage.setItem("token", "");
+                
+                setInterval(() => {
                     localStorage.setItem("user", JSON.stringify({}));
-                    this.context.setMessage("Session expired!");
                     this.props.history.push('/login');
-                }, 300000 * 5)
-
+                    this.context.setMessage("Session expired!");
+                }, 600000 * 6 * 12) // 10min * 6 * 12 = 12 hours
+                
                 this.props.history.push("/");
+                this.context.setMessage(result.success);
             }
         }
         catch (e) {
@@ -65,21 +61,13 @@ class Login extends Component {
         this.setState(oldState => { return { ...oldState, summaryValidation } });
     }
 
-    componentDidMount() {
-        if (this.context.message) {
-            setTimeout(() => {
-                this.context.setMessage("");
-            }, 5000);
-        }
-    }
-
     render() {
         return (
             <section className="main-login-form-wrapper">
                 <h2 className="main-login-form-heading">Login</h2>
                 <p className="error-message">{this.state.summaryValidation}</p>
                 <form className="main-login-form" onSubmit={this.onSubmitHandler}>
-                    <label htmlFor="username">Username or email</label>
+                    <label htmlFor="username">Username or Email</label>
                     <input id="username"
                         name="username"
                         type="text" />

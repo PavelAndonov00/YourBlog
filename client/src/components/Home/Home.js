@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 
 import './Home.css';
 import Blog from '../Blog';
-import {getAllCut} from '../../services/blogService';
+import { getAllCut } from '../../services/blogService';
 
 const Home = ({ scrollTop }) => {
+    let user = JSON.parse(localStorage.getItem('user'));
     let [blogs, setBlogs] = useState([]);
     let [offset, setOffset] = useState(0);
     let [count, setCount] = useState(5);
 
     const fetchData = async () => {
-        let result = await getAllCut(offset, count);
+        let userId = user?.id ? user.id : null;
+        let result = await getAllCut(offset, count, userId);
         setBlogs(oldBlogs => oldBlogs.concat(result));
         setOffset(oldOffset => oldOffset + 5);
     }
@@ -28,14 +30,14 @@ const Home = ({ scrollTop }) => {
     return (
         <section className="main-blogs-section">
             <InfiniteScroll
-            style={{overflow: "unset"}}
+                style={{ overflow: "unset" }}
                 dataLength={blogs.length}
                 next={fetchData}
                 hasMore
                 loader={<h4>Loading...</h4>}
             >
                 {blogs.map(b => {
-                    return <Blog key={b.id} {...b}/>;
+                    return <Blog key={b.id} {...b} />;
                 })}
             </InfiniteScroll>
             <Link to="/home/#header" className="scroll-to-top" onClick={scrollToTop}>

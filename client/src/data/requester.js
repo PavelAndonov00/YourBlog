@@ -1,6 +1,6 @@
 function request(method) {
     return async (url, data, options) => {
-        let token = localStorage.getItem('token');
+        let token = JSON.parse(localStorage.getItem('user'))?.token;
         let authHeader = token
             ? { "Authorization": `Bearer ${token}` }
             : {};

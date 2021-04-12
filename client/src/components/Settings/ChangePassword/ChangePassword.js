@@ -55,8 +55,8 @@ const ChangePassword = ({ history }) => {
                 } else if (result.error) {
                     currentValidation.summary = result.error;
                 } else if (result.success) {
-                    context.setMessage(result.message);
                     history.push("/profile/settings")
+                    context.setMessage(result.message);
                 }
             } catch (error) {
                 console.log(error);

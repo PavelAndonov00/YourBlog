@@ -32,7 +32,7 @@ const BlogCrudChild = ({
                 <article className="main-blog-crud-form-upload-image-wrapper">
                     <article className="main-blog-crud-form-upload-image-label-wrapper">
                         <label htmlFor="image" className="main-blog-crud-form-upload-image-label">
-                            <img src="/image-icon.svg" />
+                            <img src="/image-icon.svg" alt="IconImage" />
                             <span>Upload image</span>
                         </label>
                         <input id="image"
@@ -41,7 +41,7 @@ const BlogCrudChild = ({
                             onInput={drawImage}
                         />
                     </article>
-                    <img src={state.imageUrl} alt=""
+                    <img src={state.imageUrl} alt="BlogImage"
                         className="main-blog-crud-form-upload-image" />
                 </article>
                 <span className="error-message">{state.ImageValidation + " " + state.ImageUrlValidation}</span>

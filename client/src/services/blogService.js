@@ -34,8 +34,8 @@ const getAllByAuthor = async (username) => {
     return get(_BLOG + "GetAll/" + username);
 }
 
-const getAllCut = async (offset, count) => {
-    let url = new URL(_BLOG + "GetAllCut");
+const getAllCut = async (offset, count, userId) => {
+    let url = new URL(_BLOG + "GetAllCut/" + userId);
     url.searchParams.append('offset', offset);
     url.searchParams.append('count', count);
     return get(url);
