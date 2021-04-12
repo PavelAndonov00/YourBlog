@@ -16,9 +16,7 @@ namespace WebApi.Services.Blog
 
         Task<BlogReturnModel> GetBlogAsync(string blogId);
 
-        Task<IEnumerable<BlogReturnModel>> GetAllAsync();
-
-        Task<IEnumerable<BlogReturnModel>> GetAllAsync(int offset, int count);
+        Task<IEnumerable<BlogReturnModel>> GetAllWithoutLoggedUserAsync(int offset, int count, string loggedUserId);
 
         Task<IEnumerable<BlogReturnModel>> GetAllByAuthorAsync(string authorId);
 

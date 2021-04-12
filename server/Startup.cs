@@ -100,8 +100,9 @@ namespace WebApi
             app.UseStaticFiles();
             app.UseCors(policy =>
             {
-                policy.AllowAnyOrigin();
-                policy.AllowAnyHeader();
+                policy.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
             });
 
             app.UseHttpsRedirection();

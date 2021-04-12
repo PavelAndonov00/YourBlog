@@ -63,7 +63,7 @@ namespace WebApi.Controllers
             {
                 blogInputModel.Id = blogId;
                 var successfull = await this.blogService.EditBlogAsync(blogInputModel);
-                if(successfull)
+                if (successfull)
                 {
                     return Ok(new { Success = true, Message = "You have successfully edited your post." });
                 }
@@ -76,23 +76,18 @@ namespace WebApi.Controllers
             return NotFound(new { Error = "Oops something went wrong." });
         }
 
-        [HttpGet("[action]")]
-        [Authorize]
-        public async Task<IActionResult> GetAllCut(int offset, int count)
+        [HttpGet("[action]/{userId?}")]
+        public async Task<IActionResult> GetAllCut(int offset, int count, string userId)
         {
             try
             {
-                IEnumerable<BlogReturnModel> blogs = null;
+                IEnumerable<BlogReturnModel> blogs = Enumerable.Empty<BlogReturnModel>();
 
                 var query = HttpContext.Request.Query;
                 var hasParameters = query.ContainsKey("offset") && query.ContainsKey("count");
                 if (hasParameters && count != 0)
                 {
-                    blogs = await blogService.GetAllAsync(offset, count);
-                }
-                else
-                {
-                    blogs = await blogService.GetAllAsync();
+                    blogs = await blogService.GetAllWithoutLoggedUserAsync(offset, count, userId);
                 }
 
                 return Ok(blogs);
@@ -111,7 +106,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                if(this.User.Identity.Name != username)
+                if (this.User.Identity.Name != username)
                 {
                     return Forbid();
                 }
@@ -134,13 +129,13 @@ namespace WebApi.Controllers
             try
             {
                 var isAuthor = await blogService.IsAuthorAsync(blogId, this.User.Identity.Name);
-                if(!isAuthor)
+                if (!isAuthor)
                 {
                     return Forbid();
                 }
 
                 var blog = await blogService.GetBlogAsync(blogId);
-                if(blog == null)
+                if (blog == null)
                 {
                     return NotFound();
                 }

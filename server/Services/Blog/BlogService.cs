@@ -56,30 +56,10 @@ namespace WebApi.Services.Blog
             return blog;
         }
 
-        public async Task<IEnumerable<BlogReturnModel>> GetAllAsync()
+        public async Task<IEnumerable<BlogReturnModel>> GetAllWithoutLoggedUserAsync(int offset, int count, string loggedUserId)
         {
             var blogs = dbContext.Blogs
-                .OrderByDescending(b => b.CreatedAt)
-                .Include(blog => blog.Author)
-                .Select(b => new BlogReturnModel
-                {
-                    AuthorName = b.Author.UserName,
-                    AuthorId = b.AuthorId,
-                    Title = b.Title,
-                    Description = b.Description,
-                    CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
-                                        CultureInfo.InvariantCulture),
-                    Id = b.Id,
-                    ImageUrl = b.ImageUrl
-                })
-                .AsEnumerable();
-
-            return blogs == null ? Enumerable.Empty<BlogReturnModel>() : blogs;
-        }
-
-        public async Task<IEnumerable<BlogReturnModel>> GetAllAsync(int offset, int count)
-        {
-            var blogs = dbContext.Blogs
+                .Where(b => b.AuthorId != loggedUserId)
                 .OrderByDescending(b => b.CreatedAt)
                 .Skip(offset)
                 .Take(count)

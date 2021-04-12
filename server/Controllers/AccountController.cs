@@ -55,9 +55,20 @@ namespace WebApi.Controllers
                 if (isPasswordValid)
                 {
                     var jwt = _GenerateToken(model.Username, USER_ROLE);
-                    var extracted = new { user.Id, user.Email, user.UserName, user.PhoneNumber, IsLogged = true,  Role = "User" };
+                    var extracted = new
+                    {
+                        user.Id,
+                        user.FirstName,
+                        user.LastName,
+                        user.Email,
+                        user.UserName,
+                        user.PhoneNumber,
+                        IsLogged = true,
+                        Role = "User",
+                        Token = jwt
+                    };
 
-                    return this.Ok(new { Success = "You have successfully logged in!", Token = jwt, User = extracted });
+                    return this.Ok(new { Success = "You have successfully logged in!", User = extracted });
                 }
             }
             catch (InvalidOperationException ioe)
