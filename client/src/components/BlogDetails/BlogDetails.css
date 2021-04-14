@@ -46,6 +46,7 @@
 .main-blog-details-author-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .main-blog-details-author {
@@ -59,6 +60,14 @@
     align-items: center;
 }
 
+.main-blog-details-buttons {
+    display: flex;
+}
+
+.main-blog-details-button-wrapper {
+    margin-right: 10px;
+}
+
 .main-blog-details-button {
     outline: none;
     border: none;
@@ -68,18 +77,8 @@
     cursor: pointer;
 }
 
-.main-blog-details-button:first-child {
-    margin-right: 10px;
-}
-
-.main-blog-details-button-selected {
-    outline: none;
-    border: none;
+.main-blog-details-button.selected {
     background-color: gray;
-    padding: 10px 20px;
-    margin-right: 10px;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 .main-blog-details-button:hover {

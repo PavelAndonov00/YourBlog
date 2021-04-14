@@ -54,6 +54,14 @@
     display: none;
 }
 
+.blog-article-info-label {
+    font-weight: bold;
+}
+
+.blog-article-info-label:first-child {
+    margin-right: 10px;
+}
+
 .blog-article-image-wrapper {
     width: 40%;
     max-width: 40%;

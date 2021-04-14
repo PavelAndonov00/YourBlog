@@ -31,12 +31,19 @@ const Blog = (
                         <p className="blog-article-author truncate">{authorName}</p>
                     </article>
                 </article>
-                <article className={isOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
-                    <EditDeleteButtons
-                        id={id}
-                        stopPropagationHandler={context.stopPropagationHandler}
-                        onclickDelete={context.onclickDelete}
-                    />
+                <article style={{ display: "flex", justifyContent: "space-between" }}>
+
+                    <article className={isOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
+                        <EditDeleteButtons
+                            id={id}
+                            stopPropagationHandler={context.stopPropagationHandler}
+                            onclickDelete={context.onclickDelete}
+                        />
+                    </article>
+                    <article className="blog-article-info">
+                        <span className="blog-article-info-label">Likes: 8</span>
+                        <span className="blog-article-info-label">Comments: 8</span>
+                    </article>
                 </article>
             </article>
             <article className="blog-article-image-wrapper">

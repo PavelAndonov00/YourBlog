@@ -61,7 +61,7 @@ const BlogDetails = ({
     const likeButton = (
         <button className={
             likeButtonSelected
-                ? "main-blog-details-button-selected"
+                ? "main-blog-details-button selected"
                 : "main-blog-details-button"}
             onClick={onSelectLikeButton}>
             <img src="/like.svg"
@@ -97,17 +97,23 @@ const BlogDetails = ({
                 </article>
                 <article className="main-blog-details-buttons-holder">
                     <article className="main-blog-details-buttons">
-                        {isAuthor() ? "" : likeButton}
-                        <button className={
-                            commentsButtonSelected
-                                ? "main-blog-details-button-selected"
-                                : "main-blog-details-button"}
-                            onClick={onSelectCommentsButton}>
-                            <img src="/comments-bubble.svg"
-                                alt="CommentsButton"
-                                className="main-blog-details-button-image" />
-                        Comments
-                        </button>
+                        <article className="main-blog-details-button-wrapper">
+                            <p style={{ fontWeight: "bold" }}>Likes: 8</p>
+                            {isAuthor() ? "" : likeButton}
+                        </article>
+                        <article className="main-blog-details-button-wrapper">
+                            <p style={{ fontWeight: "bold" }}>Comments: 8</p>
+                            <button className={
+                                commentsButtonSelected
+                                    ? "main-blog-details-button selected"
+                                    : "main-blog-details-button"}
+                                onClick={onSelectCommentsButton}>
+                                <img src="/comments-bubble.svg"
+                                    alt="CommentsButton"
+                                    className="main-blog-details-button-image" />
+                            Comments
+                            </button>
+                        </article>
                     </article>
                     <article className={isAdmin() ? "main-blog-details-admin-buttons" : "main-blog-details-admin-buttons-hidden"}>
                         <EditDeleteButtons
