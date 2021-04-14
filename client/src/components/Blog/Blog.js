@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import Context from '../../contexts/context';
+import EditDeleteButtons from '../Shared/EditDeleteButtons';
 import './Blog.css';
 
 const Blog = (
@@ -10,9 +11,9 @@ const Blog = (
     let history = useHistory();
     let match = useRouteMatch();
 
-    const isAdminOrOwner = () => {
+    const isOwner = () => {
         let user = JSON.parse(localStorage.getItem('user'));
-        return user?.role === 'Admin' || user?.id === authorId;
+        return user?.id === authorId;
     }
 
     const openDetails = () => {
@@ -30,17 +31,12 @@ const Blog = (
                         <p className="blog-article-author truncate">{authorName}</p>
                     </article>
                 </article>
-                <article className={isAdminOrOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
-                    <Link className="blog-article-buttons-link"
-                        to={`/blogs/${id}/edit`}
-                        onClick={context.stopPropagationHandler}>
-                        Edit
-                    </Link>
-                    <Link className="blog-article-buttons-link"
-                        onClick={context.onclickDelete}
-                        to={`/blogs/${id}/delete`}>
-                        Delete
-                    </Link>
+                <article className={isOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
+                    <EditDeleteButtons
+                        id={id}
+                        stopPropagationHandler={context.stopPropagationHandler}
+                        onclickDelete={context.onclickDelete}
+                    />
                 </article>
             </article>
             <article className="blog-article-image-wrapper">

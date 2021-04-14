@@ -54,25 +54,6 @@
     display: none;
 }
 
-.blog-article-buttons-link {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 10px 20px 10px 20px;
-}
-
-.blog-article-buttons-link:first-child {
-    margin-right: 10px;
-}
-
-.blog-article-buttons-link:first-child:hover {
-    background: green;
-}
-
-.blog-article-buttons-link:nth-child(2):hover {
-    background: red;
-}
-
 .blog-article-image-wrapper {
     width: 40%;
     max-width: 40%;

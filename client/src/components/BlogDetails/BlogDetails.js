@@ -1,12 +1,16 @@
 import './BlogDetails.css';
 import { getBlog } from '../../services/blogService';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import Context from '../../contexts/context';
+import EditDeleteButtons from '../Shared/EditDeleteButtons';
 
 const BlogDetails = ({
     match, history
 }) => {
+    let context = useContext(Context);
     let user = JSON.parse(localStorage.getItem('user'));
     let [blog, setBlog] = useState({
+        id: "",
         title: "",
         description: "",
         content: "",
@@ -70,6 +74,10 @@ const BlogDetails = ({
         return user?.id === blog.authorId;
     }
 
+    const isAdmin = () => {
+        return user?.role === "Admin";
+    }
+
     return (
         <>
             <section className="main-blog-details">
@@ -87,32 +95,28 @@ const BlogDetails = ({
                         {blog.createdAt}
                     </p>
                 </article>
-                <article className="main-blog-details-buttons">
-                    {isAuthor() ? "" : likeButton}
-                    <button className={
-                        commentsButtonSelected
-                            ? "main-blog-details-button-selected"
-                            : "main-blog-details-button"}
-                        onClick={onSelectCommentsButton}>
-                        <img src="/comments-bubble.svg"
-                            alt="CommentsButton"
-                            className="main-blog-details-button-image" />
+                <article className="main-blog-details-buttons-holder">
+                    <article className="main-blog-details-buttons">
+                        {isAuthor() ? "" : likeButton}
+                        <button className={
+                            commentsButtonSelected
+                                ? "main-blog-details-button-selected"
+                                : "main-blog-details-button"}
+                            onClick={onSelectCommentsButton}>
+                            <img src="/comments-bubble.svg"
+                                alt="CommentsButton"
+                                className="main-blog-details-button-image" />
                         Comments
-                    </button>
+                        </button>
+                    </article>
+                    <article className={isAdmin() ? "main-blog-details-admin-buttons" : "main-blog-details-admin-buttons-hidden"}>
+                        <EditDeleteButtons
+                            id={blog.id}
+                            stopPropagationHandler={context.stopPropagationHandler}
+                            onclickDelete={context.onclickDelete}
+                        />
+                    </article>
                 </article>
-                {/* <article className="main-blog-details-buttons">
-                    {isAuthor() ? "" : likeButton}
-                    <button className={
-                        commentsButtonSelected
-                            ? "main-blog-details-button-selected"
-                            : "main-blog-details-button"}
-                        onClick={onSelectCommentsButton}>
-                        <img src="/comments-bubble.svg"
-                            alt="CommentsButton"
-                            className="main-blog-details-button-image" />
-                        Comments
-                    </button>
-                </article> */}
             </section>
         </>
     );

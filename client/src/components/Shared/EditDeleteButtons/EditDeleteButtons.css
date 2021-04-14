@@ -1,0 +1,19 @@
+.blog-crud-button {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.blog-crud-button:first-child {
+    margin-right: 10px;
+}
+
+.blog-crud-button:first-child:hover {
+    background: green;
+}
+
+.blog-crud-button:nth-child(2):hover {
+    background: red;
+}

@@ -8,6 +8,7 @@ const ContextProvider = ({children}) => {
         let doesAgree = window.confirm("Are you sure you want to delete?");
         if(!doesAgree) {
             ev.preventDefault();
+            ev.stopPropagation();
         }
     };
 
