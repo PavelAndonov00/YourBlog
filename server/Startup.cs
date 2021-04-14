@@ -88,6 +88,9 @@ namespace WebApi
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 //dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
+
+                //Seed
+                //new Seeder(dbContext, serviceScope.ServiceProvider).Seed().GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())

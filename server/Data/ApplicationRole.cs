@@ -10,6 +10,7 @@ namespace WebApi.Data
     {
         public ApplicationRole()
         {
+            this.Id = Guid.NewGuid().ToString();
         }
     }
 }

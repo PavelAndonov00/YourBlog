@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         [Authorize]
         public async Task<ActionResult> Create(BlogInputModel blogInputModel)
         {
-            Blog blog = new Blog { };
+            Blog blog = new Blog();
             try
             {
                 blog = await this.blogService.CreateBlogAsync(blogInputModel);
@@ -53,27 +53,6 @@ namespace WebApi.Controllers
                 blog.Title,
                 blog.CreatedAt
             });
-        }
-
-        [HttpPut("[action]/{blogId}")]
-        [Authorize]
-        public async Task<ActionResult> Edit(BlogInputModel blogInputModel, string blogId)
-        {
-            try
-            {
-                blogInputModel.Id = blogId;
-                var successfull = await this.blogService.EditBlogAsync(blogInputModel);
-                if (successfull)
-                {
-                    return Ok(new { Success = true, Message = "You have successfully edited your post." });
-                }
-            }
-            catch (Exception e)
-            {
-                //
-            }
-
-            return NotFound(new { Error = "Oops something went wrong." });
         }
 
         [HttpGet("[action]/{userId?}")]
@@ -123,24 +102,15 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("[action]/{blogId}")]
-        [Authorize]
         public async Task<IActionResult> Get(string blogId)
         {
             try
             {
-                var isAuthor = await blogService.IsAuthorAsync(blogId, this.User.Identity.Name);
-                if (!isAuthor)
-                {
-                    return Forbid();
-                }
-
                 var blog = await blogService.GetBlogAsync(blogId);
-                if (blog == null)
+                if (blog != null)
                 {
-                    return NotFound();
+                    return Ok(blog);
                 }
-
-                return Ok(blog);
             }
             catch (Exception e)
             {
@@ -150,14 +120,43 @@ namespace WebApi.Controllers
             return NotFound(new { Error = "Oops something went wrong." });
         }
 
+        [HttpPut("[action]/{blogId}")]
+        [Authorize]
+        public async Task<ActionResult> Edit(BlogInputModel blogInputModel, string blogId)
+        {
+            try
+            {
+                var isAuthorOrAdmin = await IsAuthorOrAdmin(blogId, this.User.Identity.Name);
+                if (!isAuthorOrAdmin)
+                {
+                    return Forbid();
+                }
+
+                blogInputModel.Id = blogId;
+                var successfull = await this.blogService.EditBlogAsync(blogInputModel);
+                if (successfull)
+                {
+                    return Ok(new { Success = true, Message = "You have successfully edited your post." });
+                }
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        
+
         [HttpDelete("[action]/{blogId}")]
         [Authorize]
         public async Task<IActionResult> Delete(string blogId)
         {
             try
             {
-                var isAuthor = await blogService.IsAuthorAsync(blogId, this.User.Identity.Name);
-                if (!isAuthor && !this.User.IsInRole("Admin"))
+                var isAuthorOrAdmin = await IsAuthorOrAdmin(blogId, this.User.Identity.Name);
+                if (!isAuthorOrAdmin)
                 {
                     return Forbid();
                 }
@@ -176,5 +175,15 @@ namespace WebApi.Controllers
             return NotFound(new { Error = "Oops something went wrong." });
         }
 
+        private async Task<bool> IsAuthorOrAdmin(string blogId, string username)
+        {
+            var isAuthor = await blogService.IsAuthorAsync(blogId, username);
+            if (isAuthor && this.User.IsInRole("Admin"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
