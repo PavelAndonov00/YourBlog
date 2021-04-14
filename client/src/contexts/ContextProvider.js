@@ -11,8 +11,12 @@ const ContextProvider = ({children}) => {
         }
     };
 
+    const stopPropagationHandler = (ev) => {
+        ev.stopPropagation();
+    }
+
     return (
-        <Ctx.Provider value={{message, setMessage, onclickDelete}}>
+        <Ctx.Provider value={{message, setMessage, onclickDelete, stopPropagationHandler}}>
             {children}
         </Ctx.Provider>
     );

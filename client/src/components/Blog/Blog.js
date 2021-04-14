@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import Context from '../../contexts/context';
 import './Blog.css';
 
@@ -8,6 +8,7 @@ const Blog = (
 ) => {
     let context = useContext(Context);
     let history = useHistory();
+    let match = useRouteMatch();
 
     const isAdminOrOwner = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -31,7 +32,8 @@ const Blog = (
                 </article>
                 <article className={isAdminOrOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
                     <Link className="blog-article-buttons-link"
-                        to={`/blogs/${id}/edit`}>
+                        to={`/blogs/${id}/edit`}
+                        onClick={context.stopPropagationHandler}>
                         Edit
                     </Link>
                     <Link className="blog-article-buttons-link"
