@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Context from '../../contexts/context';
 import './Blog.css';
 
@@ -7,14 +7,19 @@ const Blog = (
     { id, title, description, imageUrl, authorName, createdAt, authorId }
 ) => {
     let context = useContext(Context);
+    let history = useHistory();
 
     const isAdminOrOwner = () => {
         let user = JSON.parse(localStorage.getItem('user'));
         return user?.role === 'Admin' || user?.id === authorId;
     }
 
+    const openDetails = () => {
+        history.push(`/blogs/${id}/details`);
+    }
+
     return (
-        <article className="blog-article">
+        <article className="blog-article" onClick={openDetails}>
             <article className="blog-article-content">
                 <article className="blog-article-info">
                     <h3 className="blog-article-heading truncate">{title}</h3>
@@ -26,12 +31,12 @@ const Blog = (
                 </article>
                 <article className={isAdminOrOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
                     <Link className="blog-article-buttons-link"
-                        to={"/blogs/edit/" + id}>
+                        to={`/blogs/${id}/edit`}>
                         Edit
                     </Link>
                     <Link className="blog-article-buttons-link"
                         onClick={context.onclickDelete}
-                        to={"/blogs/delete/" + id}>
+                        to={`/blogs/${id}/delete`}>
                         Delete
                     </Link>
                 </article>

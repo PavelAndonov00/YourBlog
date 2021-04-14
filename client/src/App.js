@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import Footer from './components/Footer/Footer';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -12,6 +12,7 @@ import Settings from './components/Settings';
 import BlogCrud from './components/BlogCrud';
 import YourBlogs from './components/YourBlogs';
 import Context from './contexts/context';
+import BlogDetails from './components/BlogDetails';
 
 function App() {
 	let user = JSON.parse(localStorage.getItem('user'));
@@ -49,8 +50,9 @@ function App() {
 
 					{user?.isLogged || <Redirect to="/login" />}
 					<Route path="/blogs/create" component={BlogCrud} exact/>
-					<Route path="/blogs/edit/:id" component={BlogCrud} exact/>
-					<Route path="/blogs/delete/:id" component={BlogCrud} exact/>
+					<Route path="/blogs/:id/edit" component={BlogCrud} exact/>
+					<Route path="/blogs/:id/delete" component={BlogCrud} exact/>
+					<Route path="/blogs/:id/details" component={BlogDetails} exact/>
 
 					<Route path="/profile/settings" component={Settings} />
 

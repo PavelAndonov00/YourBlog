@@ -42,10 +42,10 @@ class BlogCrud extends Component {
     async componentDidMount() {
         let path = this.props.match.path;
         let blogId = this.props.match.params.id;
-        if (path === "/blogs/edit/:id") {
+        if (path === "/blogs/:id/edit") {
             let blog = await getBlog(blogId);
             this.setStateCustom({ heading: "Edit blog", image: { fake: "To not display error" }, buttonValue: "Edit", ...blog });
-        } else if (path === "/blogs/delete/:id") {
+        } else if (path === "/blogs/:id/delete") {
             let result = await deleteBlog(blogId);
             if (result.success) {
                 let user = JSON.parse(localStorage.getItem("user"));
@@ -111,7 +111,7 @@ class BlogCrud extends Component {
             try {
                 let result = {};
                 let user = JSON.parse(localStorage.getItem("user"));
-                if (this.props.match.path === "/blogs/edit/:id") {
+                if (this.props.match.path === "/blogs/:id/edit") {
                     result = await editBlog(
                         this.state.title,
                         this.state.description,
