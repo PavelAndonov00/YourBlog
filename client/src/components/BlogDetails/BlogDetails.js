@@ -70,7 +70,7 @@ const BlogDetails = ({
                     </p>
                 </article>
                 <article className="main-blog-details-buttons">
-                    {isAuthor ? "" : likeButton}
+                    {isAuthor() ? "" : likeButton}
                     <button className={
                         commentsButtonSelected
                             ? "main-blog-details-button-selected"
