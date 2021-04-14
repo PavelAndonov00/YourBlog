@@ -39,12 +39,16 @@ const PersonalInfo = ({ history }) => {
 
     useEffect(() => {
         async function fetchData() {
-            var result = await getPersonalInfo();
-            if (result.success) {
-                let data = result.data;
-                for (const key in data) {
-                    setInput(key, data[key]);
+            try {
+                var result = await getPersonalInfo();
+                if (result.success) {
+                    let data = result.data;
+                    for (const key in data) {
+                        setInput(key, data[key]);
+                    }
                 }
+            } catch (e) {
+                console.log(e);
             }
         }
 

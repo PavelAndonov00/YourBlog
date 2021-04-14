@@ -47,12 +47,12 @@ function App() {
 					<Route path="/home" exact>
 						<Home scrollTop={scrollTop} />
 					</Route>
+					<Route path="/blogs/:id/details" component={BlogDetails} exact/>
 
 					{user?.isLogged || <Redirect to="/login" />}
 					<Route path="/blogs/create" component={BlogCrud} exact/>
 					<Route path="/blogs/:id/edit" component={BlogCrud} exact/>
 					<Route path="/blogs/:id/delete" component={BlogCrud} exact/>
-					<Route path="/blogs/:id/details" component={BlogDetails} exact/>
 
 					<Route path="/profile/settings" component={Settings} />
 

@@ -42,16 +42,20 @@ class BlogCrud extends Component {
     async componentDidMount() {
         let path = this.props.match.path;
         let blogId = this.props.match.params.id;
-        if (path === "/blogs/:id/edit") {
-            let blog = await getBlog(blogId);
-            this.setStateCustom({ heading: "Edit blog", image: { fake: "To not display error" }, buttonValue: "Edit", ...blog });
-        } else if (path === "/blogs/:id/delete") {
-            let result = await deleteBlog(blogId);
-            if (result.success) {
-                let user = JSON.parse(localStorage.getItem("user"));
-                this.props.history.push(`/${user.userName}/blogs`);
-                this.context.setMessage(result.message);
+        try {
+            if (path === "/blogs/:id/edit") {
+                let blog = await getBlog(blogId);
+                this.setStateCustom({ heading: "Edit blog", image: { fake: "To not display error" }, buttonValue: "Edit", ...blog });
+            } else if (path === "/blogs/:id/delete") {
+                let result = await deleteBlog(blogId);
+                if (result.success) {
+                    let user = JSON.parse(localStorage.getItem("user"));
+                    this.props.history.push(`/${user.userName}/blogs`);
+                    this.context.setMessage(result.message);
+                }
             }
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -126,7 +130,7 @@ class BlogCrud extends Component {
                         this.state.description,
                         this.state.image,
                         this.state.content,
-                        user.id
+                        user?.id
                     );
                 }
 

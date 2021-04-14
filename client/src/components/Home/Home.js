@@ -14,9 +14,13 @@ const Home = ({ scrollTop }) => {
 
     const fetchData = async () => {
         let userId = user?.id ? user.id : null;
-        let result = await getAllCut(offset, count, userId);
-        setBlogs(oldBlogs => oldBlogs.concat(result));
-        setOffset(oldOffset => oldOffset + 5);
+        try {
+            let result = await getAllCut(offset, count, userId);
+            setBlogs(oldBlogs => oldBlogs.concat(result));
+            setOffset(oldOffset => oldOffset + 5);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {

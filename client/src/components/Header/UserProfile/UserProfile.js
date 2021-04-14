@@ -23,8 +23,8 @@ const UserProfile = () => {
                     <img src="/no-avatar.svg"
                         alt="" />
                     <article>
-                        <span className="header-navigation-profile-info-truncate">{user.userName}</span>
-                        <span className="header-navigation-profile-info-truncate">{user.email}</span>
+                        <span className="header-navigation-profile-info-truncate">{user?.userName}</span>
+                        <span className="header-navigation-profile-info-truncate">{user?.email}</span>
                     </article>
                 </article>
                 <hr className="header-navigation-profile-info-line" />
@@ -38,7 +38,7 @@ const UserProfile = () => {
                     </li>
                     <li className="header-navigation-profile-list-item">
                         <Link className="header-navigation-profile-list-item-a"
-                            to={`/${user.userName}/blogs`}>
+                            to={`/${user?.userName}/blogs`}>
                             Your blogs
                         </Link>
                     </li>

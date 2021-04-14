@@ -21,8 +21,12 @@ const YourBlogs = ({ match }) => {
 
     useEffect(() => {
         async function GetData() {
-            let result = await getAllByAuthor(match.params.username);
-            setBlogs(result);
+            try {
+                let result = await getAllByAuthor(match.params.username);
+                setBlogs(result);
+            } catch (e) {
+                console.log(e);
+            }
         }
 
         GetData();

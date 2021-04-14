@@ -3,7 +3,7 @@ import { getBlog } from '../../services/blogService';
 import { useEffect, useState } from 'react';
 
 const BlogDetails = ({
-    match
+    match, history
 }) => {
     let user = JSON.parse(localStorage.getItem('user'));
     let [blog, setBlog] = useState({
@@ -21,19 +21,37 @@ const BlogDetails = ({
 
     useEffect(() => {
         async function fetchData() {
-            let blog = await getBlog(match.params.id);
-            setBlog(oldState => { return { ...oldState, ...blog } });
+            try {
+                let blog = await getBlog(match.params.id);
+                setBlog(oldState => { return { ...oldState, ...blog } });
+            } catch (e) {
+                console.log(e);
+            }
         }
 
         fetchData();
     }, []);
 
+    const isAuthenticated = () => {
+        if (user?.id) {
+            return true;
+        } else {
+            history.push("/login");
+        }
+    }
+
     const onSelectLikeButton = (ev) => {
-        setLikeButtonSelected(oldState => !oldState);
+        let result = isAuthenticated();
+        if (result) {
+            setLikeButtonSelected(oldState => !oldState);
+        }
     }
 
     const onSelectCommentsButton = (ev) => {
-        setCommentsButtonSelected(oldState => !oldState);
+        let result = isAuthenticated();
+        if (result) {
+            setCommentsButtonSelected(oldState => !oldState);
+        }
     }
 
     const likeButton = (
@@ -49,7 +67,7 @@ const BlogDetails = ({
         </button>);
 
     const isAuthor = () => {
-        return user.id === blog.authorId;
+        return user?.id === blog.authorId;
     }
 
     return (
@@ -82,6 +100,19 @@ const BlogDetails = ({
                         Comments
                     </button>
                 </article>
+                {/* <article className="main-blog-details-buttons">
+                    {isAuthor() ? "" : likeButton}
+                    <button className={
+                        commentsButtonSelected
+                            ? "main-blog-details-button-selected"
+                            : "main-blog-details-button"}
+                        onClick={onSelectCommentsButton}>
+                        <img src="/comments-bubble.svg"
+                            alt="CommentsButton"
+                            className="main-blog-details-button-image" />
+                        Comments
+                    </button>
+                </article> */}
             </section>
         </>
     );
