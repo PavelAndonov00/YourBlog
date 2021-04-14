@@ -1,33 +1,27 @@
-.footer {
-    margin-top: 100px;
-    text-align: center;
-    opacity: 0.7;
-}
-
 input[type=text], input[type=password], input[type=tel], input[type=date] {
     border: none;
     outline: none;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 0.063rem solid lightgray;
 }
 
 input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus, input[type=date]:focus {
-    border-bottom: 1px solid black;
+    border-bottom: 0.063rem solid black;
 }
 
 input[type=submit] {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     border: none;
     background-color: black;
     color: white;
     cursor: pointer;
-    padding: 15px;
+    padding: 0.938rem;
 }
 
 form input {
-    padding: 10px;
+    padding: 0.625rem;
 }
 
 form label {
     color: gray;
-    padding: 10px;
+    padding: 0.625rem;
 }

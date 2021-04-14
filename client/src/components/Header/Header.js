@@ -17,10 +17,8 @@ const Header = () => {
                     <span>Your Blog</span>
                 </Link>
 
-                <section className="header-navigation-right">
-                    {user?.isLogged || <Navigation />}
-                    {user?.isLogged && <UserProfile />}
-                </section>
+                {user?.isLogged || <Navigation />}
+                {user?.isLogged && <UserProfile />}
             </nav>
         </header>
     )

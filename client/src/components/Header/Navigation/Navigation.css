@@ -4,20 +4,20 @@
 }
 
 .header-navigation-list-item {
-    padding: 10px;
+    padding: 0.625rem;
 }
 
 .header-navigation-list-item:hover {
     background-color: lightgray;
-    border-radius: 10px;
+    border-radius: 0.625rem;
 }
 
 .header-navigation-list-item-a {
     color: grey;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 
 .header-navigation-list-item-a.active {
-    border-bottom: 3px solid black;
+    border-bottom: 0.188rem solid black;
 }

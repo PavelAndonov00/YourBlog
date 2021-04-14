@@ -31,8 +31,7 @@ const Blog = (
                         <p className="blog-article-author truncate">{authorName}</p>
                     </article>
                 </article>
-                <article style={{ display: "flex", justifyContent: "space-between" }}>
-
+                <article className="blog-article-buttons-likes-comments">
                     <article className={isOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
                         <EditDeleteButtons
                             id={id}
@@ -40,9 +39,9 @@ const Blog = (
                             onclickDelete={context.onclickDelete}
                         />
                     </article>
-                    <article className="blog-article-info">
-                        <span className="blog-article-info-label">Likes: 8</span>
-                        <span className="blog-article-info-label">Comments: 8</span>
+                    <article className="blog-article-likes-comments">
+                        <p className="blog-article-likes-comments-label">Likes: 8</p>
+                        <p className="blog-article-likes-comments-label">Comments: 8</p>
                     </article>
                 </article>
             </article>

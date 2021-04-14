@@ -82,7 +82,7 @@ const BlogDetails = ({
         <>
             <section className="main-blog-details">
                 <h1 className="main-blog-details-heading">{blog.title}</h1>
-                <img className="main-blog-details-image" src={blog.imageUrl} alt="" style={{ width: "100%", height: "300px" }} />
+                <img className="main-blog-details-image" src={blog.imageUrl} alt=""  />
                 <p className="main-blog-details-description">{blog.description}</p>
                 <article className="main-blog-details-content-wrapper">
                     <p className="main-blog-details-content">{blog.content}</p>

@@ -5,21 +5,21 @@
 .main-profile-settings-menu-list {
     list-style: none;
     text-align: center;
-    padding: 10px;
+    padding: 0.625rem;
     background-color: white;
-    -webkit-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
-    -moz-box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
-    box-shadow: 0px 0px 2px 1px rgba(211, 211, 211, 1);
+    -webkit-box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
+    -moz-box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
+    box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
     width: 80%;
 }
 
 .main-profile-settings-menu-list-item {
-    padding: 10px;
+    padding: 0.625rem;
 }
 
 .main-profile-settings-menu-list-item:hover {
     background-color: lightgray;
-    border-radius: 10px;
+    border-radius: 0.625rem;
 }
 
 .main-profile-settings-menu-list-item-a {
@@ -28,6 +28,6 @@
 }
 
 .main-profile-settings-menu-list-item-a.active {
-    border-bottom: 3px solid black;
-    padding-bottom: 2px;
+    border-bottom: 0.188rem solid black;
+    padding-bottom: 0.125rem;
 }

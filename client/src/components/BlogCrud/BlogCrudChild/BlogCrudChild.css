@@ -19,26 +19,26 @@
 
 .main-blog-crud-form-upload-image-label-wrapper {
     width: 30%;
-    margin: 50px 0 50px 0;
+    margin: 3.125rem 0 3.125rem 0;
 }
 
 .main-blog-crud-form-upload-image {
-    width: 350px;
-    height: 300px;
-    margin-top: 15px;
+    width: 21.875rem;
+    height: 18.75rem;
+    margin-top: 0.938rem;
 }
 
 .main-blog-crud-form-upload-image-label {
     display: flex;
     align-items: center;
     background-color: lightgrey;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     cursor: pointer;
 }
 
 .main-blog-crud-form-upload-image-label img{
-    width: 30px;
-    margin-right: 10px;
+    width: 1.875rem;
+    margin-right: 0.625rem;
 }
 
 .main-blog-crud-form hr {

@@ -2,12 +2,12 @@
     text-decoration: none;
     background-color: black;
     color: white;
-    padding: 10px 20px;
-    font-size: 20px;
+    padding: 0.625rem 1.25rem;
+    font-size: 1.25rem;
 }
 
 .blog-crud-button:first-child {
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 
 .blog-crud-button:first-child:hover {
