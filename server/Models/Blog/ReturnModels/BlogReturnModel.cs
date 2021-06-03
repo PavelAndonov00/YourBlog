@@ -22,5 +22,7 @@ namespace WebApi.Models.Blog.ReturnModels
         public string AuthorId { get; set; }
 
         public string AuthorName { get; set; }
+
+        public int Likes { get; set; }
     }
 }

@@ -249,7 +249,7 @@ namespace WebApi.Controllers
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, role)
                 }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(15),
                 SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(key),
                         SecurityAlgorithms.HmacSha256Signature)

@@ -14,6 +14,8 @@ namespace WebApi.Data
 
         public DbSet<Blog> Blogs { get; set; }
 
+        public DbSet<Blog> LikedBlogs { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -22,6 +24,21 @@ namespace WebApi.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity
+                .HasMany(e => e.LikedBlogs)
+                .WithMany(x => x.UsersLiked);
+            });
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity
+                .HasMany(e => e.Blogs)
+                .WithOne(x => x.Author)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
         }
     }
 }

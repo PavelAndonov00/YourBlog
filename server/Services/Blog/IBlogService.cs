@@ -23,5 +23,9 @@ namespace WebApi.Services.Blog
         Task<bool> IsAuthorAsync(string blogId, string username);
 
         Task<bool> DeleteBlogAsync(string blogId);
+
+        Task<int> LikeUnlikeBlogAsync(LikeBlogInputModel model);
+
+        Task<bool> IsLikedByUserAsync(LikeBlogInputModel model);
     }
 }

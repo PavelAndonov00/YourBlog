@@ -147,7 +147,7 @@ namespace WebApi.Controllers
             return NotFound(new { Error = "Oops something went wrong." });
         }
 
-        
+
 
         [HttpDelete("[action]/{blogId}")]
         [Authorize]
@@ -170,6 +170,40 @@ namespace WebApi.Controllers
             catch (Exception e)
             {
                 //
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> LikeUnlikeBlog(LikeBlogInputModel model)
+        {
+            try
+            {
+                var likes = await this.blogService.LikeUnlikeBlogAsync(model);
+                return Ok(new { Likes = likes });
+            }
+            catch (Exception e)
+            {
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> IsLikedByUser(LikeBlogInputModel model)
+        {
+            try
+            {
+                var liked = await this.blogService.IsLikedByUserAsync(model);
+
+                return Ok(new { Liked = liked });
+            }
+            catch (Exception e)
+            {
+
             }
 
             return NotFound(new { Error = "Oops something went wrong." });

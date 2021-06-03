@@ -39,6 +39,7 @@ namespace WebApi.Services.Blog
         public async Task<BlogReturnModel> GetBlogAsync(string blogId)
         {
             var blog = dbContext.Blogs
+                .Include(b => b.UsersLiked)
                 .Select(b => new BlogReturnModel
                 {
                     AuthorName = b.Author.UserName,
@@ -49,7 +50,8 @@ namespace WebApi.Services.Blog
                                                               CultureInfo.InvariantCulture),
                     Content = b.Content,
                     Id = b.Id,
-                    ImageUrl = b.ImageUrl
+                    ImageUrl = b.ImageUrl,
+                    Likes = b.UsersLiked.Count
                 })
                 .FirstOrDefault(b => b.Id == blogId);
 
@@ -64,6 +66,7 @@ namespace WebApi.Services.Blog
                 .Skip(offset)
                 .Take(count)
                 .Include(blog => blog.Author)
+                .Include(blog => blog.UsersLiked)
                 .Select(b => new BlogReturnModel
                 {
                     AuthorName = b.Author.UserName,
@@ -73,7 +76,8 @@ namespace WebApi.Services.Blog
                     CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
                                         CultureInfo.InvariantCulture),
                     Id = b.Id,
-                    ImageUrl = b.ImageUrl
+                    ImageUrl = b.ImageUrl,
+                    Likes = b.UsersLiked.Count
                 })
                 .AsEnumerable();
 
@@ -86,6 +90,7 @@ namespace WebApi.Services.Blog
                  .Where(b => b.Author.UserName == username)
                  .OrderByDescending(b => b.CreatedAt)
                  .Include(blog => blog.Author)
+                 .Include(blog => blog.UsersLiked)
                  .Select(b => new BlogReturnModel
                  {
                      AuthorName = b.Author.UserName,
@@ -95,7 +100,8 @@ namespace WebApi.Services.Blog
                      CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
                                          CultureInfo.InvariantCulture),
                      Id = b.Id,
-                     ImageUrl = b.ImageUrl
+                     ImageUrl = b.ImageUrl,
+                     Likes = b.UsersLiked.Count
                  })
                  .AsEnumerable();
 
@@ -130,6 +136,45 @@ namespace WebApi.Services.Blog
 
             var affectedRows = await dbContext.SaveChangesAsync();
             return affectedRows > 0 ? true : false;
+        }
+
+        public async Task<int> LikeUnlikeBlogAsync(LikeBlogInputModel model)
+        {
+            var blog = dbContext
+                .Blogs
+                .Include(blog => blog.UsersLiked)
+                .FirstOrDefault(b => b.Id == model.BlogId);
+            var user = dbContext
+                .Users
+                .Include(user => user.LikedBlogs)
+                .FirstOrDefault(u => u.Id == model.UserId);
+
+            if(user.LikedBlogs.Contains(blog))
+            {
+                user.LikedBlogs.Remove(blog);
+                blog.UsersLiked.Remove(user);
+            }
+            else
+            {
+                user.LikedBlogs.Add(blog);
+                blog.UsersLiked.Add(user);
+            }
+
+            await dbContext.SaveChangesAsync();
+            return blog.UsersLiked.Count;
+        }
+
+        public async Task<bool> IsLikedByUserAsync(LikeBlogInputModel model)
+        {
+            var isLiked = dbContext
+                .Blogs
+                .Where(b => b.Id == model.BlogId)
+                .Include(b => b.UsersLiked)
+                .FirstOrDefault()
+                .UsersLiked
+                .Any(user => user.Id == model.UserId);
+
+            return isLiked;
         }
 
         #region Private Methods

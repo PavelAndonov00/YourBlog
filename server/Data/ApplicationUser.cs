@@ -22,5 +22,7 @@ namespace WebApi.Data
         public DateTime? BirthDate { get; set; }
 
         public virtual ICollection<Blog> Blogs { get; set; }
+
+        public virtual ICollection<Blog> LikedBlogs { get; set; }
     }
 }
