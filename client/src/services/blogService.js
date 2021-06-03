@@ -41,6 +41,20 @@ const getAllCut = async (offset, count, userId) => {
     return get(url);
 }
 
+const likeUnlikeBlog = async (blogId, userId) => {
+    let url = new URL(_BLOG + "LikeUnlikeBlog");
+
+    return post(url, {userId, blogId});
+}
+
+const isLikedByUser = async (blogId, userId) => {
+    let url = new URL(_BLOG + "IsLikedByUser");
+
+    return post(url, {userId, blogId});
+}
+
+// Private
+
 const _uploadImageAsync = async (image) => {
     let formData = new FormData();
     formData.append('file', image);
@@ -53,4 +67,4 @@ const _uploadImageAsync = async (image) => {
     return response.json();
 }
 
-export { createBlog, getAllByAuthor, getAllCut, deleteBlog, getBlog, editBlog };
+export { createBlog, getAllByAuthor, getAllCut, deleteBlog, getBlog, editBlog, likeUnlikeBlog, isLikedByUser };

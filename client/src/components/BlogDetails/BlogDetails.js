@@ -1,5 +1,5 @@
 import './BlogDetails.css';
-import { getBlog } from '../../services/blogService';
+import { getBlog, isLikedByUser, likeUnlikeBlog } from '../../services/blogService';
 import { useContext, useEffect, useState } from 'react';
 import Context from '../../contexts/context';
 import EditDeleteButtons from '../Shared/EditDeleteButtons';
@@ -17,7 +17,9 @@ const BlogDetails = ({
         imageUrl: "",
         authorName: "",
         createdAt: "",
-        authorId: ""
+        authorId: "",
+        likes: 0,
+        comments: 0
     });
 
     let [likeButtonSelected, setLikeButtonSelected] = useState(false);
@@ -28,12 +30,17 @@ const BlogDetails = ({
             try {
                 let blog = await getBlog(match.params.id);
                 setBlog(oldState => { return { ...oldState, ...blog } });
+
+                let result = await isLikedByUser(blog.id, user.id);
+                setLikeButtonSelected(result.liked);
             } catch (e) {
                 console.log(e);
             }
         }
 
         fetchData();
+
+
     }, []);
 
     const isAuthenticated = () => {
@@ -44,11 +51,14 @@ const BlogDetails = ({
         }
     }
 
-    const onSelectLikeButton = (ev) => {
+    const onSelectLikeButton = async (ev) => {
         let result = isAuthenticated();
         if (result) {
             setLikeButtonSelected(oldState => !oldState);
         }
+
+        var updatedBlog = await likeUnlikeBlog(blog.id, user.id);
+        setBlog(oldBlog => {return {...oldBlog, ...updatedBlog}})
     }
 
     const onSelectCommentsButton = (ev) => {
@@ -98,11 +108,11 @@ const BlogDetails = ({
                 <article className="main-blog-details-buttons-holder">
                     <article className="main-blog-details-buttons">
                         <article className="main-blog-details-button-wrapper">
-                            <p style={{ fontWeight: "bold" }}>Likes: 8</p>
+                            <p style={{ fontWeight: "bold" }}>Likes: {blog.likes}</p>
                             {isAuthor() ? "" : likeButton}
                         </article>
                         <article className="main-blog-details-button-wrapper">
-                            <p style={{ fontWeight: "bold" }}>Comments: 8</p>
+                            <p style={{ fontWeight: "bold" }}>Comments: {blog.comments}</p>
                             <button className={
                                 commentsButtonSelected
                                     ? "main-blog-details-button selected"
