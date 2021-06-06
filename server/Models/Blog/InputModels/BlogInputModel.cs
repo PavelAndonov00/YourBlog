@@ -9,7 +9,6 @@ namespace WebApi.Models.Blog.InputModels
 {
     public class BlogInputModel
     {
-        [Key]
         public string Id { get; set; }
 
         [Required]
@@ -27,6 +26,8 @@ namespace WebApi.Models.Blog.InputModels
         [MaxLength(200)]
         [StartsWith("https://res.cloudinary.com")]
         public string ImageUrl { get; set; }
+
+        public string ImagePublicId { get; set; }
 
         public string AuthorId { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data.Models.Blog;
+using WebApi.Data.Models.Image;
 
 namespace WebApi.Data
 {
@@ -14,7 +15,7 @@ namespace WebApi.Data
 
         public DbSet<Blog> Blogs { get; set; }
 
-        public DbSet<Blog> LikedBlogs { get; set; }
+        public DbSet<Image> Images{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

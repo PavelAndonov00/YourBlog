@@ -28,15 +28,16 @@ namespace WebApi.Data.Models.Blog
         public string Description { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string ImageUrl { get; set; }
-
-        [Required]
         [MinLength(50), MaxLength(2000)]
         public string Content { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
+
+        [Required]
+        public string ImageId { get; set; }
+
+        public virtual Image.Image Image { get; set; }
 
         [Required]
         public string AuthorId { get; set; }

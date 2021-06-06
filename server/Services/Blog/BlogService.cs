@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,14 +24,21 @@ namespace WebApi.Services.Blog
 
         public async Task<Data.Models.Blog.Blog> CreateBlogAsync(BlogInputModel blogInputModel)
         {
+            var image = new Data.Models.Image.Image
+            {
+                Url = blogInputModel.ImageUrl,
+                PublicId = blogInputModel.ImagePublicId
+            };
+
             var blog = new Data.Models.Blog.Blog
             {
                 AuthorId = blogInputModel.AuthorId,
                 Content = blogInputModel.Content,
                 Description = blogInputModel.Description,
                 Title = blogInputModel.Title,
-                ImageUrl = blogInputModel.ImageUrl
+                Image = image
             };
+
             await dbContext.Blogs.AddAsync(blog);
             await dbContext.SaveChangesAsync();
 
@@ -40,6 +49,7 @@ namespace WebApi.Services.Blog
         {
             var blog = dbContext.Blogs
                 .Include(b => b.UsersLiked)
+                .Include(b => b.Image)
                 .Select(b => new BlogReturnModel
                 {
                     AuthorName = b.Author.UserName,
@@ -50,7 +60,7 @@ namespace WebApi.Services.Blog
                                                               CultureInfo.InvariantCulture),
                     Content = b.Content,
                     Id = b.Id,
-                    ImageUrl = b.ImageUrl,
+                    ImageUrl = b.Image.Url,
                     Likes = b.UsersLiked.Count
                 })
                 .FirstOrDefault(b => b.Id == blogId);
@@ -66,6 +76,7 @@ namespace WebApi.Services.Blog
                 .Skip(offset)
                 .Take(count)
                 .Include(blog => blog.Author)
+                .Include(blog => blog.Image)
                 .Include(blog => blog.UsersLiked)
                 .Select(b => new BlogReturnModel
                 {
@@ -76,7 +87,7 @@ namespace WebApi.Services.Blog
                     CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
                                         CultureInfo.InvariantCulture),
                     Id = b.Id,
-                    ImageUrl = b.ImageUrl,
+                    ImageUrl = b.Image.Url,
                     Likes = b.UsersLiked.Count
                 })
                 .AsEnumerable();
@@ -90,6 +101,7 @@ namespace WebApi.Services.Blog
                  .Where(b => b.Author.UserName == username)
                  .OrderByDescending(b => b.CreatedAt)
                  .Include(blog => blog.Author)
+                 .Include(blog => blog.Image)
                  .Include(blog => blog.UsersLiked)
                  .Select(b => new BlogReturnModel
                  {
@@ -100,7 +112,7 @@ namespace WebApi.Services.Blog
                      CreatedAt = b.CreatedAt.ToString("d MMM - hh:mmtt",
                                          CultureInfo.InvariantCulture),
                      Id = b.Id,
-                     ImageUrl = b.ImageUrl,
+                     ImageUrl = b.Image.Url,
                      Likes = b.UsersLiked.Count
                  })
                  .AsEnumerable();
@@ -119,20 +131,47 @@ namespace WebApi.Services.Blog
 
         public async Task<bool> DeleteBlogAsync(string blogId)
         {
-            var blog = dbContext.Blogs.FirstOrDefault(b => b.Id == blogId);
+            var blog = dbContext
+                .Blogs
+                .Include(b => b.Image)
+                .FirstOrDefault(b => b.Id == blogId);
             dbContext.Blogs.Remove(blog);
             var affectedRows = await dbContext.SaveChangesAsync();
 
-            return affectedRows > 0 ? true : false;
+            if (affectedRows > 0)
+            {
+                var cloudinary = new Cloudinary();
+                var deletionParams = new DeletionParams(blog.Image.PublicId);
+                var result = await cloudinary.DestroyAsync(deletionParams);
+
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<bool> EditBlogAsync(BlogInputModel blogInputModel)
         {
-            var blog = dbContext.Blogs.FirstOrDefault(b => b.Id == blogInputModel.Id);
+            var blog = dbContext
+                .Blogs
+                .Include(b => b.Image)
+                .FirstOrDefault(b => b.Id == blogInputModel.Id);
             blog.Title = blogInputModel.Title;
             blog.Content = blogInputModel.Content;
             blog.Description = blogInputModel.Description;
-            blog.ImageUrl = blogInputModel.ImageUrl;
+
+            var oldImageUrl = blog.Image.Url;
+            var newImageUrl = blogInputModel.ImageUrl;
+
+            if(oldImageUrl != newImageUrl)
+            {
+                var cloudinary = new Cloudinary();
+                var deletionParams = new DeletionParams(blog.Image.PublicId);
+                var result = await cloudinary.DestroyAsync(deletionParams);
+
+                blog.Image.Url = blogInputModel.ImageUrl;
+                blog.Image.PublicId = blogInputModel.ImagePublicId;
+            }
 
             var affectedRows = await dbContext.SaveChangesAsync();
             return affectedRows > 0 ? true : false;
@@ -149,7 +188,7 @@ namespace WebApi.Services.Blog
                 .Include(user => user.LikedBlogs)
                 .FirstOrDefault(u => u.Id == model.UserId);
 
-            if(user.LikedBlogs.Contains(blog))
+            if (user.LikedBlogs.Contains(blog))
             {
                 user.LikedBlogs.Remove(blog);
                 blog.UsersLiked.Remove(user);

@@ -45,8 +45,9 @@ namespace WebApi.Controllers
 
             return Ok(new
             {
+                Success = true,
                 blog.Id,
-                blog.ImageUrl,
+                blog.Image.Url,
                 blog.Content,
                 blog.Description,
                 blog.AuthorId,
@@ -212,7 +213,7 @@ namespace WebApi.Controllers
         private async Task<bool> IsAuthorOrAdmin(string blogId, string username)
         {
             var isAuthor = await blogService.IsAuthorAsync(blogId, username);
-            if (isAuthor && this.User.IsInRole("Admin"))
+            if (isAuthor || this.User.IsInRole("Admin"))
             {
                 return true;
             }

@@ -13,9 +13,9 @@ namespace WebApi.Data.Models.Blog
 
         string Description { get; set; }
 
-        string ImageUrl { get; set; }
-
         string Content { get; set; }
+
+        string ImageId { get; set; }
 
         string AuthorId { get; set; }
     }
