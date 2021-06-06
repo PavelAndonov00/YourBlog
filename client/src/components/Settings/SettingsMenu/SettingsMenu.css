@@ -1,5 +1,12 @@
 .main-profile-settings-menu {
     width: 25%;
+    padding-right: 1rem;
+}
+
+.main-profile-settings-menu-img {
+    width: 2rem;
+    cursor: pointer;
+    display: none;
 }
 
 .main-profile-settings-menu-list {
@@ -10,7 +17,6 @@
     -webkit-box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
     -moz-box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
     box-shadow: 0 0 0.125rem 0.063rem rgba(211, 211, 211, 1);
-    width: 80%;
 }
 
 .main-profile-settings-menu-list-item {
@@ -30,4 +36,16 @@
 .main-profile-settings-menu-list-item-a.active {
     border-bottom: 0.188rem solid black;
     padding-bottom: 0.125rem;
+}
+
+@media only screen and (max-width: 650px) {
+    .main-profile-settings-menu {
+        position: absolute;
+        top: 0.2rem;   
+        width: 100%;
+    }
+
+    .main-profile-settings-menu-img {
+        display: initial;
+    }
 }

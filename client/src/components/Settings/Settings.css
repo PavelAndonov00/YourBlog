@@ -1,9 +1,10 @@
 .main-profile-settings {
     display: flex;
+    padding-top: 2rem;
 }
 
 .main-profile-settings-main {
-    width: 50%;
+    width: 73%;
 }
 
 .main-profile-settings-main-heading {
@@ -13,4 +14,14 @@
 .main-profile-settings-main-form {
     display: flex;
     flex-direction: column;
+}
+
+@media only screen and (max-width: 650px) {
+    .main-profile-settings {
+        position: relative;
+    }
+
+    .main-profile-settings-main {
+        width: 100%;
+    }
 }

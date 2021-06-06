@@ -13,3 +13,10 @@
 .main-blogs-section .scroll-to-top-img {
     width: 60px;
 }
+
+
+@media only screen and (max-width: 1200px) {
+    .main-blogs-section {
+        width: 100%;
+    }
+}

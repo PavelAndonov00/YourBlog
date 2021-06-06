@@ -49,3 +49,30 @@
 .main-blog-crud-form input[type=file] {
     display: none;
 }
+
+@media only screen and (max-width: 1400px) {
+    .main-blog-crud {
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .main-blog-crud {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .main-blog-crud-form-upload-image-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-blog-crud-form-upload-image-label-wrapper {
+        width: 100%;
+    }
+
+    .main-blog-crud-form-upload-image {
+        width: 100%;
+    }
+}

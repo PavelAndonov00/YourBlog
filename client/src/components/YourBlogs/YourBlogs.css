@@ -12,3 +12,9 @@
     color: gray;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1200px) {
+    .main-yourblogs-section {
+        width: 100%;
+    }
+}
