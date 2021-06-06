@@ -44,11 +44,11 @@ class Login extends Component {
             } else if (result.success) {
                 localStorage.setItem("user", JSON.stringify(result.user));
                 
-                setInterval(() => {
-                    localStorage.setItem("user", JSON.stringify({}));
-                    this.props.history.push('/login');
-                    this.context.setMessage("Session expired!");
-                }, 600000 * 6 * 12) // 10min * 6 * 12 = 12 hours
+                // setInterval(() => {
+                //     localStorage.setItem("user", JSON.stringify({}));
+                //     this.props.history.push('/login');
+                //     this.context.setMessage("Session expired!");
+                // }, 600000 * 6 * 12) // 10min * 6 * 12 = 12 hours
                 
                 this.props.history.push("/");
                 this.context.setMessage(result.success);

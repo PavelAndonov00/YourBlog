@@ -33,7 +33,7 @@ class BlogCrud extends Component {
             ImageUrl: "Not valid url.",
             Title: "Title length must be between 10 and 100",
             Description: "Description length must be between 10 and 200",
-            Content: "Title length must be between 50 and 2000",
+            Content: "Content length must be between 50 and 2000",
         };
 
         this.allowedExtensions = ['jpg', 'jpeg', 'gif', 'tiff', 'psd', 'pdf', 'eps', 'ai'];
@@ -105,13 +105,13 @@ class BlogCrud extends Component {
             validation.ContentValidation = "";
         }
 
-        if (this.state.image && Object.keys(this.state.image).length > 0) {
+        if (this.state.image.__proto__.__proto__ != null) {
             validation.ImageUrlValidation = "";
         } else {
             validation.ImageUrlValidation = this.errors.imageRequired;
         }
 
-        if (!Object.values(validation).find(v => v !== false)) {
+        if (Object.values(validation).filter(v => v != "").length === 0) {
             try {
                 let result = {};
                 let user = JSON.parse(localStorage.getItem("user"));

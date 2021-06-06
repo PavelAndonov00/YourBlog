@@ -45,7 +45,7 @@ const ChangePassword = ({ history }) => {
             currentValidation.ConfirmNewPasswordValidation = "";
         }
 
-        if (!Object.values(currentValidation).find(v => v != false)) {
+        if (Object.values(currentValidation).filter(v => v != "").length === 0) {
             try {
                 let result = await resetPassword(oldPassword, newPassword, confirmNewPassword);
 

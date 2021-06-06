@@ -68,7 +68,7 @@ class Register extends Component {
         }
 
         // Is validated
-        if (!Object.values(validation).find(v => v != false)) {
+        if (Object.values(validation).filter(v => v != "").length === 0) {
             try {
                 let result = await register(username, email, password, confirmPassword);
 

@@ -25,3 +25,11 @@
 .main-yourblogs-pagination-link-active {
     background-color: lightgray;
 }
+
+.main-yourblogs-pagination .main-yourblogs-pagination-link-disabled:hover {
+    background-color: white;
+}
+
+.main-yourblogs-pagination-link-disabled a{
+    color: lightgray;
+}

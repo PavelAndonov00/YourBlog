@@ -10,6 +10,8 @@ const ContextProvider = ({children}) => {
             ev.preventDefault();
             ev.stopPropagation();
         }
+
+        ev.stopPropagation();
     };
 
     const stopPropagationHandler = (ev) => {

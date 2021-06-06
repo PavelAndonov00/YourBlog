@@ -17,7 +17,7 @@ const EditDeleteButtons = ({
                 onClick={onclickDelete}
                 to={`/blogs/${id}/delete`}>
                 Delete
-             </Link>
+            </Link>
         </>
     );
 }

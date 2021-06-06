@@ -5,21 +5,25 @@ const _BLOG = "https://localhost:5001/Blog/";
 
 const createBlog = async (title, description, image, content, authorId) => {
     let imageUrl = "";
+    let imagePublicId = "";
     if (image && image.constructor === File) {
         let response = await _uploadImageAsync(image);
         imageUrl = response.secure_url;
+        imagePublicId = response.public_id;
     }
 
-    return post(_BLOG + "Create", {title, description, imageUrl, content, authorId});
+    return post(_BLOG + "Create", {title, description, imageUrl, imagePublicId, content, authorId});
 }
 
 const editBlog = async (title, description, image, imageUrl, content, blogId) => {
+    let imagePublicId = "";
     if (image && image.constructor === File) {
         let response = await _uploadImageAsync(image);
         imageUrl = response.secure_url;
+        imagePublicId = response.public_id;
     }
 
-    return put(_BLOG + "Edit/" + blogId, {title, description, imageUrl, content});
+    return put(_BLOG + "Edit/" + blogId, {title, description, imageUrl, imagePublicId, content});
 }
 
 const deleteBlog = async (id) => {

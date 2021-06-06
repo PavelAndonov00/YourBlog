@@ -47,8 +47,8 @@ const ChangeEmail = ({ history }) => {
             currentValidation.ConfirmNewEmailValidation = "";
         }
 
-        // TODO: This logic is repeated in many files so must be extracted in hook 
-        if (!Object.values(currentValidation).find(v => v != false)) {
+        // TODO: This logic is repeated in many files so should be extracted in hook 
+        if (Object.values(currentValidation).filter(v => v != "").length === 0) {
             try {
                 let result = await changeEmail(password, newEmail, confirmNewEmail);
 
