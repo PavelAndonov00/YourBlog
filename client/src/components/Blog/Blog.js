@@ -22,6 +22,11 @@ const Blog = (
 
     return (
         <article className="blog-article" onClick={openDetails}>
+            <article className="blog-article-image-wrapper">
+                <img className="blog-article-image"
+                    src={imageUrl}
+                    alt="" />
+            </article>
             <article className="blog-article-content">
                 <article className="blog-article-info">
                     <h3 className="blog-article-heading truncate">{title}</h3>
@@ -44,11 +49,6 @@ const Blog = (
                         <p className="blog-article-likes-comments-label">Comments: 0</p>
                     </article>
                 </article>
-            </article>
-            <article className="blog-article-image-wrapper">
-                <img className="blog-article-image"
-                    src={imageUrl}
-                    alt="" />
             </article>
         </article>
     );

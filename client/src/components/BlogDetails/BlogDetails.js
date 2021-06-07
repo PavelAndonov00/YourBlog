@@ -102,7 +102,7 @@ const BlogDetails = ({
                         Author: {blog.authorName}
                     </p>
                     <p className="main-blog-details-createdat">
-                        {blog.createdAt}
+                        Date: {blog.createdAt}
                     </p>
                 </article>
                 <article className="main-blog-details-buttons-holder">

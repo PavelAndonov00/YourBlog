@@ -49,14 +49,13 @@
 }
 
 .main-blog-details-author-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 1rem 0;
 }
 
 .main-blog-details-author {
     font-weight: bold;
     font-size: 1.25rem;
+    overflow-wrap: break-word;
 }
 
 .main-blog-details-buttons-holder {
@@ -82,7 +81,6 @@
     cursor: pointer;
 }
 
-
 .main-blog-details-button.selected {
     background-color: gray;
 }
@@ -102,4 +100,26 @@
 .main-blog-details-button-image {
     width: 1.25rem;
     margin-right: 0.313rem;
+}
+
+@media only screen and (max-width: 1000px) {
+    .main-blog-details {
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .main-blog-details {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .main-blog-details-buttons {
+        flex-direction: column;
+    }
+
+    .main-blog-details-button-wrapper {
+        margin-bottom: 1rem;
+    }
 }
