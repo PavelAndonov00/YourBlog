@@ -86,11 +86,6 @@ namespace WebApi.Controllers
         {
             try
             {
-                if (this.User.Identity.Name != username)
-                {
-                    return Forbid();
-                }
-
                 var blogs = await blogService.GetAllByAuthorAsync(username);
                 return Ok(blogs == null ? Enumerable.Empty<Blog>() : blogs);
             }

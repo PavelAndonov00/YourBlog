@@ -23,6 +23,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using WebApi.Services.Account;
 using WebApi.Services.Blog;
+using WebApi.Hubs;
 
 namespace WebApi
 {
@@ -75,6 +76,7 @@ namespace WebApi
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSignalR();
 
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IBlogService, BlogService>();
@@ -118,6 +120,7 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<CommentsHub>("");
             });
         }
     }
