@@ -58,7 +58,7 @@ const BlogDetails = ({
         }
 
         var updatedBlog = await likeUnlikeBlog(blog.id, user.id);
-        setBlog(oldBlog => {return {...oldBlog, ...updatedBlog}})
+        setBlog(oldBlog => { return { ...oldBlog, ...updatedBlog } })
     }
 
     const onSelectCommentsButton = (ev) => {
@@ -92,7 +92,7 @@ const BlogDetails = ({
         <>
             <section className="main-blog-details">
                 <h1 className="main-blog-details-heading">{blog.title}</h1>
-                <img className="main-blog-details-image" src={blog.imageUrl} alt=""  />
+                <img className="main-blog-details-image" src={blog.imageUrl} alt="" />
                 <p className="main-blog-details-description">{blog.description}</p>
                 <article className="main-blog-details-content-wrapper">
                     <p className="main-blog-details-content">{blog.content}</p>
@@ -121,8 +121,26 @@ const BlogDetails = ({
                                 <img src="/comments-bubble.svg"
                                     alt="CommentsButton"
                                     className="main-blog-details-button-image" />
-                            Comments
+                                Comments
                             </button>
+                            <section className="comments">
+                                <article>
+                                    <article className="comment">
+                                        <p>Someone</p>
+                                        <p>Date: 123</p>
+                                        <p>I am the best comment writer</p>
+                                    </article>
+                                    <article className="comment">
+                                        <p>Someone</p>
+                                        <p>Date: 123</p>
+                                        <p>I am the best comment writer</p>
+                                    </article>
+                                </article>
+                                <article className="write-comment">
+                                    <textarea type="text" style={{maxWidth: "200px", maxHeight: "150px"}}/>
+                                    <img src="/send.svg" alt="Send" />
+                                </article>
+                            </section>
                         </article>
                     </article>
                     <article className={isAdmin() ? "main-blog-details-admin-buttons" : "main-blog-details-admin-buttons-hidden"}>

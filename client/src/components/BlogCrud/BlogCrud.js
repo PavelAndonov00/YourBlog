@@ -36,7 +36,7 @@ class BlogCrud extends Component {
             Content: "Content length must be between 50 and 2000",
         };
 
-        this.allowedExtensions = ['jpg', 'jpeg', 'gif', 'tiff', 'psd', 'pdf', 'eps', 'ai'];
+        this.allowedExtensions = ['jpg', 'jpeg', 'gif', 'tiff', 'psd', 'pdf', 'eps', 'ai', 'png', 'svg'];
     }
 
     async componentDidMount() {
