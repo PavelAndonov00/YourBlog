@@ -5,7 +5,7 @@ import EditDeleteButtons from '../Shared/EditDeleteButtons';
 import './Blog.css';
 
 const Blog = (
-    { id, title, description, imageUrl, authorName, createdAt, authorId, likes }
+    { id, title, description, imageUrl, authorName, createdAt, authorId, likes, commentsCount }
 ) => {
     let context = useContext(Context);
     let history = useHistory();
@@ -46,7 +46,7 @@ const Blog = (
                     </article>
                     <article className="blog-article-likes-comments">
                         <p className="blog-article-likes-comments-label">Likes: {likes}</p>
-                        <p className="blog-article-likes-comments-label">Comments: 0</p>
+                        <p className="blog-article-likes-comments-label">Comments: {commentsCount}</p>
                     </article>
                 </article>
             </article>

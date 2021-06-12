@@ -16,11 +16,11 @@ const Blogs = ({
                 nextLabel={"Next →"}
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
-                containerClassName={"main-yourblogs-pagination"}
-                previousLinkClassName={"main-yourblogs-pagination-btn-prev"}
-                nextLinkClassName={"main-yourblogs-pagination-btn-next"}
-                disabledClassName={"main-yourblogs-pagination-link-disabled"}
-                activeClassName={"main-yourblogs-pagination-link-active"}
+                containerClassName={"pagination"}
+                previousLinkClassName={"pagination-btn-prev"}
+                nextLinkClassName={"pagination-btn-next"}
+                disabledClassName={"pagination-link-disabled"}
+                activeClassName={"pagination-link-active"}
             />
         </>
     );

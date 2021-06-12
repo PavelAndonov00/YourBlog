@@ -25,3 +25,45 @@ form label {
     color: gray;
     padding: 0.625rem;
 }
+
+.pagination {
+    list-style: none;
+    display: flex;
+    padding: 1.25rem;
+    cursor: pointer;
+    border: 0.063rem solid gray;
+    justify-content: center;
+}
+
+.pagination li {
+    padding: 0.625rem;
+    margin-right: 0.313rem;
+    color: black;
+    user-select: none;
+}
+
+.pagination li:hover {
+    background-color: lightgray;
+}
+
+.pagination li a {
+    outline: none;
+}
+
+.pagination-link-active {
+    background-color: lightgray;
+}
+
+.pagination .pagination-link-disabled:hover {
+    background-color: white;
+}
+
+.pagination-link-disabled a{
+    color: lightgray;
+}
+
+@media only screen and (max-width: 650px) {
+    .pagination .next, .pagination .previous{
+        display: none;
+    }
+}

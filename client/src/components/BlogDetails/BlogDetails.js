@@ -1,8 +1,9 @@
 import './BlogDetails.css';
 import { getBlog, isLikedByUser, likeUnlikeBlog } from '../../services/blogService';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../contexts/context';
 import EditDeleteButtons from '../Shared/EditDeleteButtons';
+import Comments from './Comments';
 
 const BlogDetails = ({
     match, history
@@ -18,9 +19,9 @@ const BlogDetails = ({
         authorName: "",
         createdAt: "",
         authorId: "",
-        likes: 0,
-        comments: 0
+        likes: 0
     });
+    let [commentsCount, setCommentsCount] = useState(0);
 
     let [likeButtonSelected, setLikeButtonSelected] = useState(false);
     let [commentsButtonSelected, setCommentsButtonSelected] = useState(false);
@@ -30,6 +31,7 @@ const BlogDetails = ({
             try {
                 let blog = await getBlog(match.params.id);
                 setBlog(oldState => { return { ...oldState, ...blog } });
+                setCommentsCount(blog.commentsCount);
 
                 let result = await isLikedByUser(blog.id, user.id);
                 setLikeButtonSelected(result.liked);
@@ -112,7 +114,7 @@ const BlogDetails = ({
                             {isAuthor() ? "" : likeButton}
                         </article>
                         <article className="main-blog-details-button-wrapper">
-                            <p style={{ fontWeight: "bold" }}>Comments: {blog.comments}</p>
+                            <p style={{ fontWeight: "bold" }}>Comments: {commentsCount}</p>
                             <button className={
                                 commentsButtonSelected
                                     ? "main-blog-details-button selected"
@@ -123,24 +125,6 @@ const BlogDetails = ({
                                     className="main-blog-details-button-image" />
                                 Comments
                             </button>
-                            <section className="comments">
-                                <article>
-                                    <article className="comment">
-                                        <p>Someone</p>
-                                        <p>Date: 123</p>
-                                        <p>I am the best comment writer</p>
-                                    </article>
-                                    <article className="comment">
-                                        <p>Someone</p>
-                                        <p>Date: 123</p>
-                                        <p>I am the best comment writer</p>
-                                    </article>
-                                </article>
-                                <article className="write-comment">
-                                    <textarea type="text" style={{maxWidth: "200px", maxHeight: "150px"}}/>
-                                    <img src="/send.svg" alt="Send" />
-                                </article>
-                            </section>
                         </article>
                     </article>
                     <article className={isAdmin() ? "main-blog-details-admin-buttons" : "main-blog-details-admin-buttons-hidden"}>
@@ -151,6 +135,7 @@ const BlogDetails = ({
                         />
                     </article>
                 </article>
+                {commentsButtonSelected ? <Comments blogId={blog.id} setCommentsCount={setCommentsCount} /> : null}
             </section>
         </>
     );
