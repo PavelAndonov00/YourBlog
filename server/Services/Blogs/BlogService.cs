@@ -7,11 +7,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Data;
-using WebApi.Data.Models.Blog;
+using WebApi.Data.Models.Blogs;
+using WebApi.Data.Models.Comments;
+using WebApi.Data.Models.Images;
 using WebApi.Models.Blog.InputModels;
 using WebApi.Models.Blog.ReturnModels;
 
-namespace WebApi.Services.Blog
+namespace WebApi.Services.Blogs
 {
     public class BlogService : IBlogService
     {
@@ -22,15 +24,15 @@ namespace WebApi.Services.Blog
             this.dbContext = dbContext;
         }
 
-        public async Task<Data.Models.Blog.Blog> CreateBlogAsync(BlogInputModel blogInputModel)
+        public async Task<Blog> CreateBlogAsync(BlogInputModel blogInputModel)
         {
-            var image = new Data.Models.Image.Image
+            var image = new Image
             {
                 Url = blogInputModel.ImageUrl,
                 PublicId = blogInputModel.ImagePublicId
             };
 
-            var blog = new Data.Models.Blog.Blog
+            var blog = new Blog
             {
                 AuthorId = blogInputModel.AuthorId,
                 Content = blogInputModel.Content,
@@ -61,7 +63,8 @@ namespace WebApi.Services.Blog
                     Content = b.Content,
                     Id = b.Id,
                     ImageUrl = b.Image.Url,
-                    Likes = b.UsersLiked.Count
+                    Likes = b.UsersLiked.Count,
+                    CommentsCount = b.Comments.Count
                 })
                 .FirstOrDefault(b => b.Id == blogId);
 
@@ -88,7 +91,8 @@ namespace WebApi.Services.Blog
                                         CultureInfo.InvariantCulture),
                     Id = b.Id,
                     ImageUrl = b.Image.Url,
-                    Likes = b.UsersLiked.Count
+                    Likes = b.UsersLiked.Count,
+                    CommentsCount = b.Comments.Count
                 })
                 .AsEnumerable();
 
@@ -113,7 +117,8 @@ namespace WebApi.Services.Blog
                                          CultureInfo.InvariantCulture),
                      Id = b.Id,
                      ImageUrl = b.Image.Url,
-                     Likes = b.UsersLiked.Count
+                     Likes = b.UsersLiked.Count,
+                     CommentsCount = b.Comments.Count
                  })
                  .AsEnumerable();
 
@@ -163,7 +168,7 @@ namespace WebApi.Services.Blog
             var oldImageUrl = blog.Image.Url;
             var newImageUrl = blogInputModel.ImageUrl;
 
-            if(oldImageUrl != newImageUrl)
+            if (oldImageUrl != newImageUrl)
             {
                 var cloudinary = new Cloudinary();
                 var deletionParams = new DeletionParams(blog.Image.PublicId);
@@ -207,13 +212,69 @@ namespace WebApi.Services.Blog
         {
             var isLiked = dbContext
                 .Blogs
-                .Where(b => b.Id == model.BlogId)
                 .Include(b => b.UsersLiked)
-                .FirstOrDefault()
+                .FirstOrDefault(b => b.Id == model.BlogId)
                 .UsersLiked
                 .Any(user => user.Id == model.UserId);
 
             return isLiked;
+        }
+
+        public async Task<CommentReturnModel> AddComment(AddCommentInputModel model)
+        {
+            var comment = new Comment
+            {
+                AuthorId = model.UserId,
+                Message = model.Comment
+            };
+
+            dbContext
+                .Blogs
+                .Include(b => b.Comments)
+                .FirstOrDefault(b => b.Id == model.BlogId)
+                .Comments.Add(comment);
+
+            var rowsAffected = await dbContext.SaveChangesAsync();
+
+            var commentInfo = dbContext
+                .Comments
+                .Where(c => c.Id == comment.Id)
+                .Select(c => new CommentReturnModel
+                {
+                    Id = c.Id,
+                    CreatedAt = c.CreatedAt.ToString("d MMM - hh:mmtt",
+                                         CultureInfo.InvariantCulture),
+                    Username = c.Author.UserName,
+                    Comment = c.Message
+                    
+                })
+                .FirstOrDefault();
+            return commentInfo;
+        }
+
+        public async Task<IEnumerable<CommentReturnModel>> GetComments(string blogId)
+        {
+            var comments = dbContext
+                .Blogs
+                .Where(b => b.Id == blogId)
+                .Include(b => b.Comments)
+                .Select(b => new
+                {
+                    Comments = b.Comments
+                        .OrderByDescending(c => c.CreatedAt)
+                        .Select(c => new CommentReturnModel
+                        {
+                            Comment = c.Message,
+                            CreatedAt = c.CreatedAt.ToString("d MMM - hh:mmtt",
+                                             CultureInfo.InvariantCulture),
+                            Id = c.Id,
+                            Username = c.Author.UserName
+                        })
+                })
+                .FirstOrDefault()
+                .Comments;
+                
+            return comments;
         }
 
         #region Private Methods

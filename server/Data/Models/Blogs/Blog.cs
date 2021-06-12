@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Data.Models.Comments;
+using WebApi.Data.Models.Images;
 
-namespace WebApi.Data.Models.Blog
+namespace WebApi.Data.Models.Blogs
 {
     public class Blog : IBlog
     {
@@ -37,7 +39,7 @@ namespace WebApi.Data.Models.Blog
         [Required]
         public string ImageId { get; set; }
 
-        public virtual Image.Image Image { get; set; }
+        public virtual Image Image { get; set; }
 
         [Required]
         public string AuthorId { get; set; }
@@ -45,5 +47,7 @@ namespace WebApi.Data.Models.Blog
         public virtual ApplicationUser Author { get; set; }
 
         public virtual ICollection<ApplicationUser> UsersLiked { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

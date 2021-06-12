@@ -21,8 +21,8 @@ using WebApi.Data;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using WebApi.Services.Account;
-using WebApi.Services.Blog;
+using WebApi.Services.Accounts;
+using WebApi.Services.Blogs;
 using WebApi.Hubs;
 
 namespace WebApi
@@ -88,7 +88,7 @@ namespace WebApi
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                //dbContext.Database.EnsureDeleted();
+                dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
 
                 //Seed
@@ -105,9 +105,11 @@ namespace WebApi
             app.UseStaticFiles();
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:3000")
-                .AllowAnyMethod()
-                .AllowAnyHeader();
+                policy
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:3000")
+                    .AllowCredentials();
             });
 
             app.UseHttpsRedirection();
@@ -120,7 +122,7 @@ namespace WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<CommentsHub>("");
+                endpoints.MapHub<CommentsHub>("/hubs/comments");
             });
         }
     }

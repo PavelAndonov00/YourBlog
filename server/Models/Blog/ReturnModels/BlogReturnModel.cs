@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Data.Models.Comments;
 
 namespace WebApi.Models.Blog.ReturnModels
 {
@@ -24,5 +25,9 @@ namespace WebApi.Models.Blog.ReturnModels
         public string AuthorName { get; set; }
 
         public int Likes { get; set; }
+
+        public int CommentsCount { get; set; }
+
+        public IEnumerable<CommentReturnModel> Comments { get; set; }
     }
 }

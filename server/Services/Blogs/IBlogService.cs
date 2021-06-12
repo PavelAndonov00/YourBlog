@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApi.Data.Models.Blog;
+using WebApi.Data.Models.Blogs;
 using WebApi.Models.Blog.InputModels;
 using WebApi.Models.Blog.ReturnModels;
 
-namespace WebApi.Services.Blog
+namespace WebApi.Services.Blogs
 {
     public interface IBlogService
     {
-        Task<Data.Models.Blog.Blog> CreateBlogAsync(BlogInputModel blogInputModel);
+        Task<Blog> CreateBlogAsync(BlogInputModel blogInputModel);
 
         Task<bool> EditBlogAsync(BlogInputModel blogInputModel);
 
@@ -27,5 +27,9 @@ namespace WebApi.Services.Blog
         Task<int> LikeUnlikeBlogAsync(LikeBlogInputModel model);
 
         Task<bool> IsLikedByUserAsync(LikeBlogInputModel model);
+
+        Task<CommentReturnModel> AddComment(AddCommentInputModel model);
+
+        Task<IEnumerable<CommentReturnModel>> GetComments(string blogId);
     }
 }

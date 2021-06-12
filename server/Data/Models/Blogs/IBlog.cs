@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApi.Data.Models.Blog
+namespace WebApi.Data.Models.Blogs
 {
     public interface IBlog
     {

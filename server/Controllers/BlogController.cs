@@ -8,11 +8,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Data;
-using WebApi.Data.Models.Blog;
+using WebApi.Data.Models.Blogs;
 using WebApi.Models.Blog.InputModels;
 using WebApi.Models.Blog.ReturnModels;
-using WebApi.Services.Account;
-using WebApi.Services.Blog;
+using WebApi.Services.Accounts;
+using WebApi.Services.Blogs;
 
 namespace WebApi.Controllers
 {
@@ -196,6 +196,42 @@ namespace WebApi.Controllers
                 var liked = await this.blogService.IsLikedByUserAsync(model);
 
                 return Ok(new { Liked = liked });
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> AddComment(AddCommentInputModel model)
+        {
+            try
+            {
+                var commentInfo = await this.blogService.AddComment(model);
+
+                return Ok(commentInfo);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return NotFound(new { Error = "Oops something went wrong." });
+        }
+
+        [HttpGet("[action]/{blogId}")]
+        [Authorize]
+        public async Task<IActionResult> Comments(string blogId)
+        {
+            try
+            {
+                var comments = await this.blogService.GetComments(blogId);
+
+                return Ok(comments);
             }
             catch (Exception e)
             {

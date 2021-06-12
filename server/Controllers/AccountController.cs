@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using WebApi.Configuration;
 using WebApi.Data;
 using WebApi.Models.Account.InputModels;
-using WebApi.Services.Account;
+using WebApi.Services.Accounts;
 
 namespace WebApi.Controllers
 {
