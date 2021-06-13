@@ -2,8 +2,8 @@
 
 ## Description
 Your blog is a simple application for writing blogs.
-Users can register ,write blogs and see other people's blogs and like them.
-Using clodinary for upload images. Real time comments may be implemented in future.
+Users can register ,write blogs, see other people's blogs, like and comment them.
+Using clodinary for upload images.
 
 ## Run client
 1. Open *client folder* in integrated terminal
