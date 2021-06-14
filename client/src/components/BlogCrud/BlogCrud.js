@@ -53,6 +53,7 @@ class BlogCrud extends Component {
                     this.props.history.push(`/${user.userName}/blogs`);
                     this.context.setMessage(result.message);
                 }
+                return;
             }
         } catch (e) {
             console.log(e);

@@ -4,17 +4,30 @@ import './EditDeleteButtons.css';
 
 
 const EditDeleteButtons = ({
-    buttonClassName = "blog-crud-button", id, stopPropagationHandler, onclickDelete
+    buttonClassName = "blog-crud-button", id
 }) => {
+    const onClickEdit = (ev) => {
+        ev.stopPropagation();
+    }
+
+    const onClickDelete = (ev) => {
+        let doesAgree = window.confirm("Are you sure you want to delete?");
+        if(!doesAgree) {
+            ev.preventDefault();
+        }
+
+        ev.stopPropagation();
+    }
+
     return (
         <>
             <Link className={buttonClassName}
                 to={`/blogs/${id}/edit`}
-                onClick={stopPropagationHandler}>
+                onClick={onClickEdit}>
                 Edit
             </Link>
             <Link className={buttonClassName}
-                onClick={onclickDelete}
+                onClick={onClickDelete}
                 to={`/blogs/${id}/delete`}>
                 Delete
             </Link>

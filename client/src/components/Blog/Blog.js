@@ -1,13 +1,11 @@
 import { useContext } from 'react';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-import Context from '../../contexts/context';
 import EditDeleteButtons from '../Shared/EditDeleteButtons';
 import './Blog.css';
 
 const Blog = (
     { id, title, description, imageUrl, authorName, createdAt, authorId, likes, commentsCount }
 ) => {
-    let context = useContext(Context);
     let history = useHistory();
     let match = useRouteMatch();
 
@@ -39,10 +37,7 @@ const Blog = (
                 <article className="blog-article-buttons-likes-comments">
                     <article className={isOwner() ? "blog-article-buttons" : "blog-article-buttons-hidden"}>
                         <EditDeleteButtons
-                            id={id}
-                            stopPropagationHandler={context.stopPropagationHandler}
-                            onclickDelete={context.onclickDelete}
-                        />
+                            id={id} />
                     </article>
                     <article className="blog-article-likes-comments">
                         <p className="blog-article-likes-comments-label">Likes: {likes}</p>

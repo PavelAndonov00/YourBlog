@@ -128,11 +128,7 @@ const BlogDetails = ({
                         </article>
                     </article>
                     <article className={isAdmin() ? "main-blog-details-admin-buttons" : "main-blog-details-admin-buttons-hidden"}>
-                        <EditDeleteButtons
-                            id={blog.id}
-                            stopPropagationHandler={context.stopPropagationHandler}
-                            onclickDelete={context.onclickDelete}
-                        />
+                        <EditDeleteButtons id={blog.id} />
                     </article>
                 </article>
                 {commentsButtonSelected ? <Comments blogId={blog.id} setCommentsCount={setCommentsCount} /> : null}
