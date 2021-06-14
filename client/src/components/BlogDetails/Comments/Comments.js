@@ -88,7 +88,7 @@ const Comments = ({
     return (
         <section className="main-blog-details-comments-section">
             <CommentsPresent comments={comments} isWriting={isWriting} />
-            <article className="write-comment">
+            <article className="main-blog-details-comments-section-write-comment">
                 <textarea type="text"
                     value={comment}
                     onChange={onChange}

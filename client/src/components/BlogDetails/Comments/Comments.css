@@ -1,15 +1,11 @@
-.main-blog-details-comments-section .comments {
-    padding-top: 1rem;
-}
-
-.main-blog-details-comments-section .write-comment {
+.main-blog-details-comments-section-write-comment {
     margin-top: 2rem;
     padding-right: 1rem;
     display: flex;
     align-items: center;
 }
 
-.main-blog-details-comments-section .write-comment textarea {
+.main-blog-details-comments-section-write-comment textarea {
     flex-grow: 1;
     margin-right: 0.5rem;
     resize: none;
@@ -19,7 +15,7 @@
     border-bottom: 1px solid #000;
 }
 
-.main-blog-details-comments-section .write-comment img {
+.main-blog-details-comments-section-write-comment img {
     width: 1.2rem;
     cursor: pointer;
 }

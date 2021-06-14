@@ -1,4 +1,4 @@
-.main-blog-details-comments-section .comments .comment {
+.main-blog-details-comments-section-comments-comment {
     background-color: lightgray;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
@@ -6,15 +6,15 @@
     border: solid;
 }
 
-.main-blog-details-comments-section .comments .comment .author {
+.main-blog-details-comments-section-comments-comment-author {
     font-weight: bold;
 }
 
-.main-blog-details-comments-section .comments .comment .content {
+.main-blog-details-comments-section-comments-comment-content {
     font-style: italic;
     letter-spacing: 0.1rem;
 }
 
-.main-blog-details-comments-section .comments .comment .date {
+.main-blog-details-comments-section-comments-comment-date {
     text-align: right;
 }

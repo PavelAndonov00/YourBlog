@@ -21,7 +21,7 @@ const CommentsPresent = ({
     };
 
     return (
-        <article className="comments">
+        <article className="main-blog-details-comments-section-comments">
             {curPageData
                 .map(c => <Comment key={c.id} {...c} />)}
             {isWriting ? <b>Someone is writing ...</b> : null}
