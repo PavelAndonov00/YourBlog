@@ -7,10 +7,12 @@ namespace WebApi.Data.Models.Images
 {
     public interface IImage
     {
-        public string Id { get; set; }
+        string Id { get; set; }
 
-        public string Url { get; set; }
+        string Url { get; set; }
 
-        public string PublicId { get; set; }
+        string PublicId { get; set; }
+
+        string BlogId { get; set; }
     }
 }

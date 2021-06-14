@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Data.Models.Blogs;
 
 namespace WebApi.Data.Models.Images
 {
@@ -20,5 +21,10 @@ namespace WebApi.Data.Models.Images
         public string Url { get; set; }
 
         public string PublicId { get; set; }
+
+        [Required]
+        public string BlogId { get; set; }
+
+        public Blog Blog { get; set; }
     }
 }

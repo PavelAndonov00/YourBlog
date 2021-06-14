@@ -36,9 +36,6 @@ namespace WebApi.Data.Models.Blogs
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public string ImageId { get; set; }
-
         public virtual Image Image { get; set; }
 
         [Required]
