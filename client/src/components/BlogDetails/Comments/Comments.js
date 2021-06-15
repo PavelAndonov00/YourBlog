@@ -69,6 +69,7 @@ const Comments = ({
             if (!result.status && !result.error) {
                 setComment("");
                 connection.invoke("SendComment", result);
+                connection.invoke("NotifySomeoneWriting", false);
             }
         } catch (e) {
 
