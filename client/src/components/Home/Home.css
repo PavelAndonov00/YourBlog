@@ -14,6 +14,21 @@
     width: 60px;
 }
 
+.main-blogs-section-greeting {
+    text-align: center;
+    animation: pulseGrowing 2s ease-in infinite alternate;
+}
+
+@keyframes pulseGrowing {
+    0% {
+        font-size: 20px;
+    }
+
+    100% {
+        font-size: 50px;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
     .main-blogs-section {
         width: 100%;

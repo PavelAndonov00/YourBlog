@@ -38,7 +38,7 @@ const Home = ({ scrollTop }) => {
                 dataLength={blogs.length}
                 next={fetchData}
                 hasMore
-                loader={<h4>Loading...</h4>}
+                loader={<h4 class="main-blogs-section-greeting">Loading...</h4>}
             >
                 {blogs.map(b => {
                     return <Blog key={b.id} {...b} />;
