@@ -49,6 +49,7 @@ function App() {
 					</Route>
 					<Route path="/blogs/:id/details" component={BlogDetails} exact/>
 
+					{/* Throwing error in console: "Invalid prop `children` supplied to `Switch`, expected a ReactNode." */}
 					{user?.isLogged || <Redirect to="/login" />}
 					<Route path="/blogs/create" component={BlogCrud} exact/>
 					<Route path="/blogs/:id/edit" component={BlogCrud} exact/>

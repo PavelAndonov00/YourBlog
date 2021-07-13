@@ -40,6 +40,7 @@ class BlogCrud extends Component {
     }
 
     async componentDidMount() {
+        let user = JSON.parse(localStorage.getItem("user"));
         let path = this.props.match.path;
         let blogId = this.props.match.params.id;
         try {
@@ -49,8 +50,12 @@ class BlogCrud extends Component {
             } else if (path === "/blogs/:id/delete") {
                 let result = await deleteBlog(blogId);
                 if (result.success) {
-                    let user = JSON.parse(localStorage.getItem("user"));
-                    this.props.history.push(`/${user.userName}/blogs`);
+                    debugger
+                    if(user.role == "Admin"){
+                        this.props.history.push("/");
+                    } else {
+                        this.props.history.goBack();
+                    }
                     this.context.setMessage(result.message);
                 }
                 return;
@@ -106,7 +111,7 @@ class BlogCrud extends Component {
             validation.ContentValidation = "";
         }
 
-        if (this.state.image.__proto__.__proto__ != null) {
+        if (this.state.image.__proto__.__proto__ != null || this.state.image.fake) {
             validation.ImageUrlValidation = "";
         } else {
             validation.ImageUrlValidation = this.errors.imageRequired;
@@ -116,7 +121,9 @@ class BlogCrud extends Component {
             try {
                 let result = {};
                 let user = JSON.parse(localStorage.getItem("user"));
+                var operation = "create";
                 if (this.props.match.path === "/blogs/:id/edit") {
+                    operation = "edit";
                     result = await editBlog(
                         this.state.title,
                         this.state.description,
@@ -141,7 +148,11 @@ class BlogCrud extends Component {
                 } else if (result.error) {
                     validation.summary = result.error;
                 } else if (result.success) {
-                    this.props.history.push(`/${user.userName}/blogs`);
+                    if (operation == "edit") {
+                        this.props.history.goBack();
+                    }else{
+                        this.props.history.push(`/${user.userName}/blogs`);
+                    }
                     this.context.setMessage(result.message);
                 }
             } catch (error) {
