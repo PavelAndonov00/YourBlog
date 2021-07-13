@@ -51,10 +51,11 @@ namespace WebApi.Controllers
             try
             {
                 var user = await _GetUserAsync(model.Username);
+                var role = (await userManager.GetRolesAsync(user))[0];
                 var isPasswordValid = await _CheckPasswordAsync(user, model.Password);
                 if (isPasswordValid)
                 {
-                    var jwt = _GenerateToken(model.Username, USER_ROLE);
+                    var jwt = _GenerateToken(model.Username, role);
                     var extracted = new
                     {
                         user.Id,
@@ -64,7 +65,7 @@ namespace WebApi.Controllers
                         user.UserName,
                         user.PhoneNumber,
                         IsLogged = true,
-                        Role = "User",
+                        Role = role,
                         Token = jwt
                     };
 
