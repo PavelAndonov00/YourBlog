@@ -92,7 +92,7 @@ namespace WebApi
                 dbContext.Database.EnsureCreated();
 
                 //Seed
-                //new Seeder(dbContext, serviceScope.ServiceProvider).Seed().GetAwaiter().GetResult();
+                new Seeder(dbContext, serviceScope.ServiceProvider).Seed().GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())
