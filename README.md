@@ -13,3 +13,4 @@ Using clodinary for upload images.
 ## Run server
 1. Open with Visual Studio
 2. Run it with kestrel
+3. There are 3 test users (2 UserRole, 1 AdminRole), you can see info about them in seeder class.
