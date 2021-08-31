@@ -38,6 +38,18 @@ namespace WebApi.Data
             };
             await userManager.CreateAsync(user, "TestUser123@abv.bg");
             await userManager.AddToRoleAsync(user, "User");
+            
+            var secondUser = new ApplicationUser
+            {
+                FirstName = "SecondTestUser",
+                LastName = "SecondTestUserov",
+                Email = "stuser123@abv.bg",
+                BirthDate = DateTime.Now,
+                PhoneNumber = "0883562966",
+                UserName = "SecondTestUser123"
+            };
+            await userManager.CreateAsync(secondUser, "SecondTestUser123@abv.bg");
+            await userManager.AddToRoleAsync(secondUser, "User");
 
             var admin = new ApplicationUser
             {
