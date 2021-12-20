@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Data.Models.Images;
 using WebApi.Models.Blog.InputModels;
 using WebApi.Services.Blogs;
 
@@ -42,7 +43,7 @@ namespace WebApi.Data
             };
             await userManager.CreateAsync(user, "TestUser123@abv.bg");
             await userManager.AddToRoleAsync(user, "User");
-            
+
             var secondUser = new ApplicationUser
             {
                 FirstName = "SecondTestUser",
@@ -83,8 +84,24 @@ namespace WebApi.Data
 
         private async Task SeedBlogs()
         {
-            var url = "https://res.cloudinary.com/dq62pylpx/image/upload/v1640035544/nohfoqfkkpdnwf3i8fwy.jpg";
-            var publicId = "nohfoqfkkpdnwf3i8fwy";
+            var images = new Image[] {
+                new Image()
+                {
+                    Url = "https://res.cloudinary.com/dq62pylpx/image/upload/v1640035544/nohfoqfkkpdnwf3i8fwy.jpg",
+                    PublicId= "nohfoqfkkpdnwf3i8fwy"
+                },
+                new Image()
+                {
+                    Url = "https://res.cloudinary.com/dq62pylpx/image/upload/v1623492471/puaytfi3qanfugu1bj7w.jpg",
+                    PublicId= "puaytfi3qanfugu1bj7w"
+                },
+                new Image()
+                {
+                    Url = "https://res.cloudinary.com/dq62pylpx/image/upload/v1618009436/768px-Eo_circle_red_not-allowed.svg_nueryp.png",
+                    PublicId= "768px-Eo_circle_red_not-allowed.svg_nueryp"
+                }
+            };
+
             var blogService = serviceProvider.GetRequiredService<IBlogService>();
             var users = userManager.Users.ToArray();
             for (int i = 1; i <= 20; i++)
@@ -106,8 +123,8 @@ namespace WebApi.Data
                     var content = RandomString(1000);
                     blogInputModel.Content = $"Content: {content}";
 
-                    blogInputModel.ImageUrl = url;
-                    blogInputModel.ImagePublicId = publicId;
+                    blogInputModel.ImageUrl = images[k].Url;
+                    blogInputModel.ImagePublicId = images[k].PublicId;
 
                     blogInputModel.DateCreated = DateTime.Now.AddMinutes((k * 10 + i * 10) * i);
                     await blogService.CreateBlogAsync(blogInputModel);
