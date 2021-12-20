@@ -8,7 +8,7 @@ html * {
 }
 
 body {
-    overflow: scroll;
+    overflow-y: scroll;
     max-width: 1980px;
     max-height: 1080px;
 }
