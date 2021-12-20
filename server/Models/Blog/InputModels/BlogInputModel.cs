@@ -30,5 +30,7 @@ namespace WebApi.Models.Blog.InputModels
         public string ImagePublicId { get; set; }
 
         public string AuthorId { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace WebApi.Services.Blogs
                 PublicId = blogInputModel.ImagePublicId
             };
 
-            var blog = new Blog
+            var blog = new Blog(blogInputModel.DateCreated)
             {
                 AuthorId = blogInputModel.AuthorId,
                 Content = blogInputModel.Content,

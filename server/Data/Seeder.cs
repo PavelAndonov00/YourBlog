@@ -4,29 +4,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Models.Blog.InputModels;
+using WebApi.Services.Blogs;
 
 namespace WebApi.Data
 {
     public class Seeder
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly IServiceProvider serviceProvider;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly Random random;
 
-        public Seeder(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public Seeder(IServiceProvider serviceProvider)
         {
-            this.dbContext = dbContext;
             this.serviceProvider = serviceProvider;
+            userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            random = new Random();
         }
 
         public async Task Seed()
         {
             await SeedRoles();
             await SeedUsers();
+            await SeedBlogs();
         }
 
         private async Task SeedUsers()
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var user = new ApplicationUser
             {
                 FirstName = "TestUser",
@@ -75,6 +79,47 @@ namespace WebApi.Data
             {
                 Name = "Admin"
             });
+        }
+
+        private async Task SeedBlogs()
+        {
+            var url = "https://res.cloudinary.com/dq62pylpx/image/upload/v1640035544/nohfoqfkkpdnwf3i8fwy.jpg";
+            var publicId = "nohfoqfkkpdnwf3i8fwy";
+            var blogService = serviceProvider.GetRequiredService<IBlogService>();
+            var users = userManager.Users.ToArray();
+            for (int i = 1; i <= 20; i++)
+            {
+                for (int k = 0; k < users.Length; k++)
+                {
+                    var user = users[k];
+
+                    var blogInputModel = new BlogInputModel();
+
+                    blogInputModel.AuthorId = user.Id;
+
+                    var title = RandomString(50);
+                    blogInputModel.Title = $"Title: {title}";
+
+                    var description = RandomString(100);
+                    blogInputModel.Description = $"Description: {description}";
+
+                    var content = RandomString(1000);
+                    blogInputModel.Content = $"Content: {content}";
+
+                    blogInputModel.ImageUrl = url;
+                    blogInputModel.ImagePublicId = publicId;
+
+                    blogInputModel.DateCreated = DateTime.Now.AddMinutes((k * 10 + i * 10) * i);
+                    await blogService.CreateBlogAsync(blogInputModel);
+                }
+            }
+        }
+
+        private string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

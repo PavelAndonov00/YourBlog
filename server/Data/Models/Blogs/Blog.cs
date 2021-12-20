@@ -12,10 +12,15 @@ namespace WebApi.Data.Models.Blogs
 {
     public class Blog : IBlog
     {
-        public Blog()
+        public Blog() : this(default(DateTime))
+        {
+
+        }
+
+        public Blog(DateTime createdDate)
         {
             Id = Guid.NewGuid().ToString();
-            CreatedAt = DateTime.Now;
+            CreatedAt = createdDate != default(DateTime) ? createdDate : DateTime.Now;
         }
 
         [Key]
