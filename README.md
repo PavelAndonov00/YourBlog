@@ -6,7 +6,7 @@ Users can register ,write blogs, see other people's blogs, like and comment them
 Using clodinary for upload images.
 
 ## Run server
-1. Open with Visual Studio
+1. Double click on WebApi.sln in server folder.
 2. Choose right connection string depends on which version of SQL Server you use (Express or Developer)
 3. Run it with kestrel
 
