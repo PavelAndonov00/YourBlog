@@ -15,4 +15,5 @@ Using clodinary for upload images.
 2. npm install
 3. npm **start**
 
-There are 3 test users (2 UserRole, 1 AdminRole), you can see info about them in seeder class (Data folder).
+I am seeding some data and 3 test users (2 UserRole, 1 AdminRole) when you start the app with kestrel.
+You can see information about users in Seeder class in data folder.
